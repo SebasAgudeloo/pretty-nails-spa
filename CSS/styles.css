@@ -9,6 +9,7 @@
   --verde-pastel: #d6ffe2;
   --amarillo-pastel: #fff9d6;
   --rosa-fuerte: #ff8fab;
+  --azul-oscuro: #0008ff;
   --texto-oscuro: #5a4a42;
 }
 
@@ -58,9 +59,16 @@ body {
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
 }
 
-.testimonial-card {
+/* Borde rosado (ya lo tienes) */
+.testimonial-card.rosa {
   border-left: 5px solid var(--rosa-fuerte);
 }
+
+/* Borde azul para hombres */
+.testimonial-card.azul {
+  border-left: 5px solid var(--azul-oscuro);
+}
+
 
 .service-icon {
   font-size: 2.5rem;
@@ -333,4 +341,17 @@ footer {
   0% { transform: translateY(0) rotate(0deg); }
   50% { transform: translateY(-50px) rotate(180deg); }
   100% { transform: translateY(0) rotate(360deg); }
+}
+
+.flecha-derecha {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .flecha-abajo {
+    display: none;
+  }
+  .flecha-derecha {
+    display: inline;
+  }
 }

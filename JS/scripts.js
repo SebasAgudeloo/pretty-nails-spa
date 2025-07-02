@@ -19,6 +19,8 @@ if(localStorage.getItem('darkMode') === 'enabled') {
     darkModeToggle.innerHTML = '<i class="fas fa-sun"></i> Modo Claro';
 }
 
+
+
 // Before & After Slider
 function initBeforeAfterSliders() {
     document.querySelectorAll('.before-after-container').forEach(container => {
@@ -104,19 +106,20 @@ function formatFechaBonita(fechaISO) {
 // Formulario de reserva
 function setupReservationForm() {
     document.getElementById('enviarReserva').addEventListener('click', function() {
+        const nombre = document.getElementById('nombre').value; // ← leer nombre
         const servicio = document.getElementById('servicio').value;
         const fecha = document.getElementById('fecha').value;
         const hora24 = document.getElementById('hora').value;
         
-        // Convertimos la hora a formato 12h
         const hora12 = formatHoraAMPM(hora24);
         
-        if(servicio && fecha && hora24) {
-            const mensaje = `¡Hola Pretty Nails! Quiero reservar una cita para:\n\n` +
-                          `*Servicio:* ${servicio}\n` +
-                          `*Fecha:* ${formatFechaBonita(fecha)}\n` +
-                          `*Hora:* ${hora12}\n\n` +
-                          `Por favor confírmenme disponibilidad. ¡Gracias!`;
+        if (nombre && servicio && fecha && hora24) {
+            const mensaje = `¡Hola Karen! Espero te encuentres muy bien, mi nombre es *${nombre}* y quiero reservar una cita contigo para:\n\n` +
+                            `*Servicio:* ${servicio}\n` +
+                            `*Fecha:* ${formatFechaBonita(fecha)}\n` +
+                            `*Hora:* ${hora12}\n\n` +
+                            `Por favor confírmenme disponibilidad. ¡Gracias!`;
+            
             const url = `https://wa.me/573163572744?text=${encodeURIComponent(mensaje)}`;
             window.open(url, '_blank');
         } else {
@@ -124,6 +127,7 @@ function setupReservationForm() {
         }
     });
 }
+
 
 // Animación al hacer scroll
 function setupScrollAnimations() {
@@ -143,6 +147,8 @@ function setupScrollAnimations() {
     window.addEventListener('scroll', animateOnScroll);
     window.addEventListener('load', animateOnScroll);
 }
+
+
 
 // Inicializar todas las funciones cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', function() {
