@@ -120,13 +120,13 @@ body {
   height: 60px;
   bottom: 30px;
   right: 30px;
-  background-color: #25d366;
+  background-color: var(--rosa-fuerte);
   color: white;
   border-radius: 50%;
   text-align: center;
   text-decoration: none !important;
   font-size: 30px;
-  box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+  box-shadow: 0 5px 15px rgba(255, 107, 158, 0.3);
   z-index: 100;
   display: flex;
   align-items: center;
@@ -136,7 +136,7 @@ body {
 }
 
 .whatsapp-float:hover {
-  background-color: #128C7E;
+  background-color: #ff4d88;
   transform: scale(1.1);
 }
 
@@ -267,21 +267,68 @@ body {
   z-index: 100;
 }
 
+/* Modo Oscuro */
 body.dark-mode {
   background-color: #121212;
-  color: #f1f1f1;
+  color: #e0e0e0;
 }
 
 body.dark-mode .navbar,
 body.dark-mode .service-card,
 body.dark-mode .testimonial-card,
-body.dark-mode .promo-card {
+body.dark-mode .promo-card,
+body.dark-mode footer {
   background-color: #1e1e1e;
   color: #f1f1f1;
 }
 
 body.dark-mode .bg-light {
   background-color: #252525 !important;
+}
+
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode h5,
+body.dark-mode h6 {
+  color: #ffffff;
+}
+
+body.dark-mode .text-muted {
+  color: #b0b0b0 !important;
+}
+
+body.dark-mode .form-control,
+body.dark-mode .form-select {
+  background-color: #2d2d2d;
+  color: #ffffff;
+  border-color: #444;
+}
+
+body.dark-mode .form-control:focus,
+body.dark-mode .form-select:focus {
+  background-color: #2d2d2d;
+  color: #ffffff;
+  border-color: var(--rosa-fuerte);
+  box-shadow: 0 0 0 0.25rem rgba(255, 143, 171, 0.25);
+}
+
+body.dark-mode .navbar,
+body.dark-mode .navbar .nav-link,
+body.dark-mode .navbar-brand {
+  color: #ffffff !important;
+}
+
+body.dark-mode .navbar-toggler {
+  color: #ffffff;
+}
+
+body.dark-mode .hero-section h1,
+body.dark-mode .hero-section p,
+body.dark-mode .hero-section em {
+  color: #605a5a;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
 }
 
 /* Appointment Section */
@@ -354,4 +401,82 @@ footer {
   .flecha-derecha {
     display: inline;
   }
+}
+
+body.dark-mode .footer-dark-mode {
+  background-color: #1e1e1e !important;
+  color: #f1f1f1;
+}
+
+body.dark-mode .footer-dark-mode a {
+  color: #f1f1f1;
+}
+
+body.dark-mode .footer-dark-mode a:hover {
+  color: var(--rosa-fuerte);
+}
+
+body.dark-mode .dark-mode-toggle .btn-dark {
+  background-color: #444;
+  border-color: #555;
+}
+
+/* Estilos para la sección de videos */
+#videos {
+    background: linear-gradient(135deg, #f5f5f5 0%, #f0f0f0 100%);
+}
+
+.video-container {
+    position: relative;
+    padding-bottom: 125%; /* Relación 4:5 para Instagram */
+    height: 0;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.video-container:hover {
+    transform: translateY(-5px);
+}
+
+.instagram-container {
+    background: #fff;
+    border: 1px solid #ddd;
+}
+
+.instagram-media {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    min-width: 100%;
+    min-height: 100%;
+}
+
+.btn-instagram {
+    background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D);
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.btn-instagram:hover {
+    color: white;
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(193, 53, 132, 0.4);
+}
+
+/* Modo oscuro */
+body.dark-mode #videos {
+    background: linear-gradient(135deg, #2d2d2d 0%, #252525 100%);
+}
+
+body.dark-mode .instagram-container {
+    background: #2d2d2d;
+    border-color: #444;
 }

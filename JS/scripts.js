@@ -2,6 +2,12 @@
 const darkModeToggle = document.getElementById('darkModeToggle');
 const body = document.body;
 
+// Verificar preferencia al cargar
+if(localStorage.getItem('darkMode') === 'enabled') {
+    body.classList.add('dark-mode');
+    darkModeToggle.innerHTML = '<i class="fas fa-sun"></i> Modo Claro';
+}
+
 darkModeToggle.addEventListener('click', () => {
     body.classList.toggle('dark-mode');
     if(body.classList.contains('dark-mode')) {
@@ -12,12 +18,6 @@ darkModeToggle.addEventListener('click', () => {
         localStorage.setItem('darkMode', 'disabled');
     }
 });
-
-// Verificar preferencia de modo oscuro al cargar
-if(localStorage.getItem('darkMode') === 'enabled') {
-    body.classList.add('dark-mode');
-    darkModeToggle.innerHTML = '<i class="fas fa-sun"></i> Modo Claro';
-}
 
 
 
