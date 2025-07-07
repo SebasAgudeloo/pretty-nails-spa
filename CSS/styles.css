@@ -233,10 +233,11 @@ body {
 .before-after-container {
     position: relative;
     width: 100%;
-    height: 400px; /* Ajusta según necesites */
+    height: 400px;
     overflow: hidden;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    user-select: none; /* Evitar selección de texto al arrastrar */
 }
 
 .before-after-img {
@@ -246,6 +247,7 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    pointer-events: none; /* Evitar interferencia con eventos */
 }
 
 .before-after-slider {
@@ -261,7 +263,7 @@ body {
 .before-after-handle {
     position: absolute;
     top: 50%;
-    left: 50%;
+    left: 95%;
     width: 40px;
     height: 40px;
     background: white;
@@ -271,13 +273,21 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
     z-index: 3;
+    touch-action: none; /* Importante para dispositivos táctiles */
+    transition: left 0.3s ease, transform 0.2s ease;
 }
 
 .before-after-handle i {
     color: var(--rosa-fuerte);
     font-size: 1rem;
+}
+
+/* Efecto visual durante el arrastre */
+.before-after-handle.dragging {
+    transform: translate(-50%, -50%) scale(1.1);
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
 }
 
 /* Video Section */

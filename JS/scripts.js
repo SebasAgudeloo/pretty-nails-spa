@@ -19,59 +19,81 @@ darkModeToggle.addEventListener('click', () => {
     }
 });
 
-
-
 // Before & After Slider
 function initBeforeAfterSliders() {
     document.querySelectorAll('.before-after-container').forEach(container => {
         const slider = container.querySelector('.before-after-slider');
         const handle = container.querySelector('.before-after-handle');
         let isDragging = false;
-        
+
+        // Establecer posición inicial al 50%
+        slider.style.width = '50%';
+        handle.style.left = '50%';
+
         function moveSlider(e) {
-            if(!isDragging) return;
-            
+            if (!isDragging) return;
+
             const containerRect = container.getBoundingClientRect();
-            let x = e.clientX - containerRect.left;
-            
-            // Limitar el movimiento dentro del contenedor
+            let x;
+
+            // Obtener posición X dependiendo del tipo de evento
+            if (e.type.includes('touch')) {
+                x = e.touches[0].clientX - containerRect.left;
+            } else {
+                x = e.clientX - containerRect.left;
+            }
+
+            // Limitar el rango de movimiento
             x = Math.max(0, Math.min(x, containerRect.width));
             
             const percent = (x / containerRect.width) * 100;
+            
+            // Actualizar posición
             slider.style.width = `${percent}%`;
             handle.style.left = `${percent}%`;
         }
-        
-        handle.addEventListener('mousedown', () => {
+
+        function startDragging(e) {
+            e.preventDefault();
             isDragging = true;
+            
+            // Desactivar transiciones durante el arrastre
             handle.style.transition = 'none';
             slider.style.transition = 'none';
-        });
-        
-        window.addEventListener('mouseup', () => {
+            
+            // Agregar clase activa para feedback visual
+            handle.classList.add('dragging');
+        }
+
+        function stopDragging() {
+            if (!isDragging) return;
             isDragging = false;
+            
+            // Reactivar transiciones
             handle.style.transition = 'left 0.3s ease';
             slider.style.transition = 'width 0.3s ease';
-        });
-        
-        window.addEventListener('mousemove', moveSlider);
-        
-        // Soporte para touch
-        handle.addEventListener('touchstart', () => {
-            isDragging = true;
-            handle.style.transition = 'none';
-            slider.style.transition = 'none';
-        });
-        
-        window.addEventListener('touchend', () => {
-            isDragging = false;
-            handle.style.transition = 'left 0.3s ease';
-            slider.style.transition = 'width 0.3s ease';
-        });
-        
-        window.addEventListener('touchmove', (e) => {
-            if(!isDragging) return;
-            moveSlider(e.touches[0]);
+            
+            // Remover clase activa
+            handle.classList.remove('dragging');
+        }
+
+        // Event listeners para mouse
+        handle.addEventListener('mousedown', startDragging);
+        document.addEventListener('mousemove', moveSlider);
+        document.addEventListener('mouseup', stopDragging);
+
+        // Event listeners para touch
+        handle.addEventListener('touchstart', startDragging, { passive: false });
+        document.addEventListener('touchmove', function(e) {
+            if (!isDragging) return;
+            e.preventDefault();
+            moveSlider(e);
+        }, { passive: false });
+        document.addEventListener('touchend', stopDragging);
+
+        // Prevenir arrastre de imágenes accidental
+        container.querySelectorAll('img').forEach(img => {
+            img.addEventListener('dragstart', (e) => e.preventDefault());
         });
     });
 }
