@@ -13,6 +13,13 @@
   --texto-oscuro: #5a4a42;
 }
 
+.hr-primary {
+  border-color: var(--rosa-fuerte);
+  border-width: 3px;
+  opacity: 1;
+}
+
+
 body {
   font-family: 'Montserrat', sans-serif;
   color: var(--texto-oscuro);
@@ -30,6 +37,16 @@ body {
 .navbar-brand {
   font-weight: 700;
   color: var(--rosa-fuerte);
+}
+
+.navbar-toggler {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-toggler span {
+    font-size: 0.9rem;
+    margin-left: 5px;
 }
 
 /* Hero Section */
