@@ -13,6 +13,27 @@
   --texto-oscuro: #5a4a42;
 }
 
+/* Logo para desktop */
+.navbar-brand img {
+    height: 60px;       /* Altura fija */
+    width: auto;        /* Ancho proporcional */
+    transition: all 0.3s; /* Animación suave al hacer hover */
+}
+
+/* Logo para móviles (pantallas menores a 768px) */
+@media (max-width: 768px) {
+    .navbar-brand img {
+        height: 40px;   /* Altura más pequeña para móviles */
+    }
+}
+
+/* Opcional: Efecto al pasar el mouse */
+.navbar-brand img:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+}
+
+
 .hr-primary {
   border-color: var(--rosa-fuerte);
   border-width: 3px;
