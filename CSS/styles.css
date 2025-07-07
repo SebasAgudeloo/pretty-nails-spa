@@ -1,29 +1,59 @@
 :root {
   --primary-color: #ff6b9e;
-  --secondary-color: #9d65c9;
   --dark-color: #343a40;
   --light-color: #f8f9fa;
   --rosa-pastel: #ffd6e0;
   --lila-pastel: #e2d1f9;
   --azul-pastel: #d6f3ff;
-  --verde-pastel: #d6ffe2;
   --amarillo-pastel: #fff9d6;
   --rosa-fuerte: #ff8fab;
   --azul-oscuro: #0008ff;
   --texto-oscuro: #5a4a42;
 }
 
-/* Logo para desktop */
+/* Logo con sombra más pronunciada */
 .navbar-brand img {
-    height: 60px;       /* Altura fija */
-    width: auto;        /* Ancho proporcional */
-    transition: all 0.3s; /* Animación suave al hacer hover */
+    height: 60px;
+    width: auto;
+    transition: all 0.3s ease;
+    filter: 
+        drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4)) /* Sombra base */
+        drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3)); /* Sombra secundaria para profundidad */
 }
 
-/* Logo para móviles (pantallas menores a 768px) */
+/* Modo oscuro - sombra blanca más intensa */
+body.dark-mode .navbar-brand img {
+    filter: 
+        drop-shadow(0 4px 10px rgba(255, 255, 255, 0.7))
+        drop-shadow(0 2px 6px rgba(255, 255, 255, 0.5));
+}
+
+/* Efecto hover con sombra más grande */
+.navbar-brand img:hover {
+    transform: scale(1.05);
+    filter: 
+        drop-shadow(0 6px 12px rgba(0, 0, 0, 0.5))
+        drop-shadow(0 3px 6px rgba(0, 0, 0, 0.4));
+}
+
+.navbar-brand img {
+    transition: all 0.3s ease, filter 0.5s ease;
+}
+
+
+/* Versión móvil con sombra proporcional */
 @media (max-width: 768px) {
     .navbar-brand img {
-        height: 40px;   /* Altura más pequeña para móviles */
+        height: 40px;
+        filter: 
+            drop-shadow(0 3px 6px rgba(0, 0, 0, 0.4))
+            drop-shadow(0 1px 3px rgba(0, 0, 0, 0.3));
+    }
+    
+    body.dark-mode .navbar-brand img {
+        filter: 
+            drop-shadow(0 3px 8px rgba(255, 255, 255, 0.7))
+            drop-shadow(0 2px 5px rgba(255, 255, 255, 0.5));
     }
 }
 
@@ -60,16 +90,6 @@ body {
   color: var(--rosa-fuerte);
 }
 
-.navbar-toggler {
-    display: flex;
-    align-items: center;
-}
-
-.navbar-toggler span {
-    font-size: 0.9rem;
-    margin-left: 5px;
-}
-
 /* Hero Section */
 .hero-section {
   background: linear-gradient(135deg, var(--rosa-pastel), var(--lila-pastel));
@@ -97,7 +117,7 @@ body {
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
 }
 
-/* Borde rosado (ya lo tienes) */
+/* Borde rosado */
 .testimonial-card.rosa {
   border-left: 5px solid var(--rosa-fuerte);
 }
@@ -115,8 +135,7 @@ body {
 }
 
 /* Buttons */
-.btn-pretty,
-.btn-whatsapp {
+.btn-agenda {
   background-color: var(--rosa-fuerte);
   color: white;
   border: none;
@@ -136,14 +155,13 @@ body {
   margin-right: 8px;
 }
 
-.btn-pretty:hover,
 .btn-whatsapp:hover {
   color: white;
   transform: translateY(-3px);
   box-shadow: 0 5px 15px rgba(255, 143, 171, 0.4);
 }
 
-.btn-pretty:hover {
+.btn-whatsapp:hover {
   background-color: #ff6b8b;
 }
 
@@ -151,8 +169,8 @@ body {
   background-color: #128C7E;
 }
 
-/* WhatsApp Float */
-.whatsapp-float {
+/* Agenda Float */
+.agenda-float {
   position: fixed;
   width: 60px;
   height: 60px;
@@ -173,12 +191,12 @@ body {
   animation: pulse 2s infinite;
 }
 
-.whatsapp-float:hover {
+.agenda-float:hover {
   background-color: #ff4d88;
   transform: scale(1.1);
 }
 
-.whatsapp-text {
+.agenda-text {
   position: fixed;
   bottom: 100px;
   right: 30px;
@@ -193,7 +211,7 @@ body {
   pointer-events: none;
 }
 
-.whatsapp-float:hover + .whatsapp-text {
+.agenda-float:hover + .agenda-text {
   opacity: 1;
 }
 
@@ -263,7 +281,7 @@ body {
 .before-after-handle {
     position: absolute;
     top: 50%;
-    left: 95%;
+    left: 50%;
     width: 40px;
     height: 40px;
     background: white;
@@ -285,27 +303,10 @@ body {
 }
 
 /* Efecto visual durante el arrastre */
-.before-after-handle.dragging {
+.dragging .before-after-handle {
     transform: translate(-50%, -50%) scale(1.1);
-    box-shadow: 0 0 20px rgba(0,0,0,0.3);
 }
 
-/* Video Section */
-.video-container {
-  position: relative;
-  padding-bottom: 56.25%;
-  height: 0;
-  overflow: hidden;
-}
-
-.video-container iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 10px;
-}
 
 /* Dark Mode */
 .dark-mode-toggle {
@@ -469,40 +470,6 @@ body.dark-mode .dark-mode-toggle .btn-dark {
   border-color: #555;
 }
 
-/* Estilos para la sección de videos */
-#videos {
-    background: linear-gradient(135deg, #f5f5f5 0%, #f0f0f0 100%);
-}
-
-.video-container {
-    position: relative;
-    padding-bottom: 125%; /* Relación 4:5 para Instagram */
-    height: 0;
-    overflow: hidden;
-    border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
-}
-
-.video-container:hover {
-    transform: translateY(-5px);
-}
-
-.instagram-container {
-    background: #fff;
-    border: 1px solid #ddd;
-}
-
-.instagram-media {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    min-width: 100%;
-    min-height: 100%;
-}
-
 .btn-instagram {
     background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D);
     color: white;
@@ -527,4 +494,216 @@ body.dark-mode #videos {
 body.dark-mode .instagram-container {
     background: #2d2d2d;
     border-color: #444;
+}
+
+body:not(.loaded) * {
+    transition: none !important;
+}
+
+.btn.btn-success {
+    background-color: #28a745 !important;
+}
+
+.btn.btn-error {
+    background-color: #dc3545 !important;
+    animation: shake 0.5s;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-5px); }
+    40%, 80% { transform: translateX(5px); }
+}
+
+
+/* Estilos para la tarjeta de contacto */
+.contact-card {
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.contact-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.contact-item {
+    background-color: rgba(255, 255, 255, 0.7);
+    transition: all 0.3s ease;
+}
+
+.contact-item:hover {
+    background-color: rgba(255, 107, 158, 0.1);
+}
+
+.contact-icon {
+    transition: all 0.3s ease;
+}
+
+.schedule-grid {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.5rem 1rem;
+    align-items: center;
+}
+
+.schedule-day {
+    font-weight: 600;
+    color: var(--texto-oscuro);
+}
+
+.schedule-time {
+    color: #555;
+}
+
+.schedule-day.closed, .schedule-time.closed {
+    color: #999;
+    text-decoration: line-through;
+}
+
+/* Estilos para modo oscuro */
+body.dark-mode .contact-card {
+    background-color: #2d2d2d;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .contact-item {
+    background-color: rgba(45, 45, 45, 0.7);
+}
+
+body.dark-mode .contact-item:hover {
+    background-color: rgba(255, 107, 158, 0.2);
+}
+
+body.dark-mode .schedule-day {
+    color: #e0e0e0;
+}
+
+body.dark-mode .schedule-time {
+    color: #b0b0b0;
+}
+
+
+/* Estilos para la tarjeta de reserva */
+.reservation-card {
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.reservation-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.reservation-icon {
+    background: linear-gradient(135deg, var(--rosa-fuerte), var(--lila-pastel));
+    width: 60px;
+    height: 60px;
+    margin: 0 auto;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+}
+
+.form-floating label {
+    color: #6c757d;
+    padding-left: 2.5rem;
+}
+
+.form-floating .form-control, 
+.form-floating .form-select {
+    padding-left: 2.5rem;
+    height: calc(3.5rem + 2px);
+    border-radius: 10px;
+}
+
+.form-floating i {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--rosa-fuerte);
+}
+
+.btn-reservation {
+    background: linear-gradient(to right, #25D366, #128C7E);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+}
+
+/* Estado hover */
+.btn-reservation:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+    color: white;
+}
+
+/* Estado de error */
+.btn-reservation.btn-error {
+    background: #dc3545 !important; /* Fondo rojo sólido */
+    animation: shake 0.5s;
+    box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+}
+
+.btn-reservation.btn-error:hover {
+    box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4);
+}
+
+/* Animación de shake */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+.btn-reservation:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+    color: white;
+}
+
+/* Estilos para modo oscuro */
+body.dark-mode .reservation-card {
+    background-color: #2d2d2d;
+    border-color: #444;
+}
+
+body.dark-mode .form-floating label {
+    color: #b0b0b0;
+}
+
+body.dark-mode .form-control,
+body.dark-mode .form-select {
+    background-color: #3d3d3d;
+    border-color: #555;
+    color: #f1f1f1;
+}
+
+body.dark-mode .form-floating i {
+    color: var(--rosa-pastel);
+}
+
+@media (max-width: 768px) {
+    .reservation-card {
+        margin-top: 1.5rem;
+    }
+    
+    .form-floating label,
+    .form-floating .form-control,
+    .form-floating .form-select {
+        padding-left: 2.2rem;
+    }
 }

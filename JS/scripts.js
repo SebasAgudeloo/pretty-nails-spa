@@ -1,180 +1,285 @@
-// Dark Mode Toggle
+// Dark Mode
 const darkModeToggle = document.getElementById('darkModeToggle');
 const body = document.body;
+const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
 
-// Verificar preferencia al cargar
-if(localStorage.getItem('darkMode') === 'enabled') {
-    body.classList.add('dark-mode');
-    darkModeToggle.innerHTML = '<i class="fas fa-sun"></i> Modo Claro';
-}
-
-darkModeToggle.addEventListener('click', () => {
-    body.classList.toggle('dark-mode');
-    if(body.classList.contains('dark-mode')) {
+// Función para aplicar/remover dark mode
+function toggleDarkMode(enable) {
+    if(enable) {
+        body.classList.add('dark-mode');
         darkModeToggle.innerHTML = '<i class="fas fa-sun"></i> Modo Claro';
         localStorage.setItem('darkMode', 'enabled');
     } else {
+        body.classList.remove('dark-mode');
         darkModeToggle.innerHTML = '<i class="fas fa-moon"></i> Modo Oscuro';
         localStorage.setItem('darkMode', 'disabled');
     }
+}
+
+// Verificar preferencias al cargar
+function checkDarkModePreference() {
+    const savedMode = localStorage.getItem('darkMode');
+    
+    if(savedMode === 'enabled' || (savedMode === null && prefersDarkScheme.matches)) {
+        toggleDarkMode(true);
+    }
+}
+
+// Escuchar cambios en las preferencias del sistema
+prefersDarkScheme.addListener((e) => {
+    if(localStorage.getItem('darkMode') === null) {
+        toggleDarkMode(e.matches);
+    }
+});
+
+// Evento del botón
+darkModeToggle.addEventListener('click', () => {
+    toggleDarkMode(!body.classList.contains('dark-mode'));
 });
 
 // Before & After Slider
 function initBeforeAfterSliders() {
-    document.querySelectorAll('.before-after-container').forEach(container => {
+    const containers = document.querySelectorAll('.before-after-container');
+    
+    if(!containers.length) return;
+    
+    containers.forEach(container => {
         const slider = container.querySelector('.before-after-slider');
         const handle = container.querySelector('.before-after-handle');
         let isDragging = false;
-
-        // Establecer posición inicial al 50%
-        slider.style.width = '50%';
-        handle.style.left = '50%';
-
-        function moveSlider(e) {
-            if (!isDragging) return;
-
+        
+        const updateSliderPosition = (x) => {
             const containerRect = container.getBoundingClientRect();
-            let x;
-
-            // Obtener posición X dependiendo del tipo de evento
-            if (e.type.includes('touch')) {
-                x = e.touches[0].clientX - containerRect.left;
-            } else {
-                x = e.clientX - containerRect.left;
-            }
-
-            // Limitar el rango de movimiento
-            x = Math.max(0, Math.min(x, containerRect.width));
+            let xPos = x - containerRect.left;
+            xPos = Math.max(0, Math.min(xPos, containerRect.width));
+            const percent = (xPos / containerRect.width) * 100;
             
-            const percent = (x / containerRect.width) * 100;
-            
-            // Actualizar posición
             slider.style.width = `${percent}%`;
             handle.style.left = `${percent}%`;
-        }
-
-        function startDragging(e) {
+        };
+        
+        handle.addEventListener('mousedown', (e) => {
             e.preventDefault();
             isDragging = true;
-            
-            // Desactivar transiciones durante el arrastre
-            handle.style.transition = 'none';
-            slider.style.transition = 'none';
-            
-            // Agregar clase activa para feedback visual
-            handle.classList.add('dragging');
-        }
-
-        function stopDragging() {
-            if (!isDragging) return;
-            isDragging = false;
-            
-            // Reactivar transiciones
-            handle.style.transition = 'left 0.3s ease';
-            slider.style.transition = 'width 0.3s ease';
-            
-            // Remover clase activa
-            handle.classList.remove('dragging');
-        }
-
-        // Event listeners para mouse
-        handle.addEventListener('mousedown', startDragging);
-        document.addEventListener('mousemove', moveSlider);
-        document.addEventListener('mouseup', stopDragging);
-
-        // Event listeners para touch
-        handle.addEventListener('touchstart', startDragging, { passive: false });
-        document.addEventListener('touchmove', function(e) {
-            if (!isDragging) return;
+            container.classList.add('dragging');
+        });
+        
+        handle.addEventListener('touchstart', (e) => {
             e.preventDefault();
-            moveSlider(e);
-        }, { passive: false });
-        document.addEventListener('touchend', stopDragging);
-
-        // Prevenir arrastre de imágenes accidental
-        container.querySelectorAll('img').forEach(img => {
-            img.addEventListener('dragstart', (e) => e.preventDefault());
+            isDragging = true;
+            container.classList.add('dragging');
+        });
+        
+        const moveHandler = (e) => {
+            if(!isDragging) return;
+            const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+            if(clientX) updateSliderPosition(clientX);
+        };
+        
+        const endHandler = () => {
+            isDragging = false;
+            container.classList.remove('dragging');
+        };
+        
+        const containerRect = container.getBoundingClientRect();
+        updateSliderPosition(containerRect.left + (containerRect.width / 2));
+        
+        document.addEventListener('mousemove', moveHandler);
+        document.addEventListener('touchmove', moveHandler, { passive: false });
+        document.addEventListener('mouseup', endHandler);
+        document.addEventListener('touchend', endHandler);
+        
+        container.addEventListener('click', (e) => {
+            const clientX = e.clientX;
+            updateSliderPosition(clientX);
         });
     });
 }
 
-// Función para convertir formato 24h a 12h AM/PM
+// Funciones de formato
 function formatHoraAMPM(hora24) {
     if (!hora24) return '';
-    
-    // Dividir la hora y los minutos
     const [horas, minutos] = hora24.split(':');
     let hora = parseInt(horas, 10);
     const sufijo = hora >= 12 ? 'PM' : 'AM';
-    
-    // Convertir a formato 12h
     hora = hora % 12;
-    hora = hora ? hora : 12; // La hora 0 se convierte en 12
-    
+    hora = hora ? hora : 12;
     return `${hora}:${minutos} ${sufijo}`;
 }
 
-function formatFechaBonita(fechaISO) {
-    if (!fechaISO) return '';
-    
-    const opciones = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    const fecha = new Date(fechaISO);
-    // Ajustar por el huso horario
-    fecha.setDate(fecha.getDate() + 1);
-    
-    return fecha.toLocaleDateString('es-ES', opciones);
+// Función para formatear fecha corregida (sin problemas de zona horaria)
+function formatFechaBonita(fechaStr) {
+    if (!fechaStr) return '';
+    const [año, mes, dia] = fechaStr.split('-').map(Number);
+    const fecha = new Date(año, mes - 1, dia);
+    const opciones = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+    return fecha.toLocaleDateString('es-ES', opciones)
+               .replace(/,/g, '')
+               .replace(/^(\w)/, match => match.toLowerCase());
 }
 
 // Formulario de reserva
 function setupReservationForm() {
-    document.getElementById('enviarReserva').addEventListener('click', function() {
-        const nombre = document.getElementById('nombre').value; // ← leer nombre
-        const servicio = document.getElementById('servicio').value;
-        const fecha = document.getElementById('fecha').value;
-        const hora24 = document.getElementById('hora').value;
+    const form = document.getElementById('reservaForm');
+    const enviarBtn = document.getElementById('enviarReserva');
+    
+    if(!form || !enviarBtn) return;
+
+    function validateForm() {
+        const form = document.getElementById('reservaForm');
+        const nombre = form.elements['nombre'].value.trim();
+        const servicio = form.elements['servicio'].value;
+        const fechaInput = form.elements['fecha'].value;
+        const hora = form.elements['hora'].value;
+        const enviarBtn = document.getElementById('enviarReserva');
         
-        const hora12 = formatHoraAMPM(hora24);
+        // Validar campos vacíos
+        if(!nombre || !servicio || servicio === "Selecciona un servicio..." || !fechaInput || !hora) {
+            showError(enviarBtn, 'Completa todos los campos');
+            return false;
+        }
         
-        if (nombre && servicio && fecha && hora24) {
-            const mensaje = `¡Hola Karen! Espero te encuentres muy bien, mi nombre es *${nombre}* y quiero reservar una cita contigo para:\n\n` +
-                            `*Servicio:* ${servicio}\n` +
-                            `*Fecha:* ${formatFechaBonita(fecha)}\n` +
-                            `*Hora:* ${hora12}\n\n` +
-                            `Por favor confírmenme disponibilidad. ¡Gracias!`;
+        // Validar formato del nombre
+        if(nombre.length < 3) {
+            showError(enviarBtn, 'Nombre muy corto (mín. 3 caracteres)');
+            return false;
+        }
+        
+        // Crear fecha sin problemas de zona horaria
+        const [año, mes, dia] = fechaInput.split('-').map(Number);
+        const fechaSeleccionada = new Date(año, mes - 1, dia);
+        const diaSemana = fechaSeleccionada.getDay(); // 0=domingo, 1=lunes,...,6=sábado
+        const hoy = new Date();
+        hoy.setHours(0, 0, 0, 0);
+        
+        // Validar fecha no sea pasada
+        if(fechaSeleccionada < hoy) {
+            showError(enviarBtn, 'No puedes seleccionar fechas pasadas');
+            return false;
+        }
+        
+        // Validar que no sea martes
+        if(diaSemana === 2) {
+            showError(enviarBtn, 'Los martes no hay servicio');
+            return false;
+        }
+        
+        // Validar hora según día
+        const [horas, minutos] = hora.split(':').map(Number);
+        const minutosTotales = horas * 60 + minutos;
+        let horarioValido = false;
+        let mensajeHorario = '';
+        
+        if(diaSemana === 0 || diaSemana === 6) { // Domingo (0) o Sábado (6)
+            // Mañana: 8:00 AM - 12:00 PM
+            // Tarde: 1:00 PM - 6:00 PM
+            const mananaInicio = 8 * 60;
+            const mananaFin = 12 * 60;
+            const tardeInicio = 13 * 60;
+            const tardeFin = 18 * 60;
             
-            const url = `https://wa.me/573163572744?text=${encodeURIComponent(mensaje)}`;
-            window.open(url, '_blank');
-        } else {
-            alert('Por favor completa todos los campos del formulario.');
+            if((minutosTotales >= mananaInicio && minutosTotales <= mananaFin) || 
+               (minutosTotales >= tardeInicio && minutosTotales <= tardeFin)) {
+                horarioValido = true;
+            }
+            mensajeHorario = 'Horarios: 8:00 AM - 12:00 PM y 1:00 PM - 6:00 PM';
+        } else { // Lunes (1) a Viernes (5), excepto martes
+            // Solo tarde: 1:00 PM - 6:00 PM
+            const inicio = 13 * 60;
+            const fin = 18 * 60;
+            
+            if(minutosTotales >= inicio && minutosTotales <= fin) {
+                horarioValido = true;
+            }
+            mensajeHorario = 'Horario: 1:00 PM - 6:00 PM';
+        }
+        
+        if(!horarioValido) {
+            showError(enviarBtn, `Horario no disponible. ${mensajeHorario}`);
+            return false;
+        }
+        
+        return true;
+    }
+
+    function showError(button, message) {
+        if (!button.dataset.originalContent) {
+            button.dataset.originalContent = button.innerHTML;
+        }
+        
+        // Aplicar estado de error
+        button.classList.add('btn-error');
+        button.innerHTML = `<i class="fas fa-exclamation-circle me-2"></i> ${message}`;
+        
+        // Restaurar después de 1.5 segundos
+        setTimeout(() => {
+            button.classList.remove('btn-error');
+            button.innerHTML = button.dataset.originalContent;
+        }, 3000);
+    }
+    
+    function submitForm() {
+        if(!validateForm()) return;
+        
+        const {nombre, servicio, fecha, hora} = form.elements;
+        const hora12 = formatHoraAMPM(hora.value);
+        
+        const mensaje = `Hola Karen! Espero te encuentres muy bien, mi nombre es *${nombre.value.trim()}* y quiero reservar una cita contigo para:\n\n` +
+                       `*Servicio:* ${servicio.value}\n` +
+                       `*Fecha:* ${formatFechaBonita(fecha.value)}\n` +
+                       `*Hora:* ${hora12}\n\n` +
+                       `Por favor confírmenme disponibilidad. ¡Gracias!`;
+        
+        window.open(`https://wa.me/573163572744?text=${encodeURIComponent(mensaje)
+            .replace(/'/g,"%27")
+            .replace(/\(/g,"%28")
+            .replace(/\)/g,"%29")
+            .replace(/\*/g,"%2A")}`, '_blank');
+    }
+    
+    enviarBtn.addEventListener('click', submitForm);
+    
+    form.addEventListener('keypress', (e) => {
+        if(e.key === 'Enter') {
+            e.preventDefault();
+            submitForm();
         }
     });
 }
 
-
-// Animación al hacer scroll
+// Animaciones al hacer scroll
 function setupScrollAnimations() {
-    const animateOnScroll = function() {
-        const elements = document.querySelectorAll('.service-card, .promo-card, .testimonial-card');
-        
-        elements.forEach(element => {
-            const elementPosition = element.getBoundingClientRect().top;
-            const screenPosition = window.innerHeight / 1.3;
-            
-            if(elementPosition < screenPosition) {
-                element.classList.add('animate__animated', 'animate__fadeInUp');
-            }
-        });
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
     };
     
-    window.addEventListener('scroll', animateOnScroll);
-    window.addEventListener('load', animateOnScroll);
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if(entry.isIntersecting) {
+                entry.target.classList.add('animate__animated', 'animate__fadeInUp');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+    
+    document.querySelectorAll('.service-card, .promo-card, .testimonial-card').forEach(card => {
+        observer.observe(card);
+    });
 }
 
-
-
-// Inicializar todas las funciones cuando el DOM esté listo
+// Inicialización
 document.addEventListener('DOMContentLoaded', function() {
+    checkDarkModePreference();
     initBeforeAfterSliders();
     setupReservationForm();
     setupScrollAnimations();
+    
+    setTimeout(() => {
+        document.body.classList.add('loaded');
+    }, 100);
+});
+
+window.addEventListener('error', function(e) {
+    console.error('Error:', e.message, 'en', e.filename, 'línea:', e.lineno);
 });
