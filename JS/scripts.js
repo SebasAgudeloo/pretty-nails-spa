@@ -118,14 +118,15 @@ function formatFechaBonita(fechaStr) {
                .replace(/^(\w)/, match => match.toLowerCase());
 }
 
-// Formulario de reserva
-function setupReservationForm() {
-    const form = document.getElementById('reservaForm');
-    const enviarBtn = document.getElementById('enviarReserva');
-    
-    if(!form || !enviarBtn) return;
 
-    function validateForm() {
+// Formulario de reserva
+    function setupReservationForm() {
+        const form = document.getElementById('reservaForm');
+        const enviarBtn = document.getElementById('enviarReserva');
+        
+        if(!form || !enviarBtn) return;
+
+        function validateForm() {
         const form = document.getElementById('reservaForm');
         const nombre = form.elements['nombre'].value.trim();
         const servicio = form.elements['servicio'].value;
@@ -160,7 +161,7 @@ function setupReservationForm() {
         
         // Validar que no sea martes
         if(diaSemana === 2) {
-            showError(enviarBtn, 'Los martes no hay servicio');
+            showError(enviarBtn, 'Los martes estamos cerrados');
             return false;
         }
         
@@ -170,7 +171,17 @@ function setupReservationForm() {
         let horarioValido = false;
         let mensajeHorario = '';
         
-        if(diaSemana === 0 || diaSemana === 6) { // Domingo (0) o Sábado (6)
+        if(diaSemana === 0) { // Domingo
+            // Horario: 8:00 AM - 12:00 PM
+            const inicio = 8 * 60;
+            const fin = 12 * 60;
+            
+            if(minutosTotales >= inicio && minutosTotales <= fin) {
+                horarioValido = true;
+            }
+            mensajeHorario = 'Horario: 8:00 AM - 12:00 PM';
+        } 
+        else if(diaSemana === 6) { // Sábado
             // Mañana: 8:00 AM - 12:00 PM
             // Tarde: 1:00 PM - 6:00 PM
             const mananaInicio = 8 * 60;
@@ -179,19 +190,20 @@ function setupReservationForm() {
             const tardeFin = 18 * 60;
             
             if((minutosTotales >= mananaInicio && minutosTotales <= mananaFin) || 
-               (minutosTotales >= tardeInicio && minutosTotales <= tardeFin)) {
+            (minutosTotales >= tardeInicio && minutosTotales <= tardeFin)) {
                 horarioValido = true;
             }
             mensajeHorario = 'Horarios: 8:00 AM - 12:00 PM y 1:00 PM - 6:00 PM';
-        } else { // Lunes (1) a Viernes (5), excepto martes
-            // Solo tarde: 1:00 PM - 6:00 PM
-            const inicio = 13 * 60;
+        } 
+        else { // Lunes (1), Miércoles (3), Jueves (4), Viernes (5)
+            // Horario: 2:00 PM - 6:00 PM
+            const inicio = 14 * 60;
             const fin = 18 * 60;
             
             if(minutosTotales >= inicio && minutosTotales <= fin) {
                 horarioValido = true;
             }
-            mensajeHorario = 'Horario: 1:00 PM - 6:00 PM';
+            mensajeHorario = 'Horario: 2:00 PM - 6:00 PM';
         }
         
         if(!horarioValido) {
@@ -228,7 +240,7 @@ function setupReservationForm() {
                        `*Servicio:* ${servicio.value}\n` +
                        `*Fecha:* ${formatFechaBonita(fecha.value)}\n` +
                        `*Hora:* ${hora12}\n\n` +
-                       `Por favor confírmenme disponibilidad. ¡Gracias!`;
+                       `Por favor confírmame disponibilidad. ¡Gracias!`;
         
         window.open(`https://wa.me/573163572744?text=${encodeURIComponent(mensaje)
             .replace(/'/g,"%27")
