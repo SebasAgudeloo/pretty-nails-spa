@@ -707,3 +707,48 @@ body.dark-mode .form-floating i {
         padding-left: 2.2rem;
     }
 }
+
+/* Estilo personalizado para los alerts pastel */
+.custom-alert-pastel {
+    background-color: rgba(255, 182, 193, 0.2);
+    border: 1px solid rgba(255, 143, 171, 0.3);
+    border-radius: 12px;
+    color: #5a4a42;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.custom-alert-pastel:hover {
+    background-color: rgba(255, 182, 193, 0.3);
+    box-shadow: 0 4px 12px rgba(255, 143, 171, 0.15);
+}
+
+/* Animación para las flechas */
+.custom-alert-pastel i.fa-arrow-up {
+    animation: floatUp 2s infinite ease-in-out;
+}
+
+.custom-alert-pastel i.fa-arrow-left {
+    animation: floatLeft 2s infinite ease-in-out;
+}
+
+@keyframes floatUp {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+@keyframes floatLeft {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(-5px); }
+}
+
+/* Modo oscuro */
+body.dark-mode .custom-alert-pastel {
+    background-color: rgba(255, 143, 171, 0.15);
+    border-color: rgba(255, 143, 171, 0.25);
+    color: #f8d7da;
+}
+
+body.dark-mode .custom-alert-pastel:hover {
+    background-color: rgba(255, 143, 171, 0.25);
+}
