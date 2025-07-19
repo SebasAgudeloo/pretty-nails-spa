@@ -280,6 +280,7 @@ function setupScrollAnimations() {
     });
 }
 
+
 // Inicialización
 document.addEventListener('DOMContentLoaded', function() {
     checkDarkModePreference();

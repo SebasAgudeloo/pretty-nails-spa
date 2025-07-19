@@ -752,3 +752,314 @@ body.dark-mode .custom-alert-pastel {
 body.dark-mode .custom-alert-pastel:hover {
     background-color: rgba(255, 143, 171, 0.25);
 }
+
+/* Cuidado de Uñas */
+.care-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    border-top: 3px solid var(--rosa-fuerte);
+}
+
+.care-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.care-icon {
+    font-size: 1.5rem;
+    color: white;
+    width: 50px;
+    height: 50px;
+    background: var(--rosa-fuerte);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px;
+    transition: all 0.3s ease;
+}
+
+.care-card:hover .care-icon {
+    transform: rotate(15deg) scale(1.1);
+}
+
+.care-card h3 {
+    color: var(--rosa-fuerte);
+    margin-bottom: 5px;
+    text-align: center;
+    font-size: 1.3rem;
+}
+
+.care-subtitle {
+    color: #777;
+    font-size: 0.85rem;
+    text-align: center;
+    margin-bottom: 15px;
+    font-style: italic;
+}
+
+.care-tips {
+    list-style-type: none;
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+.care-tips li {
+    padding: 10px 0;
+    border-bottom: 1px dashed #eee;
+    position: relative;
+    padding-left: 25px;
+    font-size: 0.95rem;
+}
+
+.care-tips li:before {
+    content: "•";
+    color: var(--rosa-fuerte);
+    position: absolute;
+    left: 10px;
+    font-weight: bold;
+}
+
+.care-tips strong {
+    color: var(--rosa-fuerte);
+}
+
+/* Tarjeta especial */
+.care-special {
+    border-top: 3px solid var(--azul-oscuro);
+}
+
+.care-special .care-icon {
+    background: var(--azul-oscuro);
+}
+
+.care-special h3 {
+    color: var(--azul-oscuro);
+}
+
+/* Modo oscuro */
+body.dark-mode .care-card {
+    background: #2d2d2d;
+}
+
+body.dark-mode .care-tips li {
+    border-bottom: 1px dashed #444;
+}
+
+body.dark-mode .care-subtitle {
+    color: #aaa;
+}
+
+/* Tabla Comparativa Mejorada */
+.comparison-table {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    padding: 20px;
+    overflow: hidden;
+}
+
+.problem-icon {
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 107, 158, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--rosa-fuerte);
+}
+
+.table-hover tbody tr:hover {
+    background: rgba(255, 107, 158, 0.03);
+}
+
+.professional-solution {
+    background: rgba(220, 53, 69, 0.05);
+    padding: 10px;
+    border-radius: 8px;
+    border-left: 3px solid var(--danger);
+}
+
+.bg-rosa-pastel {
+    background-color: var(--rosa-pastel) !important;
+}
+
+.btn-rosa-fuerte {
+    background: var(--rosa-fuerte);
+    color: white;
+    border: none;
+}
+
+.btn-rosa-fuerte:hover {
+    background: #e55a8d;
+    color: white;
+}
+
+/* Modo oscuro */
+body.dark-mode .comparison-table {
+    background: #2d2d2d;
+}
+
+body.dark-mode .table-light {
+    background-color: #343a40 !important;
+    color: white;
+}
+
+body.dark-mode .table-hover tbody tr:hover {
+    background: rgba(255, 107, 158, 0.1);
+}
+
+/* Estilos base para la tabla */
+.responsive-comparison-table {
+    width: 100%;
+    overflow-x: auto;
+    margin-bottom: 2rem;
+}
+
+.comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+}
+
+.comparison-table th {
+    background-color: #f8f9fa;
+    padding: 12px 15px;
+    text-align: left;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.comparison-table td {
+    padding: 12px 15px;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+}
+
+/* Estilos para el contenido */
+.problem-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
+}
+
+.problem-title i {
+    color: #6c757d;
+    font-size: 1.1em;
+}
+
+.home-solution {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.home-solution li {
+    margin-bottom: 8px;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.home-solution i {
+    color: #28a745;
+    margin-top: 3px;
+}
+
+.professional-solution p {
+    margin: 0 0 8px 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.professional-solution i {
+    color: #dc3545;
+}
+
+.recommendation {
+    background-color: #f8f9fa;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+
+.recommendation span:first-child {
+    font-weight: 600;
+    margin-right: 5px;
+}
+
+/* Estilos responsive para móvil */
+@media (max-width: 767px) {
+    .comparison-table {
+        display: block;
+    }
+    
+    .comparison-table thead {
+        display: none;
+    }
+    
+    .comparison-table tbody,
+    .comparison-table tr,
+    .comparison-table td {
+        display: block;
+        width: 100%;
+    }
+    
+    .comparison-table tr {
+        margin-bottom: 1.5rem;
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    
+    .comparison-table td {
+        padding: 12px 15px;
+        border-top: none;
+        border-bottom: 1px solid #dee2e6;
+    }
+    
+    .comparison-table td:last-child {
+        border-bottom: none;
+    }
+    
+    .comparison-table td::before {
+        content: attr(data-label);
+        display: block;
+        font-weight: 600;
+        margin-bottom: 8px;
+        color: #495057;
+    }
+    
+    .problem-title {
+        justify-content: center;
+        text-align: center;
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .problem-title i {
+        font-size: 1.5em;
+    }
+}
+
+.care-special .care-tips li {
+    list-style-type: none;
+    position: relative;
+    padding-left: 1.5em;
+}
+
+.care-special .care-tips li::before {
+    content: "•";
+    color: #007bff;
+    font-size: 1.2em;
+    position: absolute;
+    left: 0;
+}
