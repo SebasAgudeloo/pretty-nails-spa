@@ -160,19 +160,109 @@ body.dark-mode .navbar-brand img {
 }
 
 /* === Hero Section === */
+/* === Hero Section === */
 .hero-section {
   background: linear-gradient(135deg, var(--rosa-pastel), var(--lila-pastel));
-  padding: 120px 0;
+  padding: 100px 0 120px;
   position: relative;
   overflow: hidden;
   border-radius: 0 0 30px 30px;
 }
 
+/* Estilos responsive para el eslogan */
+.hero-slogan {
+    --font-size: 1.4rem; /* Móvil */
+    --padding: 0.6rem 1.2rem;
+    --border-width: 1px;
+    
+    font-size: var(--font-size);
+    font-weight: 700;
+    color: var(--rosa-fuerte);
+    position: relative;
+    display: inline-block;
+    margin: 0.5rem 0 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: var(--padding);
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(4px);
+    border-radius: 12px;
+    border: var(--border-width) solid rgba(255, 255, 255, 0.35);
+    box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    animation: floatUp 3s infinite ease-in-out;
+    line-height: 1.3;
+    text-align: center;
+}
+
+/* Desktop (md breakpoint) */
+@media (min-width: 768px) {
+    .hero-slogan {
+        --font-size: 1.8rem;
+        --padding: 0.8rem 1.8rem;
+        --border-width: 2px;
+        margin-bottom: 1.5rem;
+        letter-spacing: 0.1em;
+        backdrop-filter: blur(6px);
+    }
+}
+
+/* Línea decorativa inferior */
+.hero-slogan::after {
+    content: '';
+    position: absolute;
+    bottom: -0.4rem;
+    left: 20%;
+    width: 60%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--rosa-fuerte), transparent);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+@media (min-width: 768px) {
+    .hero-slogan::after {
+        bottom: -0.5rem;
+        height: 3px;
+    }
+}
+
+/* Efecto hover solo para desktop */
+@media (hover: hover) {
+    .hero-slogan:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    }
+}
+
+/* Dark mode */
 body.dark-mode .hero-section h1,
 body.dark-mode .hero-section p,
 body.dark-mode .hero-section em {
-  color: #605a5a;
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    color: #f0f0f0;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
+}
+
+body.dark-mode .hero-slogan {
+    color: #ffffff;
+    background: rgba(0, 0, 0, 0.25);
+    border-color: rgba(255, 255, 255, 0.25);
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+}
+
+body.dark-mode .hero-slogan::after {
+    background: linear-gradient(90deg, transparent, #ffffff, transparent);
+}
+
+/* Animaciones */
+@keyframes floatUp {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+@keyframes textGlow {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.95; }
 }
 
 /* === Efecto esmalte de uñas === */
