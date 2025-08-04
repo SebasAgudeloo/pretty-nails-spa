@@ -114,11 +114,63 @@ function formatCurrency(amount) {
     return '$' + amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-// Reservation Form
 function setupReservationForm() {
+    // Obtener referencias a los selects
+    const servicio1 = document.getElementById('servicio1');
+    const servicio2 = document.getElementById('servicio2');
+    
+    // Función para actualizar las opciones del segundo select
+    function updateServicio2Options() {
+        const selectedService1 = servicio1.value;
+        const servicio2Options = servicio2.querySelectorAll('option');
+        
+        // Primero, habilitar todas las opciones
+        servicio2Options.forEach(option => {
+            if (option.value !== "") {
+                option.disabled = false;
+                option.style.display = '';
+            }
+        });
+        
+        // Si hay un servicio1 seleccionado, deshabilitar esa opción en servicio2
+        if (selectedService1) {
+            const service1Name = selectedService1.split('|')[0];
+            servicio2Options.forEach(option => {
+                if (option.value !== "" && option.value.split('|')[0] === service1Name) {
+                    option.disabled = true;
+                    option.style.display = 'none';
+                }
+            });
+            
+            // Si el servicio2 actualmente seleccionado es el mismo que servicio1, resetearlo
+            if (servicio2.value && servicio2.value.split('|')[0] === service1Name) {
+                servicio2.value = "";
+                calculateTotal();
+            }
+        }
+    }
+    
+    // Función para inicializar las opciones del segundo select
+    function initializeServicio2Options() {
+        // Guardar la opción por defecto
+        const defaultOption = servicio2.querySelector('option[value=""]');
+        
+        // Limpiar todas las opciones excepto la por defecto
+        servicio2.innerHTML = '';
+        servicio2.appendChild(defaultOption);
+        
+        // Clonar las opciones del primer select (excepto la opción por defecto)
+        const servicio1Options = servicio1.querySelectorAll('option:not([value=""])');
+        servicio1Options.forEach(option => {
+            const newOption = option.cloneNode(true);
+            servicio2.appendChild(newOption);
+        });
+        
+        // Actualizar las opciones basado en la selección actual
+        updateServicio2Options();
+    }
+
     function calculateTotal() {
-        const servicio1 = document.getElementById('servicio1');
-        const servicio2 = document.getElementById('servicio2');
         const totalElement = document.getElementById('totalServicios');
         const totalContainer = document.querySelector('.total-container');
         
@@ -153,12 +205,19 @@ function setupReservationForm() {
 
     function validateForm() {
         const nombre = document.getElementById('nombre').value.trim();
-        const servicio1 = document.getElementById('servicio1').value;
+        const servicio1Val = servicio1.value;
         const fechaInput = document.getElementById('fecha').value;
         const hora = document.getElementById('hora').value;
         const enviarBtn = document.getElementById('enviarReserva');
         
-        if (!nombre || !servicio1 || !fechaInput || !hora) {
+        // Validar que no sean el mismo servicio
+        if (servicio1Val && servicio2.value && 
+            servicio1Val.split('|')[0] === servicio2.value.split('|')[0]) {
+            showError(enviarBtn, 'No puedes seleccionar el mismo servicio dos veces');
+            return false;
+        }
+        
+        if (!nombre || !servicio1Val || !fechaInput || !hora) {
             showError(enviarBtn, 'Completa todos los campos obligatorios');
             return false;
         }
@@ -213,13 +272,10 @@ function setupReservationForm() {
         if (!validateForm()) return;
         
         const nombre = document.getElementById('nombre').value.trim();
-        const servicio1 = document.getElementById('servicio1');
-        const servicio2 = document.getElementById('servicio2');
-        const fecha = document.getElementById('fecha');
-        const hora = document.getElementById('hora');
-        
         const servicio1Data = servicio1.value.split('|');
         const servicio2Data = servicio2.value ? servicio2.value.split('|') : ['', '0'];
+        const fecha = document.getElementById('fecha');
+        const hora = document.getElementById('hora');
         const total = parseInt(servicio1Data[1]) + parseInt(servicio2Data[1]);
         
         let serviciosMsg = `*Servicio 1:* ${servicio1Data[0]}`;
@@ -240,10 +296,17 @@ function setupReservationForm() {
             .replace(/\*/g,"%2A")}`, '_blank');
     }
 
-    document.querySelectorAll('.servicio-select').forEach(select => {
-        select.addEventListener('change', calculateTotal);
+    // Inicializar las opciones del segundo select
+    initializeServicio2Options();
+    
+    // Configurar event listeners
+    servicio1.addEventListener('change', function() {
+        updateServicio2Options();
+        calculateTotal();
     });
-
+    
+    servicio2.addEventListener('change', calculateTotal);
+    
     document.getElementById('enviarReserva').addEventListener('click', submitForm);
     
     document.getElementById('reservaForm').addEventListener('keypress', (e) => {
@@ -254,12 +317,12 @@ function setupReservationForm() {
     });
 }
 
-// Scroll Animations
+// Animaciones Al Posicionar El Mouse
 function setupScrollAnimations() {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('animate__animated', 'animate__fadeInUp');
+                entry.target.classList.add('animate__animated'); // Opcional: quita esta línea también si no quieres ninguna animación
                 observer.unobserve(entry.target);
             }
         });
@@ -273,7 +336,7 @@ function setupScrollAnimations() {
     });
 }
 
-// Testimonials Carousel
+// Carrusel de Testimonios
 function setupTestimonialsCarousel() {
     const carouselEl = document.getElementById('testimoniosCarousel');
     if (!carouselEl) return;
@@ -295,7 +358,7 @@ function setupTestimonialsCarousel() {
     });
 }
 
-// Remove Unwanted Animations
+// Eliminar animaciones no deseadas
 function removeUnwantedAnimations() {
     document.querySelectorAll('#testimonios .animate__animated').forEach(element => {
         element.classList.remove('animate__animated', 'animate__fadeInUp');
@@ -307,7 +370,7 @@ function removeUnwantedAnimations() {
     });
 }
 
-// Initialize
+// Inicialización
 document.addEventListener('DOMContentLoaded', function() {
     checkDarkModePreference();
     initBeforeAfterSliders();

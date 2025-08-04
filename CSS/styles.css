@@ -11,7 +11,7 @@
   --texto-oscuro: #5a4a42;
 }
 
-/* === Animations === */
+/* === Animaciones === */
 @keyframes float {
   0% { transform: translateY(0) rotate(0deg); }
   50% { transform: translateY(-50px) rotate(180deg); }
@@ -40,7 +40,51 @@
   20%, 40%, 60%, 80% { transform: translateX(5px); }
 }
 
-/* === Base Styles === */
+/* === Animaciones Flechas Mejoradas === */
+@keyframes moveUp {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+@keyframes moveDown {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(8px); }
+}
+
+@keyframes moveLeft {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(-8px); }
+}
+
+@keyframes moveRight {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(8px); }
+}
+
+@keyframes pulse-whatsapp {
+    0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(37, 211, 102, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+}
+
+/* Clases para aplicar las animaciones */
+.animate-move-up { animation: moveUp 1.5s infinite ease-in-out; }
+.animate-move-down { animation: moveDown 1.5s infinite ease-in-out; }
+.animate-move-left { animation: moveLeft 1.5s infinite ease-in-out; }
+.animate-move-right { animation: moveRight 1.5s infinite ease-in-out; }
+
+/* Efecto hover para mayor interactividad */
+[class^="fa-arrow"], [class*=" fa-arrow"] {
+    transition: all 0.3s ease;
+    display: inline-block; /* Necesario para transform */
+}
+
+[class^="fa-arrow"]:hover, [class*=" fa-arrow"]:hover {
+    transform: scale(1.2);
+    color: var(--primary-color);
+}
+
+/* === Estilos básicos === */
 body {
   font-family: 'Montserrat', sans-serif;
   color: var(--texto-oscuro);
@@ -131,7 +175,7 @@ body.dark-mode .hero-section em {
   text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
 }
 
-/* === Nail Polish Effect === */
+/* === Efecto esmalte de uñas === */
 .nail-polish {
   position: absolute;
   width: 100px;
@@ -163,7 +207,7 @@ body.dark-mode .hero-section em {
   animation-delay: 6s;
 }
 
-/* === Cards === */
+/* === Tarjetas === */
 .service-card,
 .promo-card,
 .testimonial-card,
@@ -213,7 +257,7 @@ body.dark-mode .comparison-table {
   margin-bottom: 1rem;
 }
 
-/* === Buttons === */
+/* === Botones === */
 .btn-agenda {
   background-color: var(--rosa-fuerte);
   color: white;
@@ -244,6 +288,25 @@ body.dark-mode .comparison-table {
   color: white;
   transform: translateY(-3px);
   box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
+}
+
+/* Versión optimizada para la sección de contacto */
+.btn-whatsapp-contact {
+    width: 100%; /* Ocupa todo el ancho disponible */
+    justify-content: center; /* Centra el texto */
+    padding: 12px 20px; /* Un poco más de padding */
+    font-size: 0.95rem; /* Tamaño de texto consistente */
+    border: 2px solid transparent; /* Borde para hover */
+    animation: pulse-whatsapp 2s infinite; /* Animación sutil */
+}
+
+.btn-whatsapp-contact:hover {
+    border-color: white; /* Efecto moderno al hover */
+    animation: none; /* Detiene la animación al hover */
+}
+
+.btn-whatsapp {
+    text-decoration: none !important; /* Esto elimina el subrayado */
 }
 
 .btn-instagram {
@@ -308,7 +371,7 @@ body.dark-mode .comparison-table {
   background-color: #dc3545 !important;
 }
 
-/* === Agenda Float === */
+/* === Agenda Flotante  === */
 .agenda-float {
   position: fixed;
   width: 60px;
@@ -354,7 +417,7 @@ body.dark-mode .comparison-table {
   opacity: 1;
 }
 
-/* === Dark Mode Toggle === */
+/* === Activar o desactivar el modo oscuro === */
 .dark-mode-toggle {
   position: fixed;
   bottom: 30px;
@@ -367,7 +430,7 @@ body.dark-mode .dark-mode-toggle .btn-dark {
   border-color: #555;
 }
 
-/* === Before & After === */
+/* === Antes & Después === */
 .before-after-container {
   position: relative;
   width: 100%;
@@ -426,7 +489,7 @@ body.dark-mode .dark-mode-toggle .btn-dark {
   transform: translate(-50%, -50%) scale(1.1);
 }
 
-/* === Appointment Section === */
+/* === Sección de citas === */
 .appointment-section {
   background-color: var(--azul-pastel);
   border-radius: 30px;
@@ -533,7 +596,7 @@ body.dark-mode .footer-dark-mode a:hover {
   color: var(--rosa-fuerte);
 }
 
-/* === Contact Card === */
+/* === Tarjeta de contacto === */
 .contact-item {
   background-color: rgba(255, 255, 255, 0.7);
   transition: all 0.3s ease;
@@ -582,7 +645,7 @@ body.dark-mode .schedule-time {
   text-decoration: line-through;
 }
 
-/* === Reservation Card === */
+/* === Tarjeta de Reserva === */
 .reservation-icon {
   background: linear-gradient(135deg, var(--rosa-fuerte), var(--lila-pastel));
   width: 60px;
@@ -610,7 +673,7 @@ body.dark-mode .schedule-time {
   animation: pulse 0.5s ease;
 }
 
-/* === Care Card === */
+/* === Tarjeta de atención === */
 .care-card {
   height: 100%;
   position: relative;
@@ -697,7 +760,7 @@ body.dark-mode .care-tips li {
   color: var(--azul-oscuro);
 }
 
-/* === Comparison Table === */
+/* === Tabla comparativa === */
 .problem-icon {
   width: 40px;
   height: 40px;
@@ -811,7 +874,7 @@ body.dark-mode .comparison-table th {
   margin-right: 5px;
 }
 
-/* === Testimonials Carousel === */
+/* === Carrusel de testimonios === */
 #testimoniosCarousel {
   padding: 0 40px;
   position: relative;
@@ -892,7 +955,7 @@ body.dark-mode .carousel-indicators button {
   transform: scale(1.2);
 }
 
-/* === Custom Alert === */
+/* === Alerta personalizada === */
 .custom-alert-pastel {
   background-color: rgba(255, 182, 193, 0.2);
   border: 1px solid rgba(255, 143, 171, 0.3);
@@ -925,7 +988,7 @@ body.dark-mode .custom-alert-pastel:hover {
   animation: floatLeft 2s infinite ease-in-out;
 }
 
-/* === Mobile Styles ===*/
+/* === Estilos móviles ===*/
 @media (max-width: 768px) {
   .navbar-brand img {
     height: 40px;
@@ -1026,7 +1089,7 @@ body.dark-mode .custom-alert-pastel:hover {
   }
 }
 
-/* === Dark Mode Video Section === */
+/* === Sección de vídeo en modo oscuro === */
 body.dark-mode #videos {
   background: linear-gradient(135deg, #2d2d2d 0%, #252525 100%);
 }
@@ -1034,4 +1097,43 @@ body.dark-mode #videos {
 body.dark-mode .instagram-container {
   background: #2d2d2d;
   border-color: #444;
+}
+
+/* === Estilos para la sección de ubicación === */
+.location-card {
+    background-color: white;
+    border: 2px solid var(--rosa-fuerte);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.location-icon {
+    display: inline-block;
+    padding: 20px;
+    background-color: rgba(255, 105, 158, 0.1);
+    border-radius: 50%;
+}
+
+.video-thumbnail {
+    position: relative;
+    cursor: pointer;
+    border: 3px solid var(--rosa-fuerte);
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70px;
+    height: 70px;
+    background-color: rgba(255, 105, 158, 0.8);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 24px;
+    transition: all 0.3s;
 }
