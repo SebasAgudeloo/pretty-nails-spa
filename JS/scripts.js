@@ -394,6 +394,10 @@ function setupPromotionsCountdown() {
     const badges = document.querySelectorAll('.promo-card:not(:last-child) .badge');
     const promoOptions = document.querySelectorAll('.promo-option');
     const promocionesOptgroup = document.querySelector('#servicio1 optgroup[label="PROMOCIONES"]');
+    const servicio1 = document.getElementById('servicio1');
+    
+    // Verificar si es móvil
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
     
     // Crear opción de "promociones terminadas" si no existe
     let terminadaOption = promocionesOptgroup.querySelector('option[value="terminada"]');
@@ -407,6 +411,12 @@ function setupPromotionsCountdown() {
     }
 
     function updatePromotionsAvailability(available) {
+        // En móviles, nunca mostramos el mensaje de "terminadas" si hay promociones
+        if (isMobile && available) {
+            terminadaOption.style.display = 'none';
+            return;
+        }
+        
         if (available) {
             // Mostrar promociones y ocultar mensaje de terminado
             promoOptions.forEach(option => {
@@ -492,6 +502,14 @@ function setupPromotionsCountdown() {
     
     const countdownInterval = setInterval(updateCountdown, 1000);
     updateCountdown();
+    
+    // Manejar cambios en el tamaño de pantalla
+    window.addEventListener('resize', () => {
+        const newIsMobile = window.matchMedia("(max-width: 768px)").matches;
+        if (newIsMobile !== isMobile) {
+            updatePromotionsAvailability(distance >= 0);
+        }
+    });
 }
 
 // Inicialización
