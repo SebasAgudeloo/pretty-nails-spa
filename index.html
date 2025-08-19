@@ -29,14 +29,6 @@
     <div class="agenda-text">Agenda tu Cita!</div>
     <!-- === FIN BOTÓN FLOTANTE === -->
 
-    <!-- === BOTÓN MODO OSCURO === -->
-    <div class="dark-mode-toggle">
-        <button class="btn btn-dark btn-sm rounded-pill" id="darkModeToggle">
-            <i class="fas fa-moon"></i> Modo Oscuro
-        </button>
-    </div>
-    <!-- === FIN BOTÓN MODO OSCURO === -->
-
     <!-- === NAVBAR === -->
     <nav class="navbar navbar-expand-lg sticky-top">
         <div class="container">
@@ -250,48 +242,77 @@
     </section>
     <!-- === FIN SERVICIOS === -->
 
-    <!-- === PROMOCIONES === -->
-    <section id="promociones" class="py-5 bg-light">
-        <div class="container">
-            <div class="text-center mb-5">
-                <h2 class="fw-bold">Promociones Especiales</h2>
-                <p class="text-muted">Aprovecha nuestros paquetes y descuentos exclusivos</p>
+<!-- === PROMOCIONES === -->
+<section id="promociones" class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">Promociones Especiales</h2>
+            <p class="text-muted">Aprovecha nuestros paquetes y descuentos exclusivos</p>
+        </div>
+        
+        <div class="row g-4">
+            <!-- Promoción 1 -->
+            <div class="col-md-4">
+                <div class="promo-card p-4 text-center h-100">
+                    <span class="badge bg-success position-absolute top-0 end-0 m-3">14% OFF</span>
+                    <div class="service-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h4>Press On + Pedicura</h4>
+                    
+                    <div class="price-container">
+                        <span class="original-price">$110.000</span>
+                        <span class="promo-price">$95.000</span>
+                        <span class="savings">Ahorras $15.000</span>
+                    </div>
+                    
+                    <div class="promo-footer">
+                        <div class="countdown mb-2" id="countdown1"></div>
+                        <a href="#citas" class="btn-promo">
+                            <i class="fas fa-calendar-alt me-2"></i>Agendar Promoción
+                        </a>
+                    </div>
+                </div>
             </div>
             
-            <div class="row g-4">
-                <div class="col-md-4">
-                    <div class="promo-card p-4 text-center h-100">
-                        <span class="badge bg-danger position-absolute top-0 end-0 m-3">0% OFF</span>
-                        <div class="service-icon">
-                            <i class="fas fa-heart"></i>
-                        </div>
-                        <h4>Próximamente!!</h4>
+            <!-- Promoción 2 -->
+            <div class="col-md-4">
+                <div class="promo-card p-4 text-center h-100">
+                    <span class="badge bg-success position-absolute top-0 end-0 m-3">13% OFF</span>
+                    <div class="service-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h4>Forradas en Acrílico + Pedicura</h4>
+                    
+                    <div class="price-container">
+                        <span class="original-price">$120.000</span>
+                        <span class="promo-price">$105.000</span>
+                        <span class="savings">Ahorras $15.000</span>
+                    </div>
+                    
+                    <div class="promo-footer">
+                        <div class="countdown mb-2" id="countdown2"></div>
+                        <a href="#citas" class="btn-promo">
+                            <i class="fas fa-calendar-alt me-2"></i>Agendar Promoción
+                        </a>
                     </div>
                 </div>
-                
-                <div class="col-md-4">
-                    <div class="promo-card p-4 text-center h-100">
-                        <span class="badge bg-danger position-absolute top-0 end-0 m-3">0% OFF</span>
-                        <div class="service-icon">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <h4>Próximamente!!</h4>
+            </div>
+            
+            <!-- Próximamente -->
+            <div class="col-md-4">
+                <div class="promo-card p-4 text-center h-100">
+                    <span class="badge bg-danger position-absolute top-0 end-0 m-3">0% OFF</span>
+                    <div class="service-icon">
+                        <i class="fas fa-star"></i>
                     </div>
-                </div>
-                
-                <div class="col-md-4">
-                    <div class="promo-card p-4 text-center h-100">
-                        <span class="badge bg-danger position-absolute top-0 end-0 m-3">0% OFF</span>
-                        <div class="service-icon">
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <h4>Próximamente!!</h4>
-                    </div>
+                    <h4>Próximamente!!</h4>
                 </div>
             </div>
         </div>
-    </section>
-    <!-- === FIN PROMOCIONES === -->
+    </div>
+</section>
+<!-- === FIN PROMOCIONES === -->
 
     <!-- === GALERÍA === -->
     <section id="galeria" class="py-5">
@@ -1009,13 +1030,21 @@
                                 <div class="form-floating mb-3">
                                     <select class="form-select servicio-select" id="servicio1" required>
                                         <option value="" selected disabled>Selecciona un servicio...</option>
-                                        <option value="Forradas con Base Rubber|45000">Forradas con Base Rubber ($45,000)</option>
-                                        <option value="Press On|70000">Press On ($70,000)</option>
-                                        <option value="Press On Forradas en Acrílico|80000">Press On Forradas en Acrílico ($80,000)</option>
-                                        <option value="Press On Forradas en Acrygel|65000">Press On Forradas en Acrygel ($65,000)</option>
-                                        <option value="Semipermanente con Diseño|40000">Semipermanente con Diseño ($40,000)</option>
-                                        <option value="Manicura Tradicional (Hombre)|25000">Manicura Tradicional (Hombre) ($25,000)</option>
-                                        <option value="Pedicura Semipermanente|40000">Pedicura Semipermanente ($40,000)</option>
+                                        <optgroup label="MANICURA">
+                                            <option value="Forradas con Base Rubber|45000">Forradas con Base Rubber ($45,000)</option>
+                                            <option value="Press On|70000">Press On ($70,000)</option>
+                                            <option value="Press On Forradas en Acrílico|80000">Press On Forradas en Acrílico ($80,000)</option>
+                                            <option value="Press On Forradas en Acrygel|65000">Press On Forradas en Acrygel ($65,000)</option>
+                                            <option value="Semipermanente con Diseño|40000">Semipermanente con Diseño ($40,000)</option>
+                                            <option value="Manicura Tradicional (Hombre)|25000">Manicura Tradicional (Hombre) ($25,000)</option>
+                                        </optgroup>
+                                        <optgroup label="PEDICURA">
+                                            <option value="Pedicura Semipermanente|40000">Pedicura Semipermanente ($40,000)</option>
+                                        </optgroup>
+                                        <optgroup label="PROMOCIONES">
+                                            <option class="promo-option" value="Press On + Pedicura|110000|95000">Promoción 1: Press On + Pedicura ($95,000)</option>
+                                        <option class="promo-option" value="Forradas en Acrílico + Pedicura|120000|105000">Promoción 2: Forradas en Acrílico + Pedicura ($105,000)</option>
+                                        </optgroup>
                                     </select>
                                     <label for="servicio1"><i class="fas fa-spa me-2"></i>Servicio 1</label>
                                 </div>
@@ -1032,6 +1061,7 @@
                                 <!-- Total -->
                                 <div class="total-container mb-3 p-3 rounded-3 text-center">
                                     <h5 class="fw-bold mb-0">Total: <span id="totalServicios">$0</span></h5>
+                                    <div id="ahorroPromocion" class="savings" style="display: none;"></div>
                                 </div>
                                 
                                 <!-- Fecha y Hora -->
@@ -1085,9 +1115,18 @@
                                     <small class="text-muted">
                                         <i class="fas fa-lock me-1"></i> Tus datos solo se usarán para esta reserva
                                     </small>
-                                    <small class="d-block text-muted mt-1">
+                                    <small class="d-block text-muted">
                                         * Campos obligatorios
                                     </small>
+                                    <div class="custom-alert-pastel d-flex align-items-center p-3 mb-2 mt-2">
+                                        <div class="flex-shrink-0 me-3">
+                                            <i class="fas fa-map-marker-alt" style="color: var(--rosa-fuerte);"></i>
+                                        </div>
+                                        <div class="d-flex align-items-center">
+                                            <span class="me-2">Abajo puedes ver nuestra ubicación</span>
+                                            <i class="fa-solid fa-arrow-down animate-move-down" style="color: var(--rosa-fuerte);"></i>
+                                        </div>
+                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -1112,7 +1151,7 @@
                         <div class="location-icon mb-3">
                             <i class="fas fa-map-marked-alt fa-3x" style="color: var(--rosa-fuerte);"></i>
                         </div>
-                        <h3 class="mb-3">Pretty Nails Spa</h3>
+                        <h2 class="mb-3">Pretty Nails Spa</h2>
                         <p class="mb-4">
                             <i class="fas fa-city me-2"></i> Remedios, Antioquia<br>
                             <i class="fas fa-home me-2"></i> Barrio Buenos Aires - Parte Baja
@@ -1130,7 +1169,7 @@
     <!-- === FIN UBICACIÓN === -->
 
     <!-- === FOOTER === -->
-    <footer class="py-5 footer-dark-mode">
+    <footer class="py-5">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 mb-4 mb-lg-0">
