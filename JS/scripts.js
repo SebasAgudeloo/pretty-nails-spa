@@ -385,8 +385,8 @@ function setupTestimonialsCarousel() {
 // ===== PROMOCIONES COUNTDOWN =====
 function setupPromotionsCountdown() {
     const endDate = new Date();
-    endDate.setDate(endDate.getDate() + 0);
-    endDate.setHours(23, 2, 50, 0);
+    endDate.setDate(endDate.getDate() + 10);
+    endDate.setHours(23, 59, 59, 0);
     
     const countdownElements = document.querySelectorAll('.countdown');
     const promoButtons = document.querySelectorAll('.btn-promo');
