@@ -1,9 +1,19 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>Pretty Nails - Spa de Uñas</title>
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -16,16 +26,21 @@
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-8S6Z5704EM"></script>
     <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-8S6Z5704EM');
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-8S6Z5704EM');
     </script>
 </head>
+
 <body>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="spinner"></div>
+    </div>
 
     <!-- === BOTÓN FLOTANTE === -->
-    <a href="#citas" class="agenda-float">
+    <a href="#citas" class="agenda-float" aria-label="Agendar cita">
         <i class="fas fa-calendar-alt"></i>
     </a>
     <div class="agenda-text">Agenda tu Cita!</div>
@@ -35,9 +50,10 @@
     <nav class="navbar navbar-expand-lg sticky-top">
         <div class="container">
             <a class="navbar-brand" href="#">
-                <img src="IMAGES/Logo.png" alt="Pretty Nails" class="d-inline-block align-top">
+                <img src="IMAGES/Logo.png" alt="Pretty Nails - Logo" class="d-inline-block align-top">
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" style="color: var(--rosa-fuerte);">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-label="Toggle navigation" style="color: var(--rosa-fuerte);">
                 <i class="fas fa-bars me-2"></i>
                 <span class="d-inline d-lg-none fw-semibold" style="color: var(--rosa-fuerte);">Menú de opciones</span>
             </button>
@@ -81,7 +97,7 @@
         <div class="nail-polish polish-1"></div>
         <div class="nail-polish polish-2"></div>
         <div class="nail-polish polish-3"></div>
-        
+
         <div class="container position-relative">
             <h1 class="display-4 fw-bold mb-4 animate__animated animate__fadeInDown">
                 Pretty Nails Spa
@@ -98,10 +114,12 @@
 
             <div class="mt-4 animate__animated animate__fadeIn animate__delay-4s">
                 <p class="mb-3">Síguenos en nuestras redes sociales</p>
-                <a href="https://www.facebook.com/karen.vanegas.22803" class="social-icon me-2" target="_blank">
+                <a href="https://www.facebook.com/karen.vanegas.22803" class="social-icon me-2" target="_blank"
+                    aria-label="Facebook">
                     <i class="fab fa-facebook-f"></i>
                 </a>
-                <a href="https://www.instagram.com/pretty_nails_karen/" class="social-icon me-2" target="_blank">
+                <a href="https://www.instagram.com/pretty_nails_karen/" class="social-icon me-2" target="_blank"
+                    aria-label="Instagram">
                     <i class="fab fa-instagram"></i>
                 </a>
             </div>
@@ -114,14 +132,19 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-md-6 mb-4 mb-md-0">
-                    <img src="IMAGES/Karen.JPEG" width="450px" alt="Karen Vanegas" class="img-fluid rounded-3 shadow">
+                    <img src="IMAGES/Karen.JPEG" width="450" height="600" alt="Karen Vanegas - Especialista en uñas"
+                        class="img-fluid rounded-3 shadow" loading="lazy">
                 </div>
                 <div class="col-md-6">
                     <h2 class="fw-bold mb-4">Sobre Karen Vanegas</h2>
-                    <p>Hola! Soy Karen, la creadora detrás de Pretty Nails Spa. Desde pequeña me apasionó el mundo de la belleza y el cuidado personal, especialmente el arte en uñas.</p>
-                    <p>Me he especializado en técnicas innovadoras como el Acrygel y diseño artístico, siempre buscando la perfección en cada detalle.</p>
-                    <p>Mi filosofía es simple: cada cliente es único y merece un trato personalizado. No solo trabajo en tus uñas, sino en brindarte una experiencia relajante que te haga sentir especial.</p>
-                    <p>Estoy certificada en las últimas técnicas de manicura y pedicura, y constantemente me capacito para ofrecerte lo mejor del mercado!</p>
+                    <p>Hola! Soy Karen, la creadora detrás de Pretty Nails Spa. Desde pequeña me apasionó el mundo de la
+                        belleza y el cuidado personal, especialmente el arte en uñas.</p>
+                    <p>Me he especializado en técnicas innovadoras como el Acrygel y diseño artístico, siempre buscando
+                        la perfección en cada detalle.</p>
+                    <p>Mi filosofía es simple: cada cliente es único y merece un trato personalizado. No solo trabajo en
+                        tus uñas, sino en brindarte una experiencia relajante que te haga sentir especial.</p>
+                    <p>Estoy certificada en las últimas técnicas de manicura y pedicura, y constantemente me capacito
+                        para ofrecerte lo mejor del mercado!</p>
                     <div class="mt-4">
                         <a href="#citas" class="btn btn-primary">Agendar una cita conmigo</a>
                     </div>
@@ -138,37 +161,44 @@
                 <h2 class="fw-bold">Nuestros Servicios</h2>
                 <p class="text-muted">Descubre todo lo que podemos hacer por tus uñas</p>
             </div>
-            
+
             <div class="row g-4">
                 <div class="col-md-4">
                     <div class="service-card p-4 text-center h-100">
                         <div class="service-icon">
-                            <i class="fas fa-hand-sparkles"></i>
+                            <i class="fas fa-hand-sparkles" aria-hidden="true"></i>
                         </div>
-                        <h4>Forradas con Base Rubber</h4>
-                        <p>Consiente tus uñas naturales con nuestro servicio de Base Rubber, ideal para quienes desean uñas fuertes, 
-                            saludables y con un acabado perfecto. Este tratamiento consiste en aplicar una base especial más gruesa y 
-                            flexible que el esmalte común, brindando mayor resistencia y protección ante quiebres o láminas que se levantan. 
-                            Además, suaviza imperfecciones en la superficie de la uña, logrando un resultado uniforme y elegante. Perfecto 
+                        <h3>Forradas con Base Rubber</h3>
+                        <p>Consiente tus uñas naturales con nuestro servicio de Base Rubber, ideal para quienes desean
+                            uñas fuertes,
+                            saludables y con un acabado perfecto. Este tratamiento consiste en aplicar una base especial
+                            más gruesa y
+                            flexible que el esmalte común, brindando mayor resistencia y protección ante quiebres o
+                            láminas que se levantan.
+                            Además, suaviza imperfecciones en la superficie de la uña, logrando un resultado uniforme y
+                            elegante. Perfecto
                             si buscas un look natural o como base para esmaltados de color o diseños artísticos!</p>
-                        <h4 class="fw-bold text-primary">$45.000<h4>
+                        <h4 class="fw-bold text-primary">$45.000</h4>
                         <a href="#citas" class="btn btn-primary btn mt-2">
                             Agendar Servicio
                         </a>
-
                     </div>
                 </div>
-                
+
                 <div class="col-md-4">
                     <div class="service-card p-4 text-center h-100">
                         <div class="service-icon">
-                            <i class="fas fa-gem"></i>
+                            <i class="fas fa-gem" aria-hidden="true"></i>
                         </div>
-                        <h4>Press On</h4>
-                        <p>¿Quieres uñas hermosas en poco tiempo y sin compromiso? Nuestras Press On son la solución perfecta. 
-                            Son uñas postizas prefabricadas que vienen en distintos tamaños, formas y diseños, listas para colocarse en minutos. 
-                            Se adhieren con pegamento o stickers especiales, lo que las hace prácticas y fáciles de retirar. Ideales para un evento especial, 
-                            sesiones de fotos o simplemente para cambiar tu look sin dañar tus uñas naturales. Luce uñas largas y espectaculares sin procesos 
+                        <h3>Press On</h3>
+                        <p>¿Quieres uñas hermosas en poco tiempo y sin compromiso? Nuestras Press On son la solución
+                            perfecta.
+                            Son uñas postizas prefabricadas que vienen en distintos tamaños, formas y diseños, listas
+                            para colocarse en minutos.
+                            Se adhieren con pegamento o stickers especiales, lo que las hace prácticas y fáciles de
+                            retirar. Ideales para un evento especial,
+                            sesiones de fotos o simplemente para cambiar tu look sin dañar tus uñas naturales. Luce uñas
+                            largas y espectaculares sin procesos
                             complicados!</p>
                         <h4 class="fw-bold text-primary">$70.000</h4>
                         <a href="#citas" class="btn btn-primary btn mt-2">
@@ -176,17 +206,20 @@
                         </a>
                     </div>
                 </div>
-                
+
                 <div class="col-md-4">
                     <div class="service-card p-4 text-center h-100">
                         <div class="service-icon">
-                            <i class="fas fa-magic"></i>
+                            <i class="fas fa-magic" aria-hidden="true"></i>
                         </div>
-                        <h4>Press On Forradas en Acrílico</h4>
-                        <p>Si buscas la practicidad de las Press On, pero con mayor durabilidad y resistencia, 
-                            nuestras Press On forradas en acrílico son perfectas para ti. Estas uñas postizas se refuerzan 
-                            con una capa de acrílico, aportando solidez y un acabado profesional que se mantiene por más tiempo. 
-                            Son ideales para quienes necesitan uñas firmes para su rutina diaria o para lucir impecables en ocasiones 
+                        <h3>Press On Forradas en Acrílico</h3>
+                        <p>Si buscas la practicidad de las Press On, pero con mayor durabilidad y resistencia,
+                            nuestras Press On forradas en acrílico son perfectas para ti. Estas uñas postizas se
+                            refuerzan
+                            con una capa de acrílico, aportando solidez y un acabado profesional que se mantiene por más
+                            tiempo.
+                            Son ideales para quienes necesitan uñas firmes para su rutina diaria o para lucir impecables
+                            en ocasiones
                             especiales. ¡Disfruta de diseños personalizados y un look sofisticado!</p>
                         <h4 class="fw-bold text-primary">$80.000</h4>
                         <a href="#citas" class="btn btn-primary btn mt-2">
@@ -194,34 +227,42 @@
                         </a>
                     </div>
                 </div>
-                
+
                 <div class="col-md-4">
                     <div class="service-card p-4 text-center h-100">
                         <div class="service-icon">
-                            <i class="fas fa-paint-brush"></i>
+                            <i class="fas fa-paint-brush" aria-hidden="true"></i>
                         </div>
-                        <h4>Press On Forradas en Acrygel</h4>
-                        <p>Experimenta lo mejor de dos mundos con nuestras Press On forradas en Acrygel. Este servicio combina la 
-                            ligereza y flexibilidad del gel con la firmeza del acrílico, logrando uñas más naturales al tacto, pero 
-                            igualmente resistentes. Perfectas si buscas un acabado más fino, ligero y cómodo, sin sacrificar la durabilidad. 
-                            Disponibles en distintos largos, formas y colores, para que luzcas unas manos impecables en todo momento!</p>
+                        <h3>Press On Forradas en Acrygel</h3>
+                        <p>Experimenta lo mejor de dos mundos con nuestras Press On forradas en Acrygel. Este servicio
+                            combina la
+                            ligereza y flexibilidad del gel con la firmeza del acrílico, logrando uñas más naturales al
+                            tacto, pero
+                            igualmente resistentes. Perfectas si buscas un acabado más fino, ligero y cómodo, sin
+                            sacrificar la durabilidad.
+                            Disponibles en distintos largos, formas y colores, para que luzcas unas manos impecables en
+                            todo momento!</p>
                         <h4 class="fw-bold text-primary">$65.000</h4>
                         <a href="#citas" class="btn btn-primary btn mt-2">
                             Agendar Servicio
                         </a>
                     </div>
                 </div>
-                
+
                 <div class="col-md-4">
                     <div class="service-card p-4 text-center h-100">
                         <div class="service-icon">
-                            <i class="fas fa-leaf"></i>
+                            <i class="fas fa-leaf" aria-hidden="true"></i>
                         </div>
-                        <h4>Semipermanente con Diseño a Tu Gusto</h4>
-                        <p>Atrévete a llevar tus uñas al siguiente nivel con nuestro servicio de esmaltado semipermanente con diseño 
-                            personalizado. Aplicamos esmaltes de alta calidad que ofrecen brillo intenso y hasta tres semanas 
-                            de duración sin desprenderse ni perder color. Personaliza cada uña con diseños únicos, desde minimalistas 
-                            hasta arte elaborado con colores, figuras, texturas, piedras o brillos. Ideal para quienes aman expresarse 
+                        <h3>Semipermanente con Diseño a Tu Gusto</h3>
+                        <p>Atrévete a llevar tus uñas al siguiente nivel con nuestro servicio de esmaltado
+                            semipermanente con diseño
+                            personalizado. Aplicamos esmaltes de alta calidad que ofrecen brillo intenso y hasta tres
+                            semanas
+                            de duración sin desprenderse ni perder color. Personaliza cada uña con diseños únicos, desde
+                            minimalistas
+                            hasta arte elaborado con colores, figuras, texturas, piedras o brillos. Ideal para quienes
+                            aman expresarse
                             a través de sus manos y mantenerlas siempre perfectas!</p>
                         <h4 class="fw-bold text-primary">$40.000</h4>
                         <a href="#citas" class="btn btn-primary btn mt-2">
@@ -229,15 +270,17 @@
                         </a>
                     </div>
                 </div>
-                
+
                 <div class="col-md-4">
                     <div class="service-card p-4 text-center h-100">
                         <div class="service-icon">
-                            <i class="fas fa-heart"></i>
+                            <i class="fas fa-heart" aria-hidden="true"></i>
                         </div>
-                        <h4>Manicura Tradicional (Hombres)</h4>
-                        <p>Disfruta de manos bien cuidadas con nuestra manicura tradicional para hombres, que incluye limpieza, cuidado de cutículas, 
-                            corte y limado de uñas, y aplicación de barniz transparente para un acabado natural y pulcro!</p>
+                        <h3>Manicura Tradicional (Hombres)</h3>
+                        <p>Disfruta de manos bien cuidadas con nuestra manicura tradicional para hombres, que incluye
+                            limpieza, cuidado de cutículas,
+                            corte y limado de uñas, y aplicación de barniz transparente para un acabado natural y
+                            pulcro!</p>
                         <h4 class="fw-bold text-primary">$25.000</h4>
                         <a href="#citas" class="btn btn-primary btn mt-2">
                             Agendar Servicio
@@ -247,19 +290,23 @@
                 <div class="col-md-4">
                     <div class="service-card p-4 text-center h-100">
                         <div class="service-icon">
-                            <i class="fas fa-palette"></i>
+                            <i class="fas fa-palette" aria-hidden="true"></i>
                         </div>
-                        <h4>Pedicura Semipermanente</h4>
-                        <p>Disfruta de la misma experiencia relajante de nuestra pedicura tradicional, pero con la ventaja de un 
-                            esmaltado semipermanente que luce impecable durante semanas. Este servicio incluye limpieza profunda, 
-                            limado de durezas y callos, exfoliación, cuidado de cutículas y masaje hidratante, asegurando que tus 
-                            pies queden suaves y saludables. Terminamos con un esmalte semipermanente de larga duración, ideal para 
-                            mantener tus pies siempre perfectos, incluso en temporadas de playa o actividades constantes!</p>
+                        <h3>Pedicura Semipermanente</h3>
+                        <p>Disfruta de la misma experiencia relajante de nuestra pedicura tradicional, pero con la
+                            ventaja de un
+                            esmaltado semipermanente que luce impecable durante semanas. Este servicio incluye limpieza
+                            profunda,
+                            limado de durezas y callos, exfoliación, cuidado de cutículas y masaje hidratante,
+                            asegurando que tus
+                            pies queden suaves y saludables. Terminamos con un esmalte semipermanente de larga duración,
+                            ideal para
+                            mantener tus pies siempre perfectos, incluso en temporadas de playa o actividades
+                            constantes!</p>
                         <h4 class="fw-bold text-primary">$40.000</h4>
                         <a href="#citas" class="btn btn-primary btn mt-2">
                             Agendar Servicio
                         </a>
-
                     </div>
                 </div>
             </div>
@@ -267,77 +314,77 @@
     </section>
     <!-- === FIN SERVICIOS === -->
 
-<!-- === PROMOCIONES === -->
-<section id="promociones" class="py-5 bg-light">
-    <div class="container">
-        <div class="text-center mb-5">
-            <h2 class="fw-bold">Promociones Especiales</h2>
-            <p class="text-muted">Aprovecha nuestros paquetes y descuentos exclusivos</p>
+    <!-- === PROMOCIONES === -->
+    <section id="promociones" class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">Promociones Especiales</h2>
+                <p class="text-muted">Aprovecha nuestros paquetes y descuentos exclusivos</p>
+            </div>
+
+            <div class="row g-4">
+                <!-- Promoción 1 -->
+                <div class="col-md-4">
+                    <div class="promo-card p-4 text-center h-100">
+                        <span class="badge bg-success position-absolute top-0 end-0 m-3">-14% DESCUENTO</span>
+                        <div class="service-icon">
+                            <i class="fas fa-spa" aria-hidden="true"></i>
+                        </div>
+                        <h3>Press On + Pedicura</h3>
+
+                        <div class="price-container">
+                            <span class="original-price">$110.000</span>
+                            <span class="promo-price">$95.000</span>
+                            <span class="savings">Ahorras $15.000</span>
+                        </div>
+
+                        <div class="promo-footer">
+                            <div class="countdown mb-2" id="countdown1"></div>
+                            <a href="#citas" class="btn-promo">
+                                <i class="fas fa-calendar-alt me-2" aria-hidden="true"></i>Agendar Promoción
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Promoción 2 -->
+                <div class="col-md-4">
+                    <div class="promo-card p-4 text-center h-100">
+                        <span class="badge bg-success position-absolute top-0 end-0 m-3">-13% DESCUENTO</span>
+                        <div class="service-icon">
+                            <i class="fas fa-hand-sparkles" aria-hidden="true"></i>
+                        </div>
+                        <h3>Forradas en Acrílico + Pedicura</h3>
+
+                        <div class="price-container">
+                            <span class="original-price">$120.000</span>
+                            <span class="promo-price">$105.000</span>
+                            <span class="savings">Ahorras $15.000</span>
+                        </div>
+
+                        <div class="promo-footer">
+                            <div class="countdown mb-2" id="countdown2"></div>
+                            <a href="#citas" class="btn-promo">
+                                <i class="fas fa-calendar-alt me-2" aria-hidden="true"></i>Agendar Promoción
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Próximamente -->
+                <div class="col-md-4">
+                    <div class="promo-card p-4 text-center h-100">
+                        <span class="badge bg-danger position-absolute top-0 end-0 m-3">0% OFF</span>
+                        <div class="service-icon">
+                            <i class="fas fa-star" aria-hidden="true"></i>
+                        </div>
+                        <h3>Próximamente!!</h3>
+                    </div>
+                </div>
+            </div>
         </div>
-        
-        <div class="row g-4">
-            <!-- Promoción 1 -->
-            <div class="col-md-4">
-                <div class="promo-card p-4 text-center h-100">
-                    <span class="badge bg-success position-absolute top-0 end-0 m-3">-14% DESCUENTO</span>
-                    <div class="service-icon">
-                        <i class="fas fa-spa"></i>
-                    </div>
-                    <h4>Press On + Pedicura</h4>
-                    
-                    <div class="price-container">
-                        <span class="original-price">$110.000</span>
-                        <span class="promo-price">$95.000</span>
-                        <span class="savings">Ahorras $15.000</span>
-                    </div>
-                    
-                    <div class="promo-footer">
-                        <div class="countdown mb-2" id="countdown1"></div>
-                        <a href="#citas" class="btn-promo">
-                            <i class="fas fa-calendar-alt me-2"></i>Agendar Promoción
-                        </a>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Promoción 2 -->
-            <div class="col-md-4">
-                <div class="promo-card p-4 text-center h-100">
-                    <span class="badge bg-success position-absolute top-0 end-0 m-3">-13% DESCUENTO</span>
-                    <div class="service-icon">
-                        <i class="fas fa-hand-sparkles"></i>
-                    </div>
-                    <h4>Forradas en Acrílico + Pedicura</h4>
-                    
-                    <div class="price-container">
-                        <span class="original-price">$120.000</span>
-                        <span class="promo-price">$105.000</span>
-                        <span class="savings">Ahorras $15.000</span>
-                    </div>
-                    
-                    <div class="promo-footer">
-                        <div class="countdown mb-2" id="countdown2"></div>
-                        <a href="#citas" class="btn-promo">
-                            <i class="fas fa-calendar-alt me-2"></i>Agendar Promoción
-                        </a>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Próximamente -->
-            <div class="col-md-4">
-                <div class="promo-card p-4 text-center h-100">
-                    <span class="badge bg-danger position-absolute top-0 end-0 m-3">0% OFF</span>
-                    <div class="service-icon">
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <h4>Próximamente!!</h4>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- === FIN PROMOCIONES === -->
+    </section>
+    <!-- === FIN PROMOCIONES === -->
 
     <!-- === GALERÍA === -->
     <section id="galeria" class="py-5">
@@ -346,94 +393,117 @@
                 <h2 class="fw-bold">Galería de Trabajos</h2>
                 <p class="text-muted">Inspírate con algunos de nuestros diseños</p>
             </div>
-            
+
             <div class="row g-3 mb-5">
                 <div class="col-md-4 col-6">
-                    <img src="IMAGES/Galeria 1.jpg" alt="Diseño de uñas" class="img-fluid rounded-3 service-card">
+                    <img src="IMAGES/Galeria 1.jpg" alt="Diseño de uñas con colores pastel"
+                        class="img-fluid rounded-3 service-card" loading="lazy">
                 </div>
                 <div class="col-md-4 col-6">
-                    <img src="IMAGES/Galeria 2.jpg" alt="Diseño de uñas" class="img-fluid rounded-3 service-card">
+                    <img src="IMAGES/Galeria 2.jpg" alt="Uñas decoradas con flores"
+                        class="img-fluid rounded-3 service-card" loading="lazy">
                 </div>
                 <div class="col-md-4 col-6">
-                    <img src="IMAGES/Galeria 3.jpg" alt="Diseño de uñas" class="img-fluid rounded-3 service-card">
+                    <img src="IMAGES/Galeria 3.jpg" alt="Diseño de uñas con glitter"
+                        class="img-fluid rounded-3 service-card" loading="lazy">
                 </div>
                 <div class="col-md-4 col-6">
-                    <img src="IMAGES/Galeria 4.jpg" alt="Diseño de uñas" class="img-fluid rounded-3 service-card">
+                    <img src="IMAGES/Galeria 4.jpg" alt="Uñas con diseño geométrico"
+                        class="img-fluid rounded-3 service-card" loading="lazy">
                 </div>
                 <div class="col-md-4 col-6">
-                    <img src="IMAGES/Galeria 5.jpg" alt="Diseño de uñas" class="img-fluid rounded-3 service-card">
+                    <img src="IMAGES/Galeria 5.jpg" alt="Manicura francesa moderna"
+                        class="img-fluid rounded-3 service-card" loading="lazy">
                 </div>
                 <div class="col-md-4 col-6">
-                    <img src="IMAGES/Galeria 6.jpg" alt="Diseño de uñas" class="img-fluid rounded-3 service-card">
+                    <img src="IMAGES/Galeria 6.jpg" alt="Uñas con piedras decorativas"
+                        class="img-fluid rounded-3 service-card" loading="lazy">
                 </div>
                 <div class="col-md-4 col-6">
-                    <img src="IMAGES/Galeria 7.jpg" alt="Diseño de uñas" class="img-fluid rounded-3 service-card">
+                    <img src="IMAGES/Galeria 7.jpg" alt="Diseño de uñas de gel" class="img-fluid rounded-3 service-card"
+                        loading="lazy">
                 </div>
                 <div class="col-md-4 col-6">
-                    <img src="IMAGES/Galeria 17.jpg" alt="Diseño de uñas" class="img-fluid rounded-3 service-card">
+                    <img src="IMAGES/Galeria 17.jpg" alt="Uñas con diseño abstracto"
+                        class="img-fluid rounded-3 service-card" loading="lazy">
                 </div>
                 <div class="col-md-4 col-6">
-                    <img src="IMAGES/Galeria 8.jpg" alt="Diseño de uñas" class="img-fluid rounded-3 service-card">
+                    <img src="IMAGES/Galeria 8.jpg" alt="Manicura con tonos nude"
+                        class="img-fluid rounded-3 service-card" loading="lazy">
                 </div>
                 <div class="col-md-4 col-6">
-                    <img src="IMAGES/Galeria 9.jpg" alt="Diseño de uñas" class="img-fluid rounded-3 service-card">
+                    <img src="IMAGES/Galeria 9.jpg" alt="Uñas con efecto mármol"
+                        class="img-fluid rounded-3 service-card" loading="lazy">
                 </div>
                 <div class="col-md-4 col-6">
-                    <img src="IMAGES/Galeria 10.jpg" alt="Diseño de uñas" class="img-fluid rounded-3 service-card">
+                    <img src="IMAGES/Galeria 10.jpg" alt="Diseño de uñas para ocasiones especiales"
+                        class="img-fluid rounded-3 service-card" loading="lazy">
                 </div>
                 <div class="col-md-4 col-6">
-                    <img src="IMAGES/Galeria 18.jpg" alt="Diseño de uñas" class="img-fluid rounded-3 service-card">
+                    <img src="IMAGES/Galeria 18.jpg" alt="Uñas con diseño de temporada"
+                        class="img-fluid rounded-3 service-card" loading="lazy">
                 </div>
                 <div class="col-md-4 col-6">
-                    <img src="IMAGES/Galeria 11.jpg" alt="Diseño de uñas" class="img-fluid rounded-3 service-card">
+                    <img src="IMAGES/Galeria 11.jpg" alt="Manicura con tonos vibrantes"
+                        class="img-fluid rounded-3 service-card" loading="lazy">
                 </div>
                 <div class="col-md-4 col-6">
-                    <img src="IMAGES/Galeria 12.jpg" alt="Diseño de uñas" class="img-fluid rounded-3 service-card">
+                    <img src="IMAGES/Galeria 12.jpg" alt="Uñas con diseño minimalista"
+                        class="img-fluid rounded-3 service-card" loading="lazy">
                 </div>
                 <div class="col-md-4 col-6">
-                    <img src="IMAGES/Galeria 13.jpg" alt="Diseño de uñas" class="img-fluid rounded-3 service-card">
+                    <img src="IMAGES/Galeria 13.jpg" alt="Diseño de uñas con detalles dorados"
+                        class="img-fluid rounded-3 service-card" loading="lazy">
                 </div>
                 <div class="col-md-4 col-6">
-                    <img src="IMAGES/Galeria 14.jpg" alt="Diseño de uñas" class="img-fluid rounded-3 service-card">
+                    <img src="IMAGES/Galeria 14.jpg" alt="Uñas con temática floral"
+                        class="img-fluid rounded-3 service-card" loading="lazy">
                 </div>
                 <div class="col-md-4 col-6">
-                    <img src="IMAGES/Galeria 15.jpg" alt="Diseño de uñas" class="img-fluid rounded-3 service-card">
+                    <img src="IMAGES/Galeria 15.jpg" alt="Manicura con efecto degradado"
+                        class="img-fluid rounded-3 service-card" loading="lazy">
                 </div>
                 <div class="col-md-4 col-6">
-                    <img src="IMAGES/Galeria 16.jpg" alt="Diseño de uñas" class="img-fluid rounded-3 service-card">
+                    <img src="IMAGES/Galeria 16.jpg" alt="Uñas con diseño artístico"
+                        class="img-fluid rounded-3 service-card" loading="lazy">
                 </div>
                 <div class="col-md-4 col-6">
-                    <img src="IMAGES/Galeria 19.jpg" alt="Diseño de uñas" class="img-fluid rounded-3 service-card">
+                    <img src="IMAGES/Galeria 19.jpg" alt="Diseño de uñas elegante"
+                        class="img-fluid rounded-3 service-card" loading="lazy">
                 </div>
             </div>
 
             <hr class="hr-primary border-3 opacity-100">
-            
+
             <!-- Sección de Antes & Después -->
             <div class="text-center mb-5">
                 <h2 class="fw-bold">Antes y Después</h2>
                 <p class="text-muted">Descubre la transformación de algunas de nuestras clientas</p>
             </div>
-            
+
             <div class="row g-4">
                 <div class="col-md-6">
                     <div class="before-after-container">
-                        <img src="IMAGES/After Karina.jpg" alt="After" class="before-after-img">
+                        <img src="IMAGES/After Karina.jpg" alt="Uñas después del tratamiento - Cliente Karina"
+                            class="before-after-img" loading="lazy">
                         <div class="before-after-slider">
-                            <img src="IMAGES/Before Karina.jpg" alt="Before" class="before-after-img">
-                            <div class="before-after-handle">
-                                <i class="fas fa-arrows-alt-h animate-move-right"></i>
+                            <img src="IMAGES/Before Karina.jpg" alt="Uñas antes del tratamiento - Cliente Karina"
+                                class="before-after-img" loading="lazy">
+                            <div class="before-after-handle" aria-label="Deslizador para comparar antes y después">
+                                <i class="fas fa-arrows-alt-h animate-move-right" aria-hidden="true"></i>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="before-after-container">
-                        <img src="IMAGES/After Andrea.jpg" alt="After" class="before-after-img">
+                        <img src="IMAGES/After Andrea.jpg" alt="Uñas después del tratamiento - Cliente Andrea"
+                            class="before-after-img" loading="lazy">
                         <div class="before-after-slider">
-                            <img src="IMAGES/Before Andrea.jpg" alt="Before" class="before-after-img">
-                            <div class="before-after-handle">
-                                <i class="fas fa-arrows-alt-h animate-move-right"></i>
+                            <img src="IMAGES/Before Andrea.jpg" alt="Uñas antes del tratamiento - Cliente Andrea"
+                                class="before-after-img" loading="lazy">
+                            <div class="before-after-handle" aria-label="Deslizador para comparar antes y después">
+                                <i class="fas fa-arrows-alt-h animate-move-right" aria-hidden="true"></i>
                             </div>
                         </div>
                     </div>
@@ -443,44 +513,52 @@
             <div class="row g-4">
                 <div class="col-md-6">
                     <div class="before-after-container">
-                        <img src="IMAGES/After Reina.JPEG" alt="After" class="before-after-img">
+                        <img src="IMAGES/After Reina.JPEG" alt="Uñas después del tratamiento - Cliente Reina"
+                            class="before-after-img" loading="lazy">
                         <div class="before-after-slider">
-                            <img src="IMAGES/Before Reina.jpg" alt="Before" class="before-after-img">
-                            <div class="before-after-handle">
-                                <i class="fas fa-arrows-alt-h animate-move-right"></i>
+                            <img src="IMAGES/Before Reina.jpg" alt="Uñas antes del tratamiento - Cliente Reina"
+                                class="before-after-img" loading="lazy">
+                            <div class="before-after-handle" aria-label="Deslizador para comparar antes y después">
+                                <i class="fas fa-arrows-alt-h animate-move-right" aria-hidden="true"></i>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="before-after-container">
-                        <img src="IMAGES/After Angie.jpg" alt="After" class="before-after-img">
+                        <img src="IMAGES/After Angie.jpg" alt="Uñas después del tratamiento - Cliente Angie"
+                            class="before-after-img" loading="lazy">
                         <div class="before-after-slider">
-                            <img src="IMAGES/Before Angie.jpg" alt="Before" class="before-after-img">
-                            <div class="before-after-handle">
-                                <i class="fas fa-arrows-alt-h animate-move-right"></i>
+                            <img src="IMAGES/Before Angie.jpg" alt="Uñas antes del tratamiento - Cliente Angie"
+                                class="before-after-img" loading="lazy">
+                            <div class="before-after-handle" aria-label="Deslizador para comparar antes y después">
+                                <i class="fas fa-arrows-alt-h animate-move-right" aria-hidden="true"></i>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="before-after-container">
-                        <img src="IMAGES/After Sebastian.jpg" alt="After" class="before-after-img">
+                        <img src="IMAGES/After Sebastian.jpg" alt="Uñas después del tratamiento - Cliente Sebastian"
+                            class="before-after-img" loading="lazy">
                         <div class="before-after-slider">
-                            <img src="IMAGES/Before Sebastian.jpg" alt="Before" class="before-after-img">
-                            <div class="before-after-handle">
-                                <i class="fas fa-arrows-alt-h animate-move-right"></i>
+                            <img src="IMAGES/Before Sebastian.jpg" alt="Uñas antes del tratamiento - Cliente Sebastian"
+                                class="before-after-img" loading="lazy">
+                            <div class="before-after-handle" aria-label="Deslizador para comparar antes y después">
+                                <i class="fas fa-arrows-alt-h animate-move-right" aria-hidden="true"></i>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="before-after-container">
-                        <img src="IMAGES/After Valery.jpg" alt="After" class="before-after-img">
+                        <img src="IMAGES/After Valery.jpg" alt="Uñas después del tratamiento - Cliente Valery"
+                            class="before-after-img" loading="lazy">
                         <div class="before-after-slider">
-                            <img src="IMAGES/Before Valery.jpg" alt="Before" class="before-after-img">
-                            <div class="before-after-handle">
-                                <i class="fas fa-arrows-alt-h animate-move-right"></i>
+                            <img src="IMAGES/Before Valery.jpg" alt="Uñas antes del tratamiento - Cliente Valery"
+                                class="before-after-img" loading="lazy">
+                            <div class="before-after-handle" aria-label="Deslizador para comparar antes y después">
+                                <i class="fas fa-arrows-alt-h animate-move-right" aria-hidden="true"></i>
                             </div>
                         </div>
                     </div>
@@ -495,12 +573,13 @@
         <div class="container">
             <div class="text-center mb-5">
                 <h2 class="fw-bold">Videos de Nuestros Trabajos</h2>
-                <p class="text-muted">Mira nuestros procesos creativos en acción y cómo se desarrolla el diseño de tus uñas</p>
+                <p class="text-muted">Mira nuestros procesos creativos en acción y cómo se desarrolla el diseño de tus
+                    uñas</p>
             </div>
-            
+
             <div class="text-center mt-4">
                 <a href="https://www.instagram.com/pretty_nails_karen/reels/" class="btn btn-instagram" target="_blank">
-                    <i class="fab fa-instagram"></i> Ver en Instagram
+                    <i class="fab fa-instagram" aria-hidden="true"></i> Ver en Instagram
                 </a>
             </div>
         </div>
@@ -514,7 +593,7 @@
                 <h2 class="fw-bold">Lo que opinan nuestros clientes</h2>
                 <p class="text-muted">Experiencias reales de quienes han visitado Pretty Nails</p>
             </div>
-            
+
             <!-- Carrusel de Testimonios -->
             <div id="testimoniosCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
                 <div class="carousel-inner">
@@ -524,13 +603,15 @@
                             <div class="col-lg-8">
                                 <div class="testimonial-card rosa p-4 rounded-3 mx-auto h-100">
                                     <div class="d-flex align-items-center mb-3">
-                                        <img src="IMAGES/Daniela Zapata.jpg" alt="Daniela Zapata" class="rounded-circle me-3" width="60">
+                                        <img src="IMAGES/Daniela Zapata.jpg" alt="Daniela Zapata - Cliente satisfecha"
+                                            class="rounded-circle me-3" width="60" height="60" loading="lazy">
                                         <div>
                                             <h5 class="mb-0">Daniela Zapata</h5>
-                                            <div class="text-warning">⭐️⭐️⭐️⭐️⭐️</div>
+                                            <div class="text-warning" aria-label="5 estrellas">⭐️⭐️⭐️⭐️⭐️</div>
                                         </div>
                                     </div>
-                                    <p class="mb-3">"¡Las mejores uñas de Remedios! Karen es una artista increíble y muy profesional. Mis uñas duraron perfectas más de 3 semanas. ¡Volveré pronto!"</p>
+                                    <p class="mb-3">"¡Las mejores uñas de Remedios! Karen es una artista increíble y muy
+                                        profesional. Mis uñas duraron perfectas más de 3 semanas. ¡Volveré pronto!"</p>
                                     <div class="text-end">
                                         <small class="text-muted">Publicado el 07/07/2025</small>
                                     </div>
@@ -538,20 +619,23 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- Testimonio 2 -->
                     <div class="carousel-item">
                         <div class="row justify-content-center">
                             <div class="col-lg-8">
                                 <div class="testimonial-card rosa p-4 rounded-3 mx-auto h-100">
                                     <div class="d-flex align-items-center mb-3">
-                                        <img src="IMAGES/Angie Ramirez.jpg" alt="Angie Ramirez" class="rounded-circle me-3" width="60">
+                                        <img src="IMAGES/Angie Ramirez.jpg" alt="Angie Ramirez - Cliente satisfecha"
+                                            class="rounded-circle me-3" width="60" height="60" loading="lazy">
                                         <div>
                                             <h5 class="mb-0">Angie Ramirez</h5>
-                                            <div class="text-warning">⭐️⭐️⭐️⭐️⭐️</div>
+                                            <div class="text-warning" aria-label="5 estrellas">⭐️⭐️⭐️⭐️⭐️</div>
                                         </div>
                                     </div>
-                                    <p class="mb-3">"Quedé encantada con mis uñas, la atención súper maravillosa, Karen es súper atenta y linda con sus clientas, muy dedicada a su trabajo entregada a dar lo mejor de ella para hacer un gran trabajo."</p>
+                                    <p class="mb-3">"Quedé encantada con mis uñas, la atención súper maravillosa, Karen
+                                        es súper atenta y linda con sus clientas, muy dedicada a su trabajo entregada a
+                                        dar lo mejor de ella para hacer un gran trabajo."</p>
                                     <div class="text-end">
                                         <small class="text-muted">Publicado el 04/07/2025</small>
                                     </div>
@@ -559,20 +643,23 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- Testimonio 3 -->
                     <div class="carousel-item">
                         <div class="row justify-content-center">
                             <div class="col-lg-8">
                                 <div class="testimonial-card azul p-4 rounded-3 mx-auto h-100">
                                     <div class="d-flex align-items-center mb-3">
-                                        <img src="IMAGES/Juan Estrada.jpg" alt="Juan Estrada" class="rounded-circle me-3" width="60">
+                                        <img src="IMAGES/Juan Estrada.jpg" alt="Juan Estrada - Cliente satisfecho"
+                                            class="rounded-circle me-3" width="60" height="60" loading="lazy">
                                         <div>
                                             <h5 class="mb-0">Juan Estrada</h5>
-                                            <div class="text-warning">⭐️⭐️⭐️⭐️⭐️</div>
+                                            <div class="text-warning" aria-label="5 estrellas">⭐️⭐️⭐️⭐️⭐️</div>
                                         </div>
                                     </div>
-                                    <p class="mb-3">"Me gustó mucho el resultado. Karen trabaja con mucha precisión y tiene muy buen gusto para recomendar diseños. Se nota que le apasiona lo que hace y me hizo sentir muy cómodo durante todo el proceso."</p>
+                                    <p class="mb-3">"Me gustó mucho el resultado. Karen trabaja con mucha precisión y
+                                        tiene muy buen gusto para recomendar diseños. Se nota que le apasiona lo que
+                                        hace y me hizo sentir muy cómodo durante todo el proceso."</p>
                                     <div class="text-end">
                                         <small class="text-muted">Publicado el 01/07/2025</small>
                                     </div>
@@ -580,20 +667,23 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- Testimonio 4 -->
                     <div class="carousel-item">
                         <div class="row justify-content-center">
                             <div class="col-lg-8">
                                 <div class="testimonial-card rosa p-4 rounded-3 mx-auto h-100">
                                     <div class="d-flex align-items-center mb-3">
-                                        <img src="IMAGES/Maryely Berrio.jpg" alt="Maryely Berrio" class="rounded-circle me-3" width="60">
+                                        <img src="IMAGES/Maryely Berrio.jpg" alt="Maryely Berrio - Cliente satisfecha"
+                                            class="rounded-circle me-3" width="60" height="60" loading="lazy">
                                         <div>
                                             <h5 class="mb-0">Maryely Berrio</h5>
-                                            <div class="text-warning">⭐️⭐️⭐️⭐️⭐️</div>
+                                            <div class="text-warning" aria-label="5 estrellas">⭐️⭐️⭐️⭐️⭐️</div>
                                         </div>
                                     </div>
-                                    <p class="mb-3">"Súper feliz con el resultado, Karen entendió exactamente lo que quería. El diseño quedó hermoso y la calidad es excelente. ¡100% recomendada!"</p>
+                                    <p class="mb-3">"Súper feliz con el resultado, Karen entendió exactamente lo que
+                                        quería. El diseño quedó hermoso y la calidad es excelente. ¡100% recomendada!"
+                                    </p>
                                     <div class="text-end">
                                         <small class="text-muted">Publicado el 28/06/2025</small>
                                     </div>
@@ -601,20 +691,24 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- Testimonio 5 -->
                     <div class="carousel-item">
                         <div class="row justify-content-center">
                             <div class="col-lg-8">
                                 <div class="testimonial-card rosa p-4 rounded-3 mx-auto h-100">
                                     <div class="d-flex align-items-center mb-3">
-                                        <img src="IMAGES/Yurbriny Munoz.jpg" alt="Yurbriny Muñoz" class="rounded-circle me-3" width="60">
+                                        <img src="IMAGES/Yurbriny Munoz.jpg" alt="Yurbriny Muñoz - Cliente satisfecha"
+                                            class="rounded-circle me-3" width="60" height="60" loading="lazy">
                                         <div>
                                             <h5 class="mb-0">Yurbriny Muñoz</h5>
-                                            <div class="text-warning">⭐️⭐️⭐️⭐️⭐️</div>
+                                            <div class="text-warning" aria-label="5 estrellas">⭐️⭐️⭐️⭐️⭐️</div>
                                         </div>
                                     </div>
-                                    <p class="mb-3">"¡Estoy fascinada con mis uñas! Karen es súper detallista y paciente, me ayudó a elegir un diseño precioso y el acabado quedó impecable. Además, es muy amable y hace que el rato se pase volando. ¡Definitivamente volveré!"</p>
+                                    <p class="mb-3">"¡Estoy fascinada con mis uñas! Karen es súper detallista y
+                                        paciente, me ayudó a elegir un diseño precioso y el acabado quedó impecable.
+                                        Además, es muy amable y hace que el rato se pase volando. ¡Definitivamente
+                                        volveré!"</p>
                                     <div class="text-end">
                                         <small class="text-muted">Publicado el 26/06/2025</small>
                                     </div>
@@ -622,20 +716,24 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- Testimonio 6 -->
                     <div class="carousel-item">
                         <div class="row justify-content-center">
                             <div class="col-lg-8">
                                 <div class="testimonial-card azul p-4 rounded-3 mx-auto h-100">
                                     <div class="d-flex align-items-center mb-3">
-                                        <img src="IMAGES/Sebastian Agudelo.JPEG" alt="Sebastian Agudelo" class="rounded-circle me-3" width="60">
+                                        <img src="IMAGES/Sebastian Agudelo.JPEG"
+                                            alt="Sebastian Agudelo - Cliente satisfecho" class="rounded-circle me-3"
+                                            width="60" height="60" loading="lazy">
                                         <div>
                                             <h5 class="mb-0">Sebastian Agudelo</h5>
-                                            <div class="text-warning">⭐️⭐️⭐️⭐️⭐️</div>
+                                            <div class="text-warning" aria-label="5 estrellas">⭐️⭐️⭐️⭐️⭐️</div>
                                         </div>
                                     </div>
-                                    <p class="mb-3">"Me gustó mucho como me quedaron las uñas de limpias y organizadas, Karen se esfuerza demasiado para que el cliente se sienta a gusto y cómodo, al menos conmigo lo logró 10/10 la atención del servicio y la calidad."</p>
+                                    <p class="mb-3">"Me gustó mucho como me quedaron las uñas de limpias y organizadas,
+                                        Karen se esfuerza demasiado para que el cliente se sienta a gusto y cómodo, al
+                                        menos conmigo lo logró 10/10 la atención del servicio y la calidad."</p>
                                     <div class="text-end">
                                         <small class="text-muted">Publicado el 23/06/2025</small>
                                     </div>
@@ -644,166 +742,179 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Controles del carrusel -->
-                <button class="carousel-control-prev" type="button" data-bs-target="#testimoniosCarousel" data-bs-slide="prev">
+                <button class="carousel-control-prev" type="button" data-bs-target="#testimoniosCarousel"
+                    data-bs-slide="prev" aria-label="Testimonio anterior">
                     <span class="carousel-control-prev-icon bg-dark rounded-circle p-3" aria-hidden="true"></span>
                     <span class="visually-hidden">Anterior</span>
                 </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#testimoniosCarousel" data-bs-slide="next">
+                <button class="carousel-control-next" type="button" data-bs-target="#testimoniosCarousel"
+                    data-bs-slide="next" aria-label="Testimonio siguiente">
                     <span class="carousel-control-next-icon bg-dark rounded-circle p-3" aria-hidden="true"></span>
                     <span class="visually-hidden">Siguiente</span>
                 </button>
-                
+
                 <!-- Indicadores -->
                 <div class="carousel-indicators position-static mt-4">
-                    <button type="button" data-bs-target="#testimoniosCarousel" data-bs-slide-to="0" class="active bg-dark rounded-circle" style="width: 12px; height: 12px;"></button>
-                    <button type="button" data-bs-target="#testimoniosCarousel" data-bs-slide-to="1" class="bg-dark rounded-circle" style="width: 12px; height: 12px;"></button>
-                    <button type="button" data-bs-target="#testimoniosCarousel" data-bs-slide-to="2" class="bg-dark rounded-circle" style="width: 12px; height: 12px;"></button>
-                    <button type="button" data-bs-target="#testimoniosCarousel" data-bs-slide-to="3" class="bg-dark rounded-circle" style="width: 12px; height: 12px;"></button>
-                    <button type="button" data-bs-target="#testimoniosCarousel" data-bs-slide-to="4" class="bg-dark rounded-circle" style="width: 12px; height: 12px;"></button>
-                    <button type="button" data-bs-target="#testimoniosCarousel" data-bs-slide-to="5" class="bg-dark rounded-circle" style="width: 12px; height: 12px;"></button>
+                    <button type="button" data-bs-target="#testimoniosCarousel" data-bs-slide-to="0"
+                        class="active bg-dark rounded-circle" style="width: 12px; height: 12px;"
+                        aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#testimoniosCarousel" data-bs-slide-to="1"
+                        class="bg-dark rounded-circle" style="width: 12px; height: 12px;" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#testimoniosCarousel" data-bs-slide-to="2"
+                        class="bg-dark rounded-circle" style="width: 12px; height: 12px;" aria-label="Slide 3"></button>
+                    <button type="button" data-bs-target="#testimoniosCarousel" data-bs-slide-to="3"
+                        class="bg-dark rounded-circle" style="width: 12px; height: 12px;" aria-label="Slide 4"></button>
+                    <button type="button" data-bs-target="#testimoniosCarousel" data-bs-slide-to="4"
+                        class="bg-dark rounded-circle" style="width: 12px; height: 12px;" aria-label="Slide 5"></button>
+                    <button type="button" data-bs-target="#testimoniosCarousel" data-bs-slide-to="5"
+                        class="bg-dark rounded-circle" style="width: 12px; height: 12px;" aria-label="Slide 6"></button>
                 </div>
             </div>
         </div>
     </section>
     <!-- === FIN TESTIMONIOS === -->
 
-        <!-- === CUIDADO DE UÑAS === -->
-        <section id="cuidado" class="py-5 bg-light">
-            <div class="container">
-                <div class="text-center mb-5">
-                    <h2 class="fw-bold">Cuidado Natural de Uñas</h2>
-                    <p class="text-muted">Secretos profesionales con ingredientes caseros</p>
+    <!-- === CUIDADO DE UÑAS === -->
+    <section id="cuidado" class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">Cuidado Natural de Uñas</h2>
+                <p class="text-muted">Secretos profesionales con ingredientes caseros</p>
+            </div>
+
+            <div class="row g-4">
+                <!-- Hidratación -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="care-card p-4 h-100">
+                        <div class="care-icon mb-3">
+                            <i class="fas fa-hand-holding-water" aria-hidden="true"></i>
+                        </div>
+                        <h3>Hidratación Diaria</h3>
+                        <p class="care-subtitle">(Natural y fácil)</p>
+                        <ul class="care-tips">
+                            <li>
+                                <strong>Aceite de oliva o coco:</strong> Caliéntalo un poco y masajea tus uñas y
+                                cutículas por 5-10 minutos, 2 veces al día.
+                            </li>
+                            <li>
+                                <strong>Vaselina o manteca de cacao:</strong> Ideal después de lavar tus manos o antes
+                                de dormir.
+                            </li>
+                            <li>
+                                <strong>Miel + limón:</strong> Mezcla con unas gotas de limón y aplícalo por 10 minutos.
+                                Hidrata y fortalece.
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-                
-                <div class="row g-4">
-                    <!-- Hidratación -->
-                    <div class="col-md-6 col-lg-4">
-                        <div class="care-card p-4 h-100">
-                            <div class="care-icon mb-3">
-                                <i class="fas fa-hand-holding-water"></i>
-                            </div>
-                            <h3>Hidratación Diaria</h3>
-                            <p class="care-subtitle">(Natural y fácil)</p>
-                            <ul class="care-tips">
-                                <li>
-                                    <strong>Aceite de oliva o coco:</strong> Caliéntalo un poco y masajea tus uñas y cutículas por 5-10 minutos, 2 veces al día.
-                                </li>
-                                <li>
-                                    <strong>Vaselina o manteca de cacao:</strong> Ideal después de lavar tus manos o antes de dormir.
-                                </li>
-                                <li>
-                                    <strong>Miel + limón:</strong> Mezcla con unas gotas de limón y aplícalo por 10 minutos. Hidrata y fortalece.
-                                </li>
-                            </ul>
+
+                <!-- Mascarillas -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="care-card p-4 h-100">
+                        <div class="care-icon mb-3">
+                            <i class="fas fa-spa" aria-hidden="true"></i>
                         </div>
+                        <h3>Mascarillas Caseras</h3>
+                        <ul class="care-tips">
+                            <li>
+                                <strong>Fortalecedora (ajo + limón):</strong><br>
+                                Tritura 1 diente de ajo + jugo de medio limón + 1 cda. de aceite de oliva. Aplica con
+                                algodón por 15 minutos.
+                            </li>
+                            <li>
+                                <strong>Remojo en vinagre de manzana:</strong><br>
+                                Fortalece y combate hongos. Remoja tus uñas por 10 minutos, 2 veces por semana.
+                            </li>
+                        </ul>
                     </div>
-                    
-                    <!-- Mascarillas -->
-                    <div class="col-md-6 col-lg-4">
-                        <div class="care-card p-4 h-100">
-                            <div class="care-icon mb-3">
-                                <i class="fas fa-spa"></i>
-                            </div>
-                            <h3>Mascarillas Caseras</h3>
-                            <ul class="care-tips">
-                                <li>
-                                    <strong>Fortalecedora (ajo + limón):</strong><br>
-                                    Tritura 1 diente de ajo + jugo de medio limón + 1 cda. de aceite de oliva. Aplica con algodón por 15 minutos.
-                                </li>
-                                <li>
-                                    <strong>Remojo en vinagre de manzana:</strong><br>
-                                    Fortalece y combate hongos. Remoja tus uñas por 10 minutos, 2 veces por semana.
-                                </li>
-                            </ul>
+                </div>
+
+                <!-- Alimentación -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="care-card p-4 h-100">
+                        <div class="care-icon mb-3">
+                            <i class="fas fa-utensils" aria-hidden="true"></i>
                         </div>
+                        <h3>Alimentación Clave</h3>
+                        <p class="care-subtitle">(Con ingredientes comunes)</p>
+                        <ul class="care-tips">
+                            <li><strong>Huevos:</strong> Ricos en proteínas y biotina</li>
+                            <li><strong>Avena y arroz integral:</strong> Zinc y hierro</li>
+                            <li><strong>Banano y naranja:</strong> Vitamina C y potasio</li>
+                            <li><strong>Agua:</strong> ¡Hidratación desde adentro!</li>
+                        </ul>
                     </div>
-                    
-                    <!-- Alimentación -->
-                    <div class="col-md-6 col-lg-4">
-                        <div class="care-card p-4 h-100">
-                            <div class="care-icon mb-3">
-                                <i class="fas fa-utensils"></i>
-                            </div>
-                            <h3>Alimentación Clave</h3>
-                            <p class="care-subtitle">(Con ingredientes comunes)</p>
-                            <ul class="care-tips">
-                                <li><strong>Huevos:</strong> Ricos en proteínas y biotina</li>
-                                <li><strong>Avena y arroz integral:</strong> Zinc y hierro</li>
-                                <li><strong>Banano y naranja:</strong> Vitamina C y potasio</li>
-                                <li><strong>Agua:</strong> ¡Hidratación desde adentro!</li>
-                            </ul>
+                </div>
+
+                <!-- Malos hábitos -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="care-card p-4 h-100">
+                        <div class="care-icon mb-3">
+                            <i class="fas fa-ban" aria-hidden="true"></i>
                         </div>
+                        <h3>Malos Hábitos</h3>
+                        <p class="care-subtitle">(Evita estos errores)</p>
+                        <ul class="care-tips">
+                            <li>Usar las uñas para abrir cosas</li>
+                            <li>Morderte las uñas o cutículas</li>
+                            <li>Limar en seco (mejor después de bañarte)</li>
+                            <li>Retirar el esmalte a la fuerza</li>
+                        </ul>
                     </div>
-                    
-                    <!-- Malos hábitos -->
-                    <div class="col-md-6 col-lg-4">
-                        <div class="care-card p-4 h-100">
-                            <div class="care-icon mb-3">
-                                <i class="fas fa-ban"></i>
-                            </div>
-                            <h3>Malos Hábitos</h3>
-                            <p class="care-subtitle">(Evita estos errores)</p>
-                            <ul class="care-tips">
-                                <li>Usar las uñas para abrir cosas</li>
-                                <li>Morderte las uñas o cutículas</li>
-                                <li>Limar en seco (mejor después de bañarte)</li>
-                                <li>Retirar el esmalte a la fuerza</li>
-                            </ul>
+                </div>
+
+                <!-- Extras -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="care-card p-4 h-100">
+                        <div class="care-icon mb-3">
+                            <i class="fas fa-magic" aria-hidden="true"></i>
                         </div>
+                        <h3>Extras Caseros</h3>
+                        <p class="care-subtitle">(Fáciles y efectivos)</p>
+                        <ul class="care-tips">
+                            <li>
+                                <strong>Exfoliante natural:</strong><br>
+                                1 cda. de azúcar + 1 cda. de aceite de oliva o miel. Frota suavemente.
+                            </li>
+                            <li>
+                                <strong>Cápsula de vitamina E:</strong><br>
+                                Rompe una cápsula y úsala como aceite de noche (opcional).
+                            </li>
+                        </ul>
                     </div>
-                    
-                    <!-- Extras -->
-                    <div class="col-md-6 col-lg-4">
-                        <div class="care-card p-4 h-100">
-                            <div class="care-icon mb-3">
-                                <i class="fas fa-magic"></i>
-                            </div>
-                            <h3>Extras Caseros</h3>
-                            <p class="care-subtitle">(Fáciles y efectivos)</p>
-                            <ul class="care-tips">
-                                <li>
-                                    <strong>Exfoliante natural:</strong><br>
-                                    1 cda. de azúcar + 1 cda. de aceite de oliva o miel. Frota suavemente.
-                                </li>
-                                <li>
-                                    <strong>Cápsula de vitamina E:</strong><br>
-                                    Rompe una cápsula y úsala como aceite de noche (opcional).
-                                </li>
-                            </ul>
+                </div>
+
+                <!-- Consejo Profesional -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="care-card care-special p-4 h-100">
+                        <div class="care-icon mb-3">
+                            <i class="fas fa-star" aria-hidden="true"></i>
                         </div>
-                    </div>
-                    
-                    <!-- Consejo Profesional -->
-                    <div class="col-md-6 col-lg-4">
-                        <div class="care-card care-special p-4 h-100">
-                            <div class="care-icon mb-3">
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <h3>Consejo Profesional</h3>
-                            <p>En <strong>Pretty Nails</strong> usamos productos especializados para:</p>
-                            <ul class="care-tips">
-                                <li>Reparar uñas dañadas</li>
-                                <li>Tratamientos</li>
-                                <li>Hidratación</li>
-                            </ul>
-                            <div class="text-center mt-3">
-                                <a href="#citas" class="btn btn-sm btn-outline-primary">Agendar Cita</a>
-                            </div>
+                        <h3>Consejo Profesional</h3>
+                        <p>En <strong>Pretty Nails</strong> usamos productos especializados para:</p>
+                        <ul class="care-tips">
+                            <li>Reparar uñas dañadas</li>
+                            <li>Tratamientos</li>
+                            <li>Hidratación</li>
+                        </ul>
+                        <div class="text-center mt-3">
+                            <a href="#citas" class="btn btn-sm btn-outline-primary">Agendar Cita</a>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-        <!-- === TABLA COMPARATIVA === -->    
-        <br>    
+        <!-- === TABLA COMPARATIVA === -->
+        <br>
         <div class="container">
             <div class="text-center mb-5">
                 <h2 class="fw-bold">¿Remedio Casero o Visita Profesional?</h2>
                 <p class="text-muted">Aprende a identificar cuándo necesitas ayuda experta</p>
             </div>
-            
+
             <div class="responsive-comparison-table">
                 <table class="comparison-table">
                     <thead>
@@ -818,19 +929,22 @@
                         <tr>
                             <td data-label="Problema Común">
                                 <div class="problem-title">
-                                    <i class="fas fa-hand-scissors" style="color: #ff6b9e"></i>
+                                    <i class="fas fa-hand-scissors" style="color: #ff6b9e" aria-hidden="true"></i>
                                     <span>Uñas quebradizas</span>
                                 </div>
                             </td>
                             <td data-label="Solución Casera">
                                 <ul class="home-solution">
-                                    <li><i class="fas fa-check-circle"></i> Mascarilla de ajo + limón (2x/semana)</li>
-                                    <li><i class="fas fa-check-circle"></i> Aceite de ricino nocturno</li>
+                                    <li><i class="fas fa-check-circle" aria-hidden="true"></i> Mascarilla de ajo + limón
+                                        (2x/semana)</li>
+                                    <li><i class="fas fa-check-circle" aria-hidden="true"></i> Aceite de ricino nocturno
+                                    </li>
                                 </ul>
                             </td>
                             <td data-label="Cuándo Consultar">
                                 <div class="professional-solution">
-                                    <p><i class="fas fa-clinic-medical"></i> Si persiste después de 3 semanas</p>
+                                    <p><i class="fas fa-clinic-medical" aria-hidden="true"></i> Si persiste después de 3
+                                        semanas</p>
                                     <div class="recommendation">
                                         <span>Recomendamos:</span>
                                         <span>Tratamiento con keratina</span>
@@ -838,24 +952,27 @@
                                 </div>
                             </td>
                         </tr>
-                        
+
                         <!-- Fila 2 -->
                         <tr>
                             <td data-label="Problema Común">
                                 <div class="problem-title">
-                                    <i class="fas fa-allergies" style="color: #ff6b9e"></i>
+                                    <i class="fas fa-allergies" style="color: #ff6b9e" aria-hidden="true"></i>
                                     <span>Hongos leves</span>
                                 </div>
                             </td>
                             <td data-label="Solución Casera">
                                 <ul class="home-solution">
-                                    <li><i class="fas fa-check-circle"></i> Remojos en vinagre (10 min/día)</li>
-                                    <li><i class="fas fa-check-circle"></i> Aceite de árbol de té</li>
+                                    <li><i class="fas fa-check-circle" aria-hidden="true"></i> Remojos en vinagre (10
+                                        min/día)</li>
+                                    <li><i class="fas fa-check-circle" aria-hidden="true"></i> Aceite de árbol de té
+                                    </li>
                                 </ul>
                             </td>
                             <td data-label="Cuándo Consultar">
                                 <div class="professional-solution">
-                                    <p><i class="fas fa-clinic-medical"></i> Si no mejora en 15 días</p>
+                                    <p><i class="fas fa-clinic-medical" aria-hidden="true"></i> Si no mejora en 15 días
+                                    </p>
                                     <div class="recommendation">
                                         <span>Recomendamos:</span>
                                         <span>Láser antifúngico</span>
@@ -863,24 +980,26 @@
                                 </div>
                             </td>
                         </tr>
-                        
+
                         <!-- Fila 3 -->
                         <tr>
                             <td data-label="Problema Común">
                                 <div class="problem-title">
-                                    <i class="fas fa-fire" style="color: #ff6b9e"></i>
+                                    <i class="fas fa-fire" style="color: #ff6b9e" aria-hidden="true"></i>
                                     <span>Uñas amarillentas</span>
                                 </div>
                             </td>
                             <td data-label="Solución Casera">
                                 <ul class="home-solution">
-                                    <li><i class="fas fa-check-circle"></i> Bicarbonato + agua oxigenada</li>
-                                    <li><i class="fas fa-check-circle"></i> Limón + sal marina</li>
+                                    <li><i class="fas fa-check-circle" aria-hidden="true"></i> Bicarbonato + agua
+                                        oxigenada</li>
+                                    <li><i class="fas fa-check-circle" aria-hidden="true"></i> Limón + sal marina</li>
                                 </ul>
                             </td>
                             <td data-label="Cuándo Consultar">
                                 <div class="professional-solution">
-                                    <p><i class="fas fa-clinic-medical"></i> Cuando el color persiste</p>
+                                    <p><i class="fas fa-clinic-medical" aria-hidden="true"></i> Cuando el color persiste
+                                    </p>
                                     <div class="recommendation">
                                         <span>Recomendamos:</span>
                                         <span>Pulido profesional + vitaminas</span>
@@ -888,24 +1007,26 @@
                                 </div>
                             </td>
                         </tr>
-                        
+
                         <!-- Fila 4 -->
                         <tr>
                             <td data-label="Problema Común">
                                 <div class="problem-title">
-                                    <i class="fas fa-cut" style="color: #ff6b9e"></i>
+                                    <i class="fas fa-cut" style="color: #ff6b9e" aria-hidden="true"></i>
                                     <span>Cutículas dañadas</span>
                                 </div>
                             </td>
                             <td data-label="Solución Casera">
                                 <ul class="home-solution">
-                                    <li><i class="fas fa-check-circle"></i> Vaselina 3 veces al día</li>
-                                    <li><i class="fas fa-check-circle"></i> Pepino + aloe vera</li>
+                                    <li><i class="fas fa-check-circle" aria-hidden="true"></i> Vaselina 3 veces al día
+                                    </li>
+                                    <li><i class="fas fa-check-circle" aria-hidden="true"></i> Pepino + aloe vera</li>
                                 </ul>
                             </td>
                             <td data-label="Cuándo Consultar">
                                 <div class="professional-solution">
-                                    <p><i class="fas fa-clinic-medical"></i> Si hay sangrado/inflamación</p>
+                                    <p><i class="fas fa-clinic-medical" aria-hidden="true"></i> Si hay
+                                        sangrado/inflamación</p>
                                     <div class="recommendation">
                                         <span>Recomendamos:</span>
                                         <span>Tratamiento con parafina</span>
@@ -929,233 +1050,268 @@
                         <h2 class="fw-bold">Agenda tu cita</h2>
                         <p class="lead">Reserva tu servicio con nosotros</p>
                     </div>
-                    
+
                     <div class="row g-4">
                         <div class="col-md-6">
-    <div class="contact-card p-4 h-100">
-        <h4 class="fw-bold mb-4 text-center" style="color: var(--rosa-fuerte);">
-            <i class="fas fa-info-circle me-2"></i>Información de Contacto
-        </h4>
-        
-        <!-- Teléfono -->
-        <div class="contact-item d-flex align-items-start mb-4 p-3 rounded-3">
-            <div class="contact-icon bg-primary bg-opacity-10 p-3 rounded-circle me-3">
-                <i class="fas fa-phone-alt text-primary"></i>
-            </div>
-            <div>
-                <h5 class="fw-semibold mb-1">Teléfono</h5>
-                <p class="mb-0">
-                    <a href="tel:+573163572744" class="text-decoration-none">+57 316 357 27 44</a>
-                </p>
-            </div>
-        </div>
-        
-        <!-- Dirección -->
-        <div class="contact-item d-flex align-items-start mb-4 p-3 rounded-3">
-            <div class="contact-icon bg-primary bg-opacity-10 p-3 rounded-circle me-3">
-                <i class="fas fa-map-marker-alt text-primary"></i>
-            </div>
-            <div>
-                <h5 class="fw-semibold mb-1">Dirección</h5>
-                <p class="mb-0">Municipio: Remedios</p>
-                <p class="mb-0">Barrio: Buenos Aires - Parte Baja</p>
-            </div>
-        </div>
-        
-        <!-- Horario -->
-        <div class="contact-item d-flex align-items-start p-3 rounded-3">
-            <div class="contact-icon bg-primary bg-opacity-10 p-3 rounded-circle me-3">
-                <i class="fas fa-clock text-primary"></i>
-                    </div>
-                            <div>
-                                <h5 class="fw-semibold mb-2">Horarios de Atención</h5>
-                                <div class="schedule-grid">
-                                    <div class="schedule-container">
-                                        <div class="schedule-day">Lunes:</div>
-                                        <div class="schedule-time">2:00 PM - 6:00 PM</div>
-                                        
-                                        <hr class="schedule-divider">
-                                        
-                                        <div class="schedule-day closed">Martes:</div>
-                                        <div class="schedule-time closed">Cerrado</div>
-                                        
-                                        <hr class="schedule-divider">
-                                        
-                                        <div class="schedule-day">Miércoles:</div>
-                                        <div class="schedule-time">2:00 PM - 6:00 PM</div>
-                                        
-                                        <hr class="schedule-divider">
+                            <div class="contact-card p-4 h-100">
+                                <h4 class="fw-bold mb-4 text-center" style="color: var(--rosa-fuerte);">
+                                    <i class="fas fa-info-circle me-2" aria-hidden="true"></i>Información de Contacto
+                                </h4>
 
-                                        <div class="schedule-day">Jueves:</div>
-                                        <div class="schedule-time">2:00 PM - 6:00 PM</div>
-                                        
-                                        <hr class="schedule-divider">
-                                        
-                                        <div class="schedule-day">Viernes:</div>
-                                        <div class="schedule-time">2:00 PM - 6:00 PM</div>
-                                        
-                                        <hr class="schedule-divider">
-
-                                        <div class="schedule-day">Sábado:</div>
-                                        <div class="schedule-time">8:00 AM - 12:00 PM<br>1:00 PM - 6:00 PM</div>
-                                        
-                                        <hr class="schedule-divider">
-
-                                        <div class="schedule-day">Domingo:</div>
-                                        <div class="schedule-time">8:00 AM - 12:00 PM</div>
+                                <!-- Teléfono -->
+                                <div class="contact-item d-flex align-items-start mb-4 p-3 rounded-3">
+                                    <div class="contact-icon bg-primary bg-opacity-10 p-3 rounded-circle me-3">
+                                        <i class="fas fa-phone-alt text-primary" aria-hidden="true"></i>
                                     </div>
-                                </div>
-                                <!-- Mensaje "Agenda Tu Cita" para móviles -->
-                                <div class="col-12 d-md-none">
-                                    <div class="custom-alert-pastel d-flex align-items-center p-3 mb-0 mt-2">
-                                        <div class="flex-shrink-0 me-3">
-                                            <i class="fas fa-calendar-alt" style="color: var(--rosa-fuerte);"></i>
-                                        </div>
-                                        <div class="d-flex align-items-center">
-                                            <span class="me-2 fw-bold" style="color: var(--rosa-fuerte);">Agenda Tu Cita</span>
-                                            <i class="fa-solid fa-arrow-down animate-move-down" style="color: var(--rosa-fuerte);"></i>
-                                        </div>
+                                    <div>
+                                        <h5 class="fw-semibold mb-1">Teléfono</h5>
+                                        <p class="mb-0">
+                                            <a href="tel:+573163572744" class="text-decoration-none">+57 316 357 27
+                                                44</a>
+                                        </p>
                                     </div>
                                 </div>
 
-                                <!-- Mensaje "Agenda Tu Cita" para desktop -->
-                                <div class="col-12 d-none d-md-flex">
-                                    <div class="custom-alert-pastel d-flex align-items-center p-3 mb-0 mt-2">
-                                        <div class="flex-shrink-0 me-3">
-                                            <i class="fas fa-calendar-alt" style="color: var(--rosa-fuerte);"></i>
+                                <!-- Dirección -->
+                                <div class="contact-item d-flex align-items-start mb-4 p-3 rounded-3">
+                                    <div class="contact-icon bg-primary bg-opacity-10 p-3 rounded-circle me-3">
+                                        <i class="fas fa-map-marker-alt text-primary" aria-hidden="true"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="fw-semibold mb-1">Dirección</h5>
+                                        <p class="mb-0">Municipio: Remedios</p>
+                                        <p class="mb-0">Barrio: Buenos Aires - Parte Baja</p>
+                                    </div>
+                                </div>
+
+                                <!-- Horario -->
+                                <div class="contact-item d-flex align-items-start p-3 rounded-3">
+                                    <div class="contact-icon bg-primary bg-opacity-10 p-3 rounded-circle me-3">
+                                        <i class="fas fa-clock text-primary" aria-hidden="true"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="fw-semibold mb-2">Horarios de Atención</h5>
+                                        <div class="schedule-grid">
+                                            <div class="schedule-container">
+                                                <div class="schedule-day">Lunes:</div>
+                                                <div class="schedule-time">2:00 PM - 6:00 PM</div>
+
+                                                <hr class="schedule-divider">
+
+                                                <div class="schedule-day closed">Martes:</div>
+                                                <div class="schedule-time closed">Cerrado</div>
+
+                                                <hr class="schedule-divider">
+
+                                                <div class="schedule-day">Miércoles:</div>
+                                                <div class="schedule-time">2:00 PM - 6:00 PM</div>
+
+                                                <hr class="schedule-divider">
+
+                                                <div class="schedule-day">Jueves:</div>
+                                                <div class="schedule-time">2:00 PM - 6:00 PM</div>
+
+                                                <hr class="schedule-divider">
+
+                                                <div class="schedule-day">Viernes:</div>
+                                                <div class="schedule-time">2:00 PM - 6:00 PM</div>
+
+                                                <hr class="schedule-divider">
+
+                                                <div class="schedule-day">Sábado:</div>
+                                                <div class="schedule-time">8:00 AM - 12:00 PM<br>1:00 PM - 6:00 PM</div>
+
+                                                <hr class="schedule-divider">
+
+                                                <div class="schedule-day">Domingo:</div>
+                                                <div class="schedule-time">8:00 AM - 12:00 PM</div>
+                                            </div>
                                         </div>
-                                        <div class="d-flex align-items-center">
-                                            <span class="me-2 fw-bold" style="color: var(--rosa-fuerte);">Agenda Tu Cita</span>
-                                            <i class="fa-solid fa-arrow-right animate-move-right" style="color: var(--rosa-fuerte);"></i>
+                                        <!-- Mensaje "Agenda Tu Cita" para móviles -->
+                                        <div class="col-12 d-md-none">
+                                            <div class="custom-alert-pastel d-flex align-items-center p-3 mb-0 mt-2">
+                                                <div class="flex-shrink-0 me-3">
+                                                    <i class="fas fa-calendar-alt" style="color: var(--rosa-fuerte);"
+                                                        aria-hidden="true"></i>
+                                                </div>
+                                                <div class="d-flex align-items-center">
+                                                    <span class="me-2 fw-bold" style="color: var(--rosa-fuerte);">Agenda
+                                                        Tu Cita</span>
+                                                    <i class="fa-solid fa-arrow-down animate-move-down"
+                                                        style="color: var(--rosa-fuerte);" aria-hidden="true"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Mensaje "Agenda Tu Cita" para desktop -->
+                                        <div class="col-12 d-none d-md-flex">
+                                            <div class="custom-alert-pastel d-flex align-items-center p-3 mb-0 mt-2">
+                                                <div class="flex-shrink-0 me-3">
+                                                    <i class="fas fa-calendar-alt" style="color: var(--rosa-fuerte);"
+                                                        aria-hidden="true"></i>
+                                                </div>
+                                                <div class="d-flex align-items-center">
+                                                    <span class="me-2 fw-bold" style="color: var(--rosa-fuerte);">Agenda
+                                                        Tu Cita</span>
+                                                    <i class="fa-solid fa-arrow-right animate-move-right"
+                                                        style="color: var(--rosa-fuerte);" aria-hidden="true"></i>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>      
-                    <div class="col-md-6" id="citas">
-                        <div class="reservation-card p-4 h-100">
-                            <div class="text-center mb-4">
-                                <div class="reservation-icon mb-3">
-                                    <i class="fas fa-calendar-check"></i>
-                                </div>
-                                <h4 class="fw-bold mb-2">Reserva Rápida</h4>
-                                <p class="text-muted">Completa el formulario y envíanos tu solicitud por WhatsApp</p>
-                            </div>
-                            
-                            <form id="reservaForm">
-                                <!-- Nombre -->
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="nombre" placeholder="Nombre y Apellido" required>
-                                    <label for="nombre"><i class="fas fa-user me-2"></i>Nombre y Apellido</label>
-                                </div>
-                                
-                                <!-- Servicio 1 -->
-                                <div class="form-floating mb-3">
-                                    <select class="form-select servicio-select" id="servicio1" required>
-                                        <option value="" selected disabled>Selecciona un servicio...</option>
-                                        <optgroup label="MANICURA">
-                                            <option value="Forradas con Base Rubber|45000">Forradas con Base Rubber ($45,000)</option>
-                                            <option value="Press On|70000">Press On ($70,000)</option>
-                                            <option value="Press On Forradas en Acrílico|80000">Press On Forradas en Acrílico ($80,000)</option>
-                                            <option value="Press On Forradas en Acrygel|65000">Press On Forradas en Acrygel ($65,000)</option>
-                                            <option value="Semipermanente con Diseño|40000">Semipermanente con Diseño ($40,000)</option>
-                                            <option value="Manicura Tradicional (Hombre)|25000">Manicura Tradicional (Hombre) ($25,000)</option>
-                                        </optgroup>
-                                        <optgroup label="PEDICURA">
-                                            <option value="Pedicura Semipermanente|40000">Pedicura Semipermanente ($40,000)</option>
-                                        </optgroup>
-                                        <optgroup label="PROMOCIONES">
-                                            <option class="promo-option" value="Press On + Pedicura|110000|95000">Promoción 1: Press On + Pedicura ($95,000)</option>
-                                        <option class="promo-option" value="Forradas en Acrílico + Pedicura|120000|105000">Promoción 2: Forradas en Acrílico + Pedicura ($105,000)</option>
-                                        </optgroup>
-                                    </select>
-                                    <label for="servicio1"><i class="fas fa-spa me-2"></i>Servicio 1</label>
-                                </div>
-                                
-                                <!-- Servicio 2 (Opcional) -->
-                                <div class="form-floating mb-3">
-                                    <select class="form-select servicio-select" id="servicio2">
-                                        <option value="" selected>No deseo segundo servicio</option>
-                                        <!-- Las opciones se llenarán dinámicamente desde JavaScript -->
-                                    </select>
-                                    <label for="servicio2"><i class="fas fa-spa me-2"></i>Servicio 2 (Opcional)</label>
-                                </div>
-                                
-                                <!-- Total -->
-                                <div class="total-container mb-3 p-3 rounded-3 text-center">
-                                    <h5 class="fw-bold mb-0">Total: <span id="totalServicios">$0</span></h5>
-                                    <div id="ahorroPromocion" class="savings" style="display: none;"></div>
-                                </div>
-                                
-                                <!-- Fecha y Hora -->
-                                <div class="row g-3 mb-3">
-                                    <div class="col-md-6">
-                                        <div class="form-floating">
-                                            <input type="date" class="form-control" id="fecha" placeholder="Fecha" required>
-                                            <label for="fecha"><i class="far fa-calendar-alt me-2"></i>Fecha *</label>
-                                        </div>
+                        <div class="col-md-6" id="citas">
+                            <div class="reservation-card p-4 h-100">
+                                <div class="text-center mb-4">
+                                    <div class="reservation-icon mb-3">
+                                        <i class="fas fa-calendar-check" aria-hidden="true"></i>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-floating">
-                                            <input type="time" class="form-control" id="hora" placeholder="Hora" required>
-                                            <label for="hora"><i class="far fa-clock me-2"></i>Hora *</label>
-                                        </div>
+                                    <h4 class="fw-bold mb-2">Reserva Rápida</h4>
+                                    <p class="text-muted">Completa el formulario y envíanos tu solicitud por WhatsApp
+                                    </p>
+                                </div>
+
+                                <form id="reservaForm">
+                                    <!-- Nombre -->
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="nombre"
+                                            placeholder="Nombre y Apellido" required aria-required="true">
+                                        <label for="nombre"><i class="fas fa-user me-2" aria-hidden="true"></i>Nombre y
+                                            Apellido</label>
                                     </div>
-                                    
-                                    <!-- Mensaje para móviles -->
-                                    <div class="col-12 d-md-none">
-                                        <div class="custom-alert-pastel d-flex align-items-center p-3 mb-0 mt-2">
-                                            <div class="flex-shrink-0 me-3">
-                                                <i class="fas fa-info-circle fa-lg" style="color: var(--rosa-fuerte);"></i>
+
+                                    <!-- Servicio 1 -->
+                                    <div class="form-floating mb-3">
+                                        <select class="form-select servicio-select" id="servicio1" required
+                                            aria-required="true">
+                                            <option value="" selected disabled>Selecciona un servicio...</option>
+                                            <optgroup label="MANICURA">
+                                                <option value="Forradas con Base Rubber|45000">Forradas con Base Rubber
+                                                    ($45,000)</option>
+                                                <option value="Press On|70000">Press On ($70,000)</option>
+                                                <option value="Press On Forradas en Acrílico|80000">Press On Forradas en
+                                                    Acrílico ($80,000)</option>
+                                                <option value="Press On Forradas en Acrygel|65000">Press On Forradas en
+                                                    Acrygel ($65,000)</option>
+                                                <option value="Semipermanente con Diseño|40000">Semipermanente con
+                                                    Diseño ($40,000)</option>
+                                                <option value="Manicura Tradicional (Hombre)|25000">Manicura Tradicional
+                                                    (Hombre) ($25,000)</option>
+                                            </optgroup>
+                                            <optgroup label="PEDICURA">
+                                                <option value="Pedicura Semipermanente|40000">Pedicura Semipermanente
+                                                    ($40,000)</option>
+                                            </optgroup>
+                                            <optgroup label="PROMOCIONES">
+                                                <option class="promo-option" value="Press On + Pedicura|110000|95000">
+                                                    Promoción 1: Press On + Pedicura ($95,000)</option>
+                                                <option class="promo-option"
+                                                    value="Forradas en Acrílico + Pedicura|120000|105000">Promoción 2:
+                                                    Forradas en Acrílico + Pedicura ($105,000)</option>
+                                            </optgroup>
+                                        </select>
+                                        <label for="servicio1"><i class="fas fa-spa me-2"
+                                                aria-hidden="true"></i>Servicio 1</label>
+                                    </div>
+
+                                    <!-- Servicio 2 (Opcional) -->
+                                    <div class="form-floating mb-3">
+                                        <select class="form-select servicio-select" id="servicio2">
+                                            <option value="" selected>No deseo segundo servicio</option>
+                                            <!-- Las opciones se llenarán dinámicamente desde JavaScript -->
+                                        </select>
+                                        <label for="servicio2"><i class="fas fa-spa me-2"
+                                                aria-hidden="true"></i>Servicio 2
+                                            (Opcional)</label>
+                                    </div>
+
+                                    <!-- Total -->
+                                    <div class="total-container mb-3 p-3 rounded-3 text-center">
+                                        <h5 class="fw-bold mb-0">Total: <span id="totalServicios">$0</span></h5>
+                                        <div id="ahorroPromocion" class="savings" style="display: none;"></div>
+                                    </div>
+
+                                    <!-- Fecha y Hora -->
+                                    <div class="row g-3 mb-3">
+                                        <div class="col-md-6">
+                                            <div class="form-floating">
+                                                <input type="date" class="form-control" id="fecha" placeholder="Fecha"
+                                                    required aria-required="true">
+                                                <label for="fecha"><i class="far fa-calendar-alt me-2"
+                                                        aria-hidden="true"></i>Fecha
+                                                    *</label>
                                             </div>
-                                            <div class="d-flex align-items-center">
-                                                <span class="me-2">Arriba verás nuestros horarios</span>
-                                                <i class="fas fa-arrow-up animate-move-up" style="color: var(--rosa-fuerte);"></i>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-floating">
+                                                <input type="time" class="form-control" id="hora" placeholder="Hora"
+                                                    required aria-required="true">
+                                                <label for="hora"><i class="far fa-clock me-2"
+                                                        aria-hidden="true"></i>Hora *</label>
+                                            </div>
+                                        </div>
+
+                                        <!-- Mensaje para móviles -->
+                                        <div class="col-12 d-md-none">
+                                            <div class="custom-alert-pastel d-flex align-items-center p-3 mb-0 mt-2">
+                                                <div class="flex-shrink-0 me-3">
+                                                    <i class="fas fa-info-circle fa-lg"
+                                                        style="color: var(--rosa-fuerte);" aria-hidden="true"></i>
+                                                </div>
+                                                <div class="d-flex align-items-center">
+                                                    <span class="me-2">Arriba verás nuestros horarios</span>
+                                                    <i class="fas fa-arrow-up animate-move-up"
+                                                        style="color: var(--rosa-fuerte);" aria-hidden="true"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Mensaje para desktop -->
+                                        <div class="col-12 d-none d-md-flex">
+                                            <div class="custom-alert-pastel d-flex align-items-center p-3 mb-0 mt-2">
+                                                <div class="flex-shrink-0 me-3">
+                                                    <i class="fas fa-info-circle fa-lg"
+                                                        style="color: var(--rosa-fuerte);" aria-hidden="true"></i>
+                                                </div>
+                                                <div class="d-flex align-items-center">
+                                                    <span class="me-2">A la izquierda verás nuestros horarios</span>
+                                                    <i class="fas fa-arrow-left animate-move-left"
+                                                        style="color: var(--rosa-fuerte);" aria-hidden="true"></i>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <!-- Mensaje para desktop -->
-                                    <div class="col-12 d-none d-md-flex">
-                                        <div class="custom-alert-pastel d-flex align-items-center p-3 mb-0 mt-2">
+                                    <!-- Botón de enviar -->
+                                    <button type="button" class="btn btn-reservation w-100 py-3" id="enviarReserva">
+                                        <i class="fab fa-whatsapp me-2" aria-hidden="true"></i> Enviar Reserva
+                                    </button>
+
+                                    <div class="text-center mt-3">
+                                        <small class="text-muted">
+                                            <i class="fas fa-lock me-1" aria-hidden="true"></i> Tus datos solo se usarán
+                                            para esta reserva
+                                        </small>
+                                        <small class="d-block text-muted">
+                                            * Campos obligatorios
+                                        </small>
+                                        <div class="custom-alert-pastel d-flex align-items-center p-3 mb-2 mt-2">
                                             <div class="flex-shrink-0 me-3">
-                                                <i class="fas fa-info-circle fa-lg" style="color: var(--rosa-fuerte);"></i>
+                                                <i class="fas fa-map-marker-alt" style="color: var(--rosa-fuerte);"
+                                                    aria-hidden="true"></i>
                                             </div>
                                             <div class="d-flex align-items-center">
-                                                <span class="me-2">A la izquierda verás nuestros horarios</span>
-                                                <i class="fas fa-arrow-left animate-move-left" style="color: var(--rosa-fuerte);"></i>
+                                                <span class="me-2">Abajo puedes ver nuestra ubicación</span>
+                                                <i class="fa-solid fa-arrow-down animate-move-down"
+                                                    style="color: var(--rosa-fuerte);" aria-hidden="true"></i>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                
-                                <!-- Botón de enviar -->
-                                <button type="button" class="btn btn-reservation w-100 py-3" id="enviarReserva">
-                                    <i class="fab fa-whatsapp me-2"></i> Enviar Reserva
-                                </button>
-                                
-                                <div class="text-center mt-3">
-                                    <small class="text-muted">
-                                        <i class="fas fa-lock me-1"></i> Tus datos solo se usarán para esta reserva
-                                    </small>
-                                    <small class="d-block text-muted">
-                                        * Campos obligatorios
-                                    </small>
-                                    <div class="custom-alert-pastel d-flex align-items-center p-3 mb-2 mt-2">
-                                        <div class="flex-shrink-0 me-3">
-                                            <i class="fas fa-map-marker-alt" style="color: var(--rosa-fuerte);"></i>
-                                        </div>
-                                        <div class="d-flex align-items-center">
-                                            <span class="me-2">Abajo puedes ver nuestra ubicación</span>
-                                            <i class="fa-solid fa-arrow-down animate-move-down" style="color: var(--rosa-fuerte);"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
-                    </div>
                     </div>
                 </div>
             </div>
@@ -1169,22 +1325,23 @@
             <div class="text-center mb-5">
                 <h2 class="fw-bold">¿Cómo Llegar A Nuestro Spa?</h2>
             </div>
-            
+
             <div class="row justify-content-center">
                 <div class="col-lg-8 text-center">
                     <div class="location-card p-4 mb-4 rounded-3">
                         <div class="location-icon mb-3">
-                            <i class="fas fa-map-marked-alt fa-3x" style="color: var(--rosa-fuerte);"></i>
+                            <i class="fas fa-map-marked-alt fa-3x" style="color: var(--rosa-fuerte);"
+                                aria-hidden="true"></i>
                         </div>
                         <h2 class="mb-3">Pretty Nails Spa</h2>
                         <p class="mb-4">
-                            <i class="fas fa-city me-2"></i> Remedios, Antioquia<br>
-                            <i class="fas fa-home me-2"></i> Barrio Buenos Aires - Parte Baja
+                            <i class="fas fa-city me-2" aria-hidden="true"></i> Remedios, Antioquia<br>
+                            <i class="fas fa-home me-2" aria-hidden="true"></i> Barrio Buenos Aires - Parte Baja
                         </p>
                         <p class="mb-4">Mira nuestro video con las indicaciones exactas para llegar a nuestro spa</p>
-                        
+
                         <a href="https://www.instagram.com/reel/DMtD_G1SOr0/" class="btn btn-instagram" target="_blank">
-                            <i class="fab fa-instagram"></i> Ver en Instagram
+                            <i class="fab fa-instagram" aria-hidden="true"></i> Ver en Instagram
                         </a>
                     </div>
                 </div>
@@ -1199,16 +1356,19 @@
             <div class="row">
                 <div class="col-lg-4 mb-4 mb-lg-0">
                     <h5 class="fw-bold mb-3">
-                        <i class="fas fa-spa me-2"></i>Pretty Nails
+                        <i class="fas fa-spa me-2" aria-hidden="true"></i>Pretty Nails
                     </h5>
-                    <p>Spa de uñas especializado en diseños únicos y tratamientos de alta calidad para consentir tus manos y pies.</p>
+                    <p>Spa de uñas especializado en diseños únicos y tratamientos de alta calidad para consentir tus
+                        manos y pies.</p>
                     <p>¡Tu Estilo Empieza En Las Manos!</p>
                     <div class="mt-4">
-                        <a href="https://www.facebook.com/karen.vanegas.22803" class="social-icon" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                        <a href="https://www.instagram.com/pretty_nails_karen/" class="social-icon" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/karen.vanegas.22803" class="social-icon" target="_blank"
+                            aria-label="Facebook"><i class="fab fa-facebook-f" aria-hidden="true"></i></a>
+                        <a href="https://www.instagram.com/pretty_nails_karen/" class="social-icon" target="_blank"
+                            aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
                     </div>
                 </div>
-                
+
                 <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
                     <h5 class="fw-bold mb-3">Enlaces</h5>
                     <ul class="list-unstyled">
@@ -1223,34 +1383,35 @@
                         <li class="mb-2"><a href="#ubicacion" class="text-decoration-none">Ubicación</a></li>
                     </ul>
                 </div>
-                
+
                 <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
                     <h5 class="fw-bold mb-3">Horario de Atención</h5>
                     <div class="d-flex align-items-center">
-                    <span class="me-2">Arriba verás nuestros horarios</span>
-                    <i class="fas fa-arrow-up animate-move-up" style="color: var(--rosa-fuerte);"></i>
+                        <span class="me-2">Arriba verás nuestros horarios</span>
+                        <i class="fas fa-arrow-up animate-move-up" style="color: var(--rosa-fuerte);"
+                            aria-hidden="true"></i>
                     </div>
                 </div>
-                
+
                 <div class="col-lg-3 col-md-6">
                     <h5 class="fw-bold mb-3">Contacto</h5>
                     <ul class="list-unstyled">
-                        <li class="mb-2"><i class="fas fa-map-marker-alt me-2"></i> Remedios - Buenos Aires</li>
-                        <li class="mb-2"><i class="fas fa-phone-alt me-2"></i> +57 316 357 27 44</li>
+                        <li class="mb-2"><i class="fas fa-map-marker-alt me-2" aria-hidden="true"></i> Remedios - Buenos
+                            Aires</li>
+                        <li class="mb-2"><i class="fas fa-phone-alt me-2" aria-hidden="true"></i> +57 316 357 27 44</li>
                         <!-- Botón de WhatsApp -->
                         <li class="mt-4">
-                            <a href="https://wa.me/573163572744?text=Hola%20Karen,%20Espero%20Estés%20Muy%20Bien,%20Lo%20Que%20Pasa%20Es%20Que%20Tengo%20Una%20Pregunta..."  
-                            class="btn-whatsapp" 
-                            target="_blank">
-                            <i class="fab fa-whatsapp"></i> ¿Preguntas?, Escríbenos
+                            <a href="https://wa.me/573163572744?text=Hola%20Karen,%20Espero%20Estés%20Muy%20Bien,%20Lo%20Que%20Pasa%20Es%20Que%20Tengo%20Una%20Pregunta..."
+                                class="btn-whatsapp" target="_blank">
+                                <i class="fab fa-whatsapp" aria-hidden="true"></i> ¿Preguntas?, Escríbenos
                             </a>
                         </li>
                     </ul>
                 </div>
             </div>
-            
+
             <hr class="my-4">
-            
+
             <div class="text-center">
                 <p class="mb-0">© 2025 Pretty Nails. Todos los derechos reservados.</p>
                 <p class="mb-0">Pensado y Desarrollado por: Sebastian Agudelo.</p>
@@ -1265,4 +1426,5 @@
     <script src="JS/scripts.js" defer></script>
     <!-- === FIN SCRIPTS === -->
 </body>
+
 </html>

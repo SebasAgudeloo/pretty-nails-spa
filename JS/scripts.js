@@ -1,53 +1,53 @@
 // Before & After Slider
 function initBeforeAfterSliders() {
     const containers = document.querySelectorAll('.before-after-container');
-    
+
     containers.forEach(container => {
         const slider = container.querySelector('.before-after-slider');
         const handle = container.querySelector('.before-after-handle');
         let isDragging = false;
-        
+
         const updateSliderPosition = (x) => {
             const containerRect = container.getBoundingClientRect();
             let xPos = x - containerRect.left;
             xPos = Math.max(0, Math.min(xPos, containerRect.width));
             const percent = (xPos / containerRect.width) * 100;
-            
+
             slider.style.width = `${percent}%`;
             handle.style.left = `${percent}%`;
         };
-        
+
         handle.addEventListener('mousedown', (e) => {
             e.preventDefault();
             isDragging = true;
             container.classList.add('dragging');
         });
-        
+
         handle.addEventListener('touchstart', (e) => {
             e.preventDefault();
             isDragging = true;
             container.classList.add('dragging');
         });
-        
+
         const moveHandler = (e) => {
             if (!isDragging) return;
             const clientX = e.clientX || (e.touches && e.touches[0].clientX);
             if (clientX) updateSliderPosition(clientX);
         };
-        
+
         const endHandler = () => {
             isDragging = false;
             container.classList.remove('dragging');
         };
-        
+
         const containerRect = container.getBoundingClientRect();
         updateSliderPosition(containerRect.left + (containerRect.width / 2));
-        
+
         document.addEventListener('mousemove', moveHandler);
         document.addEventListener('touchmove', moveHandler, { passive: false });
         document.addEventListener('mouseup', endHandler);
         document.addEventListener('touchend', endHandler);
-        
+
         container.addEventListener('click', (e) => {
             updateSliderPosition(e.clientX);
         });
@@ -68,11 +68,11 @@ function formatFechaBonita(fechaStr) {
     if (!fechaStr) return '';
     const [año, mes, dia] = fechaStr.split('-').map(Number);
     const fecha = new Date(año, mes - 1, dia);
-    return fecha.toLocaleDateString('es-ES', { 
-        weekday: 'long', 
-        day: 'numeric', 
-        month: 'long', 
-        year: 'numeric' 
+    return fecha.toLocaleDateString('es-ES', {
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
     }).replace(/,/g, '').replace(/^(\w)/, match => match.toLowerCase());
 }
 
@@ -85,24 +85,24 @@ function setupReservationForm() {
     const servicio1 = document.getElementById('servicio1');
     const servicio2 = document.getElementById('servicio2');
     const ahorroPromocion = document.getElementById('ahorroPromocion');
-    
+
     // Función para actualizar las opciones del segundo select
     function updateServicio2Options() {
         const selectedService1 = servicio1.value;
         const servicio2Select = document.getElementById('servicio2');
         const servicio2Label = servicio2Select.closest('.form-floating').querySelector('label');
-        
+
         // Resetear estado del segundo select
         servicio2Select.disabled = false;
         servicio2Select.closest('.form-floating').style.opacity = '1';
         servicio2Label.innerHTML = '<i class="fas fa-spa me-2"></i>Servicio 2 (Opcional)';
-        
+
         // Si no hay selección en servicio1, salir
         if (!selectedService1) return;
-        
+
         // Verificar si es una promoción (tiene 3 partes: nombre|precioOriginal|precioPromo)
         const esPromocion = selectedService1.split('|').length === 3;
-        
+
         if (esPromocion) {
             // Bloquear completamente el segundo servicio para promociones
             servicio2Select.disabled = true;
@@ -112,7 +112,7 @@ function setupReservationForm() {
         } else {
             // No es promoción, manejar como antes
             const service1Name = selectedService1.split('|')[0];
-            
+
             // Habilitar todas las opciones primero
             servicio2Select.querySelectorAll('option').forEach(option => {
                 if (option.value !== "") {
@@ -120,7 +120,7 @@ function setupReservationForm() {
                     option.style.display = '';
                 }
             });
-            
+
             // Deshabilitar la opción que coincide con el servicio1 seleccionado
             servicio2Select.querySelectorAll('option').forEach(option => {
                 if (option.value !== "" && option.value.split('|')[0] === service1Name) {
@@ -128,37 +128,37 @@ function setupReservationForm() {
                     option.style.display = 'none';
                 }
             });
-            
+
             // Si el servicio2 actualmente seleccionado es el mismo que servicio1, resetearlo
             if (servicio2Select.value && servicio2Select.value.split('|')[0] === service1Name) {
                 servicio2Select.value = "";
             }
         }
     }
-    
+
     // Función para inicializar las opciones del segundo select
     function initializeServicio2Options() {
         const servicio2Select = document.getElementById('servicio2');
-        
+
         // Guardar la opción por defecto
         const defaultOption = servicio2Select.querySelector('option[value=""]');
-        
+
         // Limpiar todas las opciones excepto la por defecto
         servicio2Select.innerHTML = '';
         servicio2Select.appendChild(defaultOption);
-        
+
         // Clonar los optgroups y opciones del primer select (excepto promociones)
         const optgroups = document.getElementById('servicio1').querySelectorAll('optgroup:not([label="PROMOCIONES"])');
-        
+
         optgroups.forEach(optgroup => {
             const newOptgroup = document.createElement('optgroup');
             newOptgroup.label = optgroup.label;
-            
+
             optgroup.querySelectorAll('option:not(.promo-option)').forEach(option => {
                 const newOption = option.cloneNode(true);
                 newOptgroup.appendChild(newOption);
             });
-            
+
             servicio2Select.appendChild(newOptgroup);
         });
     }
@@ -166,11 +166,11 @@ function setupReservationForm() {
     function calculateTotal() {
         const totalElement = document.getElementById('totalServicios');
         const totalContainer = document.querySelector('.total-container');
-        
+
         let total = 0;
         let precioOriginal = 0;
         let esPromocion = false;
-        
+
         // Verificar si el servicio1 es una promoción
         if (servicio1.value && servicio1.value.split('|').length === 3) {
             const [nombre, precioOriginalStr, precioPromoStr] = servicio1.value.split('|');
@@ -180,12 +180,12 @@ function setupReservationForm() {
         } else if (servicio1.value) {
             total += parseInt(servicio1.value.split('|')[1]);
         }
-        
+
         // Solo sumar servicio2 si no es una promoción y está habilitado
         if (servicio2.value && !servicio2.disabled && servicio2.value.split('|').length > 1) {
             total += parseInt(servicio2.value.split('|')[1]);
         }
-        
+
         // Mostrar u ocultar el ahorro de promoción
         if (esPromocion) {
             const ahorro = precioOriginal - total;
@@ -194,7 +194,7 @@ function setupReservationForm() {
         } else {
             ahorroPromocion.style.display = 'none';
         }
-        
+
         totalElement.textContent = formatCurrency(total);
         totalContainer.classList.add('changed');
         setTimeout(() => totalContainer.classList.remove('changed'), 500);
@@ -204,10 +204,10 @@ function setupReservationForm() {
         if (!button.dataset.originalContent) {
             button.dataset.originalContent = button.innerHTML;
         }
-        
+
         button.classList.add('btn-error');
         button.innerHTML = `<i class="fas fa-exclamation-circle me-2"></i>${message}`;
-        
+
         setTimeout(() => {
             button.classList.remove('btn-error');
             button.innerHTML = button.dataset.originalContent;
@@ -220,121 +220,121 @@ function setupReservationForm() {
         const fechaInput = document.getElementById('fecha').value;
         const hora = document.getElementById('hora').value;
         const enviarBtn = document.getElementById('enviarReserva');
-        
+
         // Validar que no sean el mismo servicio (solo si no es promoción y servicio2 está habilitado)
-        if (!servicio2.disabled && servicio1Val && servicio2.value && 
+        if (!servicio2.disabled && servicio1Val && servicio2.value &&
             servicio1Val.split('|')[0] === servicio2.value.split('|')[0]) {
             showError(enviarBtn, 'No puedes seleccionar el mismo servicio dos veces');
             return false;
         }
-        
+
         if (!nombre || !servicio1Val || !fechaInput || !hora) {
             showError(enviarBtn, 'Completa todos los campos obligatorios');
             return false;
         }
-        
+
         if (nombre.length < 3) {
             showError(enviarBtn, 'Nombre muy corto (mín. 3 caracteres)');
             return false;
         }
-        
+
         const [año, mes, dia] = fechaInput.split('-').map(Number);
         const fechaSeleccionada = new Date(año, mes - 1, dia);
         const diaSemana = fechaSeleccionada.getDay();
         const hoy = new Date();
         hoy.setHours(0, 0, 0, 0);
-        
+
         if (fechaSeleccionada < hoy) {
             showError(enviarBtn, 'No puedes seleccionar fechas pasadas');
             return false;
         }
-        
+
         if (diaSemana === 2) {
             showError(enviarBtn, 'Los martes estamos cerrados');
             return false;
         }
-        
+
         const [horas, minutos] = hora.split(':').map(Number);
         const minutosTotales = horas * 60 + minutos;
         let horarioValido = false;
         let mensajeHorario = '';
-        
+
         if (diaSemana === 0) { // Domingo
             horarioValido = minutosTotales >= 480 && minutosTotales <= 720;
             mensajeHorario = 'Horario: 8:00 AM - 12:00 PM';
         } else if (diaSemana === 6) { // Sábado
-            horarioValido = (minutosTotales >= 480 && minutosTotales <= 720) || 
-                           (minutosTotales >= 780 && minutosTotales <= 1080);
+            horarioValido = (minutosTotales >= 480 && minutosTotales <= 720) ||
+                (minutosTotales >= 780 && minutosTotales <= 1080);
             mensajeHorario = 'Horarios: 8:00 AM - 12:00 PM y 1:00 PM - 6:00 PM';
         } else { // Lunes a Viernes (excepto martes)
             horarioValido = minutosTotales >= 840 && minutosTotales <= 1080;
             mensajeHorario = 'Horario: 2:00 PM - 6:00 PM';
         }
-        
+
         if (!horarioValido) {
             showError(enviarBtn, `Horario no disponible. ${mensajeHorario}`);
             return false;
         }
-        
+
         return true;
     }
 
     function submitForm() {
         if (!validateForm()) return;
-        
+
         const nombre = document.getElementById('nombre').value.trim();
         const servicio1Data = servicio1.value.split('|');
         const servicio2Data = servicio2.value ? servicio2.value.split('|') : ['', '0'];
         const fecha = document.getElementById('fecha').value;
         const hora = document.getElementById('hora').value;
-        
+
         // Verificar si es una promoción (tiene 3 partes: nombre|precioOriginal|precioPromo)
         const esPromocion = servicio1Data.length === 3;
         const total = esPromocion ? parseInt(servicio1Data[2]) : parseInt(servicio1Data[1]) + parseInt(servicio2Data[1]);
-        
-        let serviciosMsg = esPromocion ? 
-            `*Promoción:* ${servicio1Data[0]}` : 
+
+        let serviciosMsg = esPromocion ?
+            `*Promoción:* ${servicio1Data[0]}` :
             `*Servicio 1:* ${servicio1Data[0]}`;
-            
+
         if (servicio2.value && !servicio2.disabled && !esPromocion) {
             serviciosMsg += `\n*Servicio 2:* ${servicio2Data[0]}`;
         }
-        
+
         serviciosMsg += `\n*Total:* ${formatCurrency(total)}`;
-        
+
         if (esPromocion) {
             const precioOriginal = parseInt(servicio1Data[1]);
             const ahorro = precioOriginal - total;
             serviciosMsg += `\n*Precio original:* ${formatCurrency(precioOriginal)}`;
             serviciosMsg += `\n*Ahorras:* ${formatCurrency(ahorro)}`;
         }
-        
+
         const mensaje = `Hola Karen! Espero te encuentres muy bien, mi nombre es *${nombre}* y quiero reservar una cita contigo para:\n\n` +
-                       `${serviciosMsg}\n` +
-                       `*Fecha:* ${formatFechaBonita(fecha)}\n` +
-                       `*Hora:* ${formatHoraAMPM(hora)}\n\n` +
-                       `Por favor confírmame disponibilidad. ¡Gracias!`;
-        
+            `${serviciosMsg}\n` +
+            `*Fecha:* ${formatFechaBonita(fecha)}\n` +
+            `*Hora:* ${formatHoraAMPM(hora)}\n\n` +
+            `Por favor confírmame disponibilidad. ¡Gracias!`;
+
         window.open(`https://wa.me/573163572744?text=${encodeURIComponent(mensaje)
-            .replace(/'/g,"%27")
-            .replace(/\(/g,"%28")
-            .replace(/\)/g,"%29")
-            .replace(/\*/g,"%2A")}`, '_blank');
+            .replace(/'/g, "%27")
+            .replace(/\(/g, "%28")
+            .replace(/\)/g, "%29")
+            .replace(/\*/g, "%2A")}`, '_blank');
     }
 
     // Inicializar las opciones del segundo select
     initializeServicio2Options();
-    
+
     // Configurar event listeners
-    servicio1.addEventListener('change', function() {
+    servicio1.addEventListener('change', function () {
         updateServicio2Options();
         calculateTotal();
     });
-    
+
     servicio2.addEventListener('change', calculateTotal);
-    
+
     document.getElementById('enviarReserva').addEventListener('click', submitForm);
-    
+
     document.getElementById('reservaForm').addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
             e.preventDefault();
@@ -356,7 +356,7 @@ function setupScrollAnimations() {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
     });
-    
+
     document.querySelectorAll('.service-card, .promo-card, .testimonial-card').forEach(card => {
         observer.observe(card);
     });
@@ -374,7 +374,7 @@ function setupTestimonialsCarousel() {
         keyboard: false
     });
 
-    carouselEl.addEventListener('slid.bs.carousel', function(event) {
+    carouselEl.addEventListener('slid.bs.carousel', function (event) {
         const indicators = document.querySelectorAll('#testimoniosCarousel .carousel-indicators button');
         indicators.forEach((indicator, index) => {
             indicator.classList.toggle('active', index === event.to);
@@ -384,10 +384,8 @@ function setupTestimonialsCarousel() {
 
 // ===== PROMOCIONES COUNTDOWN =====
 function setupPromotionsCountdown() {
-    const endDate = new Date();
-    endDate.setDate(endDate.getDate() + 10);
-    endDate.setHours(23, 59, 59, 0);
-    
+    const endDate = new Date('2025-08-28T23:59:59');
+
     const countdownElements = document.querySelectorAll('.countdown');
     const promoButtons = document.querySelectorAll('.btn-promo');
     const promoCards = document.querySelectorAll('.promo-card:not(:last-child)');
@@ -409,7 +407,7 @@ function setupPromotionsCountdown() {
 
     function updatePromotionsAvailability(available) {
         const isMobile = checkIfMobile();
-        
+
         // Comportamiento diferente para móviles
         if (isMobile) {
             if (!available) {
@@ -423,11 +421,11 @@ function setupPromotionsCountdown() {
                     option.style.display = '';
                 });
             }
-        } 
+        }
         // Comportamiento para desktop
         else {
             promocionesOptgroup.style.display = ''; // Asegurar que el grupo es visible
-            
+
             if (available) {
                 promoOptions.forEach(option => {
                     option.disabled = false;
@@ -438,14 +436,14 @@ function setupPromotionsCountdown() {
                     option.disabled = true;
                     option.style.display = 'none';
                 });
-                
+
                 // Crear mensaje de terminadas solo para desktop
                 const terminadaOption = document.createElement('option');
                 terminadaOption.value = "terminada";
                 terminadaOption.textContent = "Las promociones ya han terminado";
                 terminadaOption.disabled = true;
                 promocionesOptgroup.appendChild(terminadaOption);
-                
+
                 // Resetear selección si estaba en una promoción
                 if (servicio1.value && servicio1.options[servicio1.selectedIndex].parentElement.label === "PROMOCIONES") {
                     servicio1.value = "";
@@ -457,23 +455,23 @@ function setupPromotionsCountdown() {
     function updateCountdown() {
         const now = new Date();
         const distance = endDate - now;
-        
+
         const days = Math.floor(distance / (1000 * 60 * 60 * 24));
         const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-        
+
         countdownElements.forEach(el => {
-            el.innerHTML = distance >= 0 
+            el.innerHTML = distance >= 0
                 ? `⏳ Termina en: <strong>${days}d ${hours}h ${minutes}m ${seconds}s</strong>`
                 : '⌛ ¡OFERTA TERMINADA!';
             if (distance < 0) el.classList.add('ended');
         });
-        
+
         if (distance < 0) {
             clearInterval(countdownInterval);
             promoButtons.forEach(btn => btn.classList.add('disabled'));
-            
+
             promoCards.forEach(card => {
                 card.style.filter = 'grayscale(80%)';
                 card.style.opacity = '0.8';
@@ -486,7 +484,7 @@ function setupPromotionsCountdown() {
                     <h4>Próximamente!!</h4>
                 `;
             });
-            
+
             badges.forEach(badge => {
                 badge.classList.remove('bg-success');
                 badge.classList.add('bg-secondary');
@@ -494,10 +492,10 @@ function setupPromotionsCountdown() {
                 badge.style.animation = 'none';
             });
         }
-        
+
         updatePromotionsAvailability(distance >= 0);
     }
-    
+
     // Manejar cambios de tamaño de pantalla
     window.addEventListener('resize', () => {
         updatePromotionsAvailability(endDate - new Date() >= 0);
@@ -508,19 +506,78 @@ function setupPromotionsCountdown() {
     updateCountdown();
 }
 
+// Lazy loading para imágenes
+function setupLazyLoading() {
+    const lazyImages = document.querySelectorAll('img[loading="lazy"]');
+
+    if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.classList.add('loaded');
+                    imageObserver.unobserve(img);
+                }
+            });
+        });
+
+        lazyImages.forEach(img => {
+            imageObserver.observe(img);
+        });
+    } else {
+        // Fallback para navegadores que no soportan IntersectionObserver
+        lazyImages.forEach(img => {
+            img.classList.add('loaded');
+        });
+    }
+}
+
+// Smooth scrolling para navegación
+function setupSmoothScrolling() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                targetElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+}
+
 // Inicialización
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
+    // Ocultar pantalla de carga
+    setTimeout(() => {
+        const loadingScreen = document.getElementById('loading-screen');
+        if (loadingScreen) {
+            loadingScreen.style.opacity = '0';
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+            }, 500);
+        }
+    }, 1000);
+
     initBeforeAfterSliders();
     setupReservationForm();
     setupScrollAnimations();
     setupTestimonialsCarousel();
     setupPromotionsCountdown();
-    
+    setupLazyLoading();
+    setupSmoothScrolling();
+
     setTimeout(() => {
         document.body.classList.add('loaded');
     }, 100);
 });
 
-window.addEventListener('error', function(e) {
+window.addEventListener('error', function (e) {
     console.error('Error:', e.message, 'en', e.filename, 'línea:', e.lineno);
 });
