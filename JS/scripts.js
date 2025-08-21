@@ -188,15 +188,7 @@ function setupReservationForm() {
     const ahorroPromocion = document.getElementById('ahorroPromocion');
     const fechaInput = document.getElementById('fecha');
 
-    // Establecer fecha mínima como hoy
-    const hoy = new Date();
-    const fechaHoy = hoy.toISOString().split('T')[0];
-    fechaInput.setAttribute('min', fechaHoy);
-    
-    // Event listener para fecha
-    fechaInput.addEventListener('change', function() {
-        actualizarOpcionesHora();
-    });
+
     
     // Event listener para hora
     document.getElementById('hora').addEventListener('change', function() {
@@ -423,8 +415,6 @@ function setupReservationForm() {
         if (esPromocion) {
             const precioOriginal = parseInt(servicio1Data[1]);
             const ahorro = precioOriginal - total;
-            serviciosMsg += `\n*Precio original:* ${formatCurrency(precioOriginal)}`;
-            serviciosMsg += `\n*Ahorras:* ${formatCurrency(ahorro)}`;
         }
 
         const mensaje = `Hola Karen! Espero te encuentres muy bien, mi nombre es *${nombre}* y quiero reservar una cita contigo para:\n\n` +
