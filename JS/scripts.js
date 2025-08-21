@@ -1,3 +1,104 @@
+// ===== FUNCIONES DE HORARIOS =====
+
+// Generar horarios disponibles según el día seleccionado
+function generarHorariosDisponibles(fecha) {
+    const diaSemana = fecha.getDay(); // 0: Domingo, 1: Lunes, ..., 6: Sábado
+    const horarios = [];
+    
+    // Martes cerrado
+    if (diaSemana === 2) return horarios;
+    
+    // Domingo: 8:00 AM - 12:00 PM
+    if (diaSemana === 0) {
+        for (let hora = 8; hora < 12; hora++) {
+            horarios.push(`${hora.toString().padStart(2, '0')}:00`);
+            horarios.push(`${hora.toString().padStart(2, '0')}:30`);
+        }
+    }
+    // Sábado: 8:00 AM - 12:00 PM y 1:00 PM - 6:00 PM
+    else if (diaSemana === 6) {
+        // Mañana: 8:00 AM - 12:00 PM
+        for (let hora = 8; hora < 12; hora++) {
+            horarios.push(`${hora.toString().padStart(2, '0')}:00`);
+            horarios.push(`${hora.toString().padStart(2, '0')}:30`);
+        }
+        
+        // Tarde: 1:00 PM - 6:00 PM
+        for (let hora = 13; hora < 18; hora++) {
+            horarios.push(`${hora.toString().padStart(2, '0')}:00`);
+            horarios.push(`${hora.toString().padStart(2, '0')}:30`);
+        }
+    }
+    // Lunes a Viernes (excepto martes): 2:00 PM - 6:00 PM
+    else {
+        for (let hora = 14; hora < 18; hora++) {
+            horarios.push(`${hora.toString().padStart(2, '0')}:00`);
+            horarios.push(`${hora.toString().padStart(2, '0')}:30`);
+        }
+    }
+    
+    return horarios;
+}
+
+// Actualizar las opciones de hora según la fecha seleccionada
+function actualizarOpcionesHora() {
+    const fechaInput = document.getElementById('fecha');
+    const horaInput = document.getElementById('hora');
+    const timeOptionsContainer = document.getElementById('time-options');
+    
+    if (!fechaInput.value) {
+        timeOptionsContainer.style.display = 'none';
+        return;
+    }
+    
+    const [año, mes, dia] = fechaInput.value.split('-').map(Number);
+    const fechaSeleccionada = new Date(año, mes - 1, dia);
+    const horariosDisponibles = generarHorariosDisponibles(fechaSeleccionada);
+    
+    // Limpiar opciones anteriores
+    timeOptionsContainer.innerHTML = '';
+    
+    if (horariosDisponibles.length === 0) {
+        timeOptionsContainer.innerHTML = '<div class="text-center text-muted p-2">No hay horarios disponibles para este día</div>';
+        timeOptionsContainer.style.display = 'block';
+        horaInput.value = '';
+        return;
+    }
+    
+    // Crear opciones de horarios
+    horariosDisponibles.forEach(horario => {
+        const opcion = document.createElement('div');
+        opcion.className = 'time-option';
+        opcion.textContent = formatHoraAMPM(horario);
+        opcion.dataset.value = horario;
+        
+        opcion.addEventListener('click', function() {
+            horaInput.value = this.dataset.value;
+            document.querySelectorAll('.time-option').forEach(opt => opt.classList.remove('selected'));
+            this.classList.add('selected');
+            timeOptionsContainer.style.display = 'none';
+        });
+        
+        timeOptionsContainer.appendChild(opcion);
+    });
+    
+    timeOptionsContainer.style.display = 'block';
+}
+
+// Validar que la hora seleccionada tenga minutos en 00 o 30
+function validarHoraSeleccionada() {
+    const horaInput = document.getElementById('hora');
+    if (!horaInput.value) return;
+    
+    const [horas, minutos] = horaInput.value.split(':').map(Number);
+    
+    // Si los minutos no son 00 o 30, ajustar al intervalo más cercano
+    if (minutos !== 0 && minutos !== 30) {
+        const minutosAjustados = minutos < 30 ? '00' : '30';
+        horaInput.value = `${horas.toString().padStart(2, '0')}:${minutosAjustados}`;
+    }
+}
+
 // Before & After Slider
 function initBeforeAfterSliders() {
     const containers = document.querySelectorAll('.before-after-container');
@@ -85,6 +186,23 @@ function setupReservationForm() {
     const servicio1 = document.getElementById('servicio1');
     const servicio2 = document.getElementById('servicio2');
     const ahorroPromocion = document.getElementById('ahorroPromocion');
+    const fechaInput = document.getElementById('fecha');
+
+    // Establecer fecha mínima como hoy
+    const hoy = new Date();
+    const fechaHoy = hoy.toISOString().split('T')[0];
+    fechaInput.setAttribute('min', fechaHoy);
+    
+    // Event listener para fecha
+    fechaInput.addEventListener('change', function() {
+        actualizarOpcionesHora();
+    });
+    
+    // Event listener para hora
+    document.getElementById('hora').addEventListener('change', function() {
+        validarHoraSeleccionada();
+        document.getElementById('time-options').style.display = 'none';
+    });
 
     // Función para actualizar las opciones del segundo select
     function updateServicio2Options() {
@@ -573,6 +691,12 @@ document.addEventListener('DOMContentLoaded', function () {
     setupLazyLoading();
     setupSmoothScrolling();
 
+    // Inicializar opciones de hora si ya hay una fecha seleccionada
+    const fechaInput = document.getElementById('fecha');
+    if (fechaInput.value) {
+        actualizarOpcionesHora();
+    }
+
     setTimeout(() => {
         document.body.classList.add('loaded');
     }, 100);
@@ -580,4 +704,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
 window.addEventListener('error', function (e) {
     console.error('Error:', e.message, 'en', e.filename, 'línea:', e.lineno);
+});
+
+// Mostrar/ocultar opciones de hora al hacer clic en el input
+document.getElementById('hora').addEventListener('focus', function() {
+    document.getElementById('time-options').style.display = 'block';
+});
+
+// Ocultar opciones al hacer clic fuera
+document.addEventListener('click', function(e) {
+    const horaInput = document.getElementById('hora');
+    const timeOptions = document.getElementById('time-options');
+    
+    if (e.target !== horaInput && !timeOptions.contains(e.target)) {
+        timeOptions.style.display = 'none';
+    }
 });
