@@ -208,8 +208,6 @@ function setupReservationForm() {
     const ahorroPromocion = document.getElementById('ahorroPromocion');
     const fechaInput = document.getElementById('fecha');
 
-    // Event listener para fecha
-    fechaInput.addEventListener('change', actualizarOpcionesHora);
     
     // Event listener para hora
     document.getElementById('hora').addEventListener('change', function() {
