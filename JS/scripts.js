@@ -1,13 +1,115 @@
+// === NAVBAR ===
+
+// Cerrar menú móvil al hacer clic en un enlace
+function setupMobileMenuClose() {
+    const navbarToggler = document.querySelector('.navbar-toggler');
+    const navbarCollapse = document.getElementById('navbarNav');
+    const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+
+    // Verificar que existan los elementos
+    if (!navbarToggler || !navbarCollapse) return;
+
+    // Función para cerrar el menú
+    function closeMobileMenu() {
+        if (window.innerWidth <= 992) { // Solo en móviles/tablets
+            const bsCollapse = new bootstrap.Collapse(navbarCollapse, {
+                toggle: false
+            });
+            bsCollapse.hide();
+
+            // Cambiar el icono de hamburguesa (opcional)
+            navbarToggler.setAttribute('aria-expanded', 'false');
+        }
+    }
+
+    // Agregar evento a cada enlace del menú
+    navLinks.forEach(link => {
+        link.addEventListener('click', closeMobileMenu);
+    });
+
+    // También cerrar el menú al hacer clic fuera de él
+    document.addEventListener('click', function (e) {
+        if (window.innerWidth <= 992 &&
+            navbarCollapse.classList.contains('show') &&
+            !e.target.closest('.navbar') &&
+            !e.target.closest('.navbar-toggler')) {
+            closeMobileMenu();
+        }
+    });
+}
+
+// Navbar inteligente que se esconde SOLO en desktop
+function setupSmartHideNavbar() {
+    const navbar = document.querySelector('.navbar');
+    if (!navbar) return;
+
+    let lastScrollTop = 0;
+    const delta = 5;
+    const navbarHeight = navbar.offsetHeight;
+    const desktopBreakpoint = 992; // Bootstrap lg breakpoint
+
+    // Solo aplicar en escritorio
+    if (window.innerWidth < desktopBreakpoint) return;
+
+    navbar.style.transition = 'transform 0.3s ease-in-out';
+
+    window.addEventListener('scroll', function () {
+        // Solo en desktop
+        if (window.innerWidth < desktopBreakpoint) return;
+
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+        if (Math.abs(lastScrollTop - scrollTop) <= delta) return;
+
+        if (scrollTop > lastScrollTop && scrollTop > navbarHeight) {
+            // Scroll hacia abajo - esconder navbar
+            navbar.style.transform = 'translateY(-100%)';
+            navbar.classList.add('navbar-hidden');
+        } else {
+            // Scroll hacia arriba - mostrar navbar
+            if (scrollTop + window.innerHeight < document.documentElement.scrollHeight) {
+                navbar.style.transform = 'translateY(0)';
+                navbar.classList.remove('navbar-hidden');
+            }
+        }
+
+        lastScrollTop = scrollTop;
+    });
+
+    // Mostrar navbar al hacer hover (mejora UX en desktop)
+    navbar.addEventListener('mouseenter', function () {
+        if (window.innerWidth >= desktopBreakpoint) {
+            navbar.style.transform = 'translateY(0)';
+            navbar.classList.remove('navbar-hidden');
+        }
+    });
+}
+
+// Manejar cambios de tamaño de ventana
+window.addEventListener('resize', function () {
+    const navbar = document.querySelector('.navbar');
+    if (!navbar) return;
+
+    // Resetear el navbar cuando se cambia a móvil
+    if (window.innerWidth < 992) {
+        navbar.style.transform = 'translateY(0)';
+        navbar.style.transition = '';
+        navbar.classList.remove('navbar-hidden');
+    } else {
+        navbar.style.transition = 'transform 0.3s ease-in-out';
+    }
+});
+
 // ===== FUNCIONES DE HORARIOS =====
 
 // Generar horarios disponibles según el día seleccionado
 function generarHorariosDisponibles(fecha) {
     const diaSemana = fecha.getDay(); // 0: Domingo, 1: Lunes, ..., 6: Sábado
     const horarios = [];
-    
+
     // Martes cerrado
     if (diaSemana === 2) return horarios;
-    
+
     // Domingo: 8:00 AM - 12:00 PM
     if (diaSemana === 0) {
         for (let hora = 8; hora < 12; hora++) {
@@ -22,7 +124,7 @@ function generarHorariosDisponibles(fecha) {
             horarios.push(`${hora.toString().padStart(2, '0')}:00`);
             horarios.push(`${hora.toString().padStart(2, '0')}:30`);
         }
-        
+
         // Tarde: 1:00 PM - 6:00 PM
         for (let hora = 13; hora < 18; hora++) {
             horarios.push(`${hora.toString().padStart(2, '0')}:00`);
@@ -36,7 +138,7 @@ function generarHorariosDisponibles(fecha) {
             horarios.push(`${hora.toString().padStart(2, '0')}:30`);
         }
     }
-    
+
     return horarios;
 }
 
@@ -45,13 +147,13 @@ function actualizarOpcionesHora() {
     const fechaInput = document.getElementById('fecha');
     const horaInput = document.getElementById('hora');
     const timeOptionsContainer = document.getElementById('time-options');
-    
+
     if (!fechaInput.value) {
         timeOptionsContainer.style.display = 'none';
         horaInput.value = '';
         return;
     }
-    
+
     // Validar formato de fecha primero
     const fechaParts = fechaInput.value.split('-');
     if (fechaParts.length !== 3) {
@@ -60,10 +162,10 @@ function actualizarOpcionesHora() {
         horaInput.value = '';
         return;
     }
-    
+
     const [año, mes, dia] = fechaParts.map(Number);
     const fechaSeleccionada = new Date(año, mes - 1, dia);
-    
+
     // Validar si la fecha es válida
     if (isNaN(fechaSeleccionada.getTime())) {
         timeOptionsContainer.innerHTML = '<div class="text-center text-muted p-2">Fecha inválida</div>';
@@ -71,36 +173,36 @@ function actualizarOpcionesHora() {
         horaInput.value = '';
         return;
     }
-    
+
     const horariosDisponibles = generarHorariosDisponibles(fechaSeleccionada);
-    
+
     // Limpiar opciones anteriores
     timeOptionsContainer.innerHTML = '';
-    
+
     if (horariosDisponibles.length === 0) {
         timeOptionsContainer.innerHTML = '<div class="text-center text-muted p-2">No hay horarios disponibles para este día</div>';
         timeOptionsContainer.style.display = 'block';
         horaInput.value = '';
         return;
     }
-    
+
     // Crear opciones de horarios
     horariosDisponibles.forEach(horario => {
         const opcion = document.createElement('div');
         opcion.className = 'time-option';
         opcion.textContent = formatHoraAMPM(horario);
         opcion.dataset.value = horario;
-        
-        opcion.addEventListener('click', function() {
+
+        opcion.addEventListener('click', function () {
             horaInput.value = this.dataset.value;
             document.querySelectorAll('.time-option').forEach(opt => opt.classList.remove('selected'));
             this.classList.add('selected');
             timeOptionsContainer.style.display = 'none';
         });
-        
+
         timeOptionsContainer.appendChild(opcion);
     });
-    
+
     timeOptionsContainer.style.display = 'block';
 }
 
@@ -108,9 +210,9 @@ function actualizarOpcionesHora() {
 function validarHoraSeleccionada() {
     const horaInput = document.getElementById('hora');
     if (!horaInput.value) return;
-    
+
     const [horas, minutos] = horaInput.value.split(':').map(Number);
-    
+
     // Si los minutos no son 00 o 30, ajustar al intervalo más cercano
     if (minutos !== 0 && minutos !== 30) {
         const minutosAjustados = minutos < 30 ? '00' : '30';
@@ -208,9 +310,8 @@ function setupReservationForm() {
     const ahorroPromocion = document.getElementById('ahorroPromocion');
     const fechaInput = document.getElementById('fecha');
 
-    
     // Event listener para hora
-    document.getElementById('hora').addEventListener('change', function() {
+    document.getElementById('hora').addEventListener('change', function () {
         validarHoraSeleccionada();
         document.getElementById('time-options').style.display = 'none';
     });
@@ -278,7 +379,7 @@ function setupReservationForm() {
     // Función para inicializar las opciones del segundo select
     function initializeServicio2Options() {
         const servicio2Select = document.getElementById('servicio2');
-        
+
         // Si no existe el elemento, salir
         if (!servicio2Select) return;
 
@@ -308,7 +409,7 @@ function setupReservationForm() {
     function calculateTotal() {
         const totalElement = document.getElementById('totalServicios');
         const totalContainer = document.querySelector('.total-container');
-        
+
         // Si no existen los elementos, salir
         if (!totalElement || !totalContainer) return;
 
@@ -347,7 +448,7 @@ function setupReservationForm() {
 
     function showError(button, message) {
         if (!button) return;
-        
+
         if (!button.dataset.originalContent) {
             button.dataset.originalContent = button.innerHTML;
         }
@@ -749,7 +850,7 @@ function preloadCriticalImages() {
         'IMAGES/Karen.JPEG',
         'IMAGES/Galeria 1.jpg'
     ];
-    
+
     criticalImages.forEach(src => {
         const img = new Image();
         img.src = src;
@@ -777,6 +878,9 @@ document.addEventListener('DOMContentLoaded', function () {
     setupLazyLoading();
     setupSmoothScrolling();
     preloadCriticalImages();
+    setupMobileMenuClose();
+    setupSmartHideNavbar();
+
 
     // Inicializar opciones de hora si ya hay una fecha seleccionada
     const fechaInput = document.getElementById('fecha');
@@ -794,16 +898,16 @@ window.addEventListener('error', function (e) {
 });
 
 // Mostrar/ocultar opciones de hora al hacer clic en el input
-document.getElementById('hora').addEventListener('focus', function() {
+document.getElementById('hora').addEventListener('focus', function () {
     const timeOptions = document.getElementById('time-options');
     if (timeOptions) timeOptions.style.display = 'block';
 });
 
 // Ocultar opciones al hacer clic fuera
-document.addEventListener('click', function(e) {
+document.addEventListener('click', function (e) {
     const horaInput = document.getElementById('hora');
     const timeOptions = document.getElementById('time-options');
-    
+
     if (e.target !== horaInput && timeOptions && !timeOptions.contains(e.target)) {
         timeOptions.style.display = 'none';
     }

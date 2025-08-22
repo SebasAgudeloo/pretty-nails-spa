@@ -254,6 +254,37 @@ body {
   opacity: 0.9;
 }
 
+/* Estilos para el navbar que se esconde */
+.navbar {
+  transition: transform 0.3s ease-in-out;
+  will-change: transform;
+  /* Mejora el rendimiento de la animación */
+}
+
+.navbar-hidden {
+  box-shadow: none !important;
+}
+
+/* Asegurar que el navbar esté siempre encima de otros elementos */
+.navbar {
+  z-index: 1030;
+  /* Valor alto para estar por encima de casi todo */
+}
+
+/* Pequeño ajuste para el contenido cuando el navbar se esconde */
+@media (min-width: 992px) {
+  body {
+    padding-top: 0;
+    /* Ajusta según la altura de tu navbar */
+  }
+}
+
+/* Efecto suave al hacer hover en el navbar (opcional) */
+.navbar:hover {
+  transform: translateY(0) !important;
+  transition: transform 0.2s ease-in-out;
+}
+
 /* === Hero Section === */
 .hero-section {
   background: linear-gradient(135deg, var(--rosa-pastel), var(--lila-pastel));
