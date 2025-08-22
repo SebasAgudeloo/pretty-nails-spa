@@ -48,11 +48,30 @@ function actualizarOpcionesHora() {
     
     if (!fechaInput.value) {
         timeOptionsContainer.style.display = 'none';
+        horaInput.value = '';
         return;
     }
     
-    const [año, mes, dia] = fechaInput.value.split('-').map(Number);
+    // Validar formato de fecha primero
+    const fechaParts = fechaInput.value.split('-');
+    if (fechaParts.length !== 3) {
+        timeOptionsContainer.innerHTML = '<div class="text-center text-muted p-2">Formato de fecha inválido</div>';
+        timeOptionsContainer.style.display = 'block';
+        horaInput.value = '';
+        return;
+    }
+    
+    const [año, mes, dia] = fechaParts.map(Number);
     const fechaSeleccionada = new Date(año, mes - 1, dia);
+    
+    // Validar si la fecha es válida
+    if (isNaN(fechaSeleccionada.getTime())) {
+        timeOptionsContainer.innerHTML = '<div class="text-center text-muted p-2">Fecha inválida</div>';
+        timeOptionsContainer.style.display = 'block';
+        horaInput.value = '';
+        return;
+    }
+    
     const horariosDisponibles = generarHorariosDisponibles(fechaSeleccionada);
     
     // Limpiar opciones anteriores
@@ -116,6 +135,7 @@ function initBeforeAfterSliders() {
 
             slider.style.width = `${percent}%`;
             handle.style.left = `${percent}%`;
+            handle.setAttribute('aria-valuenow', Math.round(percent));
         };
 
         handle.addEventListener('mousedown', (e) => {
@@ -188,7 +208,8 @@ function setupReservationForm() {
     const ahorroPromocion = document.getElementById('ahorroPromocion');
     const fechaInput = document.getElementById('fecha');
 
-
+    // Event listener para fecha
+    fechaInput.addEventListener('change', actualizarOpcionesHora);
     
     // Event listener para hora
     document.getElementById('hora').addEventListener('change', function() {
@@ -196,11 +217,21 @@ function setupReservationForm() {
         document.getElementById('time-options').style.display = 'none';
     });
 
+    // Función para parsear precios de forma segura
+    const parsePrice = (priceStr) => {
+        if (!priceStr) return 0;
+        const price = parseInt(priceStr.replace(/\D/g, ''), 10);
+        return isNaN(price) ? 0 : price;
+    };
+
     // Función para actualizar las opciones del segundo select
     function updateServicio2Options() {
         const selectedService1 = servicio1.value;
         const servicio2Select = document.getElementById('servicio2');
         const servicio2Label = servicio2Select.closest('.form-floating').querySelector('label');
+
+        // Si no existe el elemento, salir
+        if (!servicio2Select) return;
 
         // Resetear estado del segundo select
         servicio2Select.disabled = false;
@@ -249,6 +280,9 @@ function setupReservationForm() {
     // Función para inicializar las opciones del segundo select
     function initializeServicio2Options() {
         const servicio2Select = document.getElementById('servicio2');
+        
+        // Si no existe el elemento, salir
+        if (!servicio2Select) return;
 
         // Guardar la opción por defecto
         const defaultOption = servicio2Select.querySelector('option[value=""]');
@@ -276,6 +310,9 @@ function setupReservationForm() {
     function calculateTotal() {
         const totalElement = document.getElementById('totalServicios');
         const totalContainer = document.querySelector('.total-container');
+        
+        // Si no existen los elementos, salir
+        if (!totalElement || !totalContainer) return;
 
         let total = 0;
         let precioOriginal = 0;
@@ -284,24 +321,24 @@ function setupReservationForm() {
         // Verificar si el servicio1 es una promoción
         if (servicio1.value && servicio1.value.split('|').length === 3) {
             const [nombre, precioOriginalStr, precioPromoStr] = servicio1.value.split('|');
-            total = parseInt(precioPromoStr);
-            precioOriginal = parseInt(precioOriginalStr);
+            total = parsePrice(precioPromoStr);
+            precioOriginal = parsePrice(precioOriginalStr);
             esPromocion = true;
         } else if (servicio1.value) {
-            total += parseInt(servicio1.value.split('|')[1]);
+            total += parsePrice(servicio1.value.split('|')[1]);
         }
 
         // Solo sumar servicio2 si no es una promoción y está habilitado
         if (servicio2.value && !servicio2.disabled && servicio2.value.split('|').length > 1) {
-            total += parseInt(servicio2.value.split('|')[1]);
+            total += parsePrice(servicio2.value.split('|')[1]);
         }
 
         // Mostrar u ocultar el ahorro de promoción
-        if (esPromocion) {
+        if (esPromocion && ahorroPromocion) {
             const ahorro = precioOriginal - total;
             ahorroPromocion.style.display = 'block';
             ahorroPromocion.textContent = `Ahorras ${formatCurrency(ahorro)}`;
-        } else {
+        } else if (ahorroPromocion) {
             ahorroPromocion.style.display = 'none';
         }
 
@@ -311,6 +348,8 @@ function setupReservationForm() {
     }
 
     function showError(button, message) {
+        if (!button) return;
+        
         if (!button.dataset.originalContent) {
             button.dataset.originalContent = button.innerHTML;
         }
@@ -343,8 +382,20 @@ function setupReservationForm() {
             return false;
         }
 
+        // Sanitizar nombre para prevenir XSS básico
+        const sanitizedNombre = nombre.replace(/[<>]/g, '');
+        if (sanitizedNombre !== nombre) {
+            showError(enviarBtn, 'El nombre contiene caracteres no permitidos');
+            return false;
+        }
+
         if (nombre.length < 3) {
             showError(enviarBtn, 'Nombre muy corto (mín. 3 caracteres)');
+            return false;
+        }
+
+        if (nombre.length > 100) {
+            showError(enviarBtn, 'Nombre muy largo (máx. 100 caracteres)');
             return false;
         }
 
@@ -398,9 +449,12 @@ function setupReservationForm() {
         const fecha = document.getElementById('fecha').value;
         const hora = document.getElementById('hora').value;
 
+        // Sanitizar nombre
+        const sanitizedNombre = nombre.replace(/[<>]/g, '');
+
         // Verificar si es una promoción (tiene 3 partes: nombre|precioOriginal|precioPromo)
         const esPromocion = servicio1Data.length === 3;
-        const total = esPromocion ? parseInt(servicio1Data[2]) : parseInt(servicio1Data[1]) + parseInt(servicio2Data[1]);
+        const total = esPromocion ? parsePrice(servicio1Data[2]) : parsePrice(servicio1Data[1]) + parsePrice(servicio2Data[1]);
 
         let serviciosMsg = esPromocion ?
             `*Promoción:* ${servicio1Data[0]}` :
@@ -413,11 +467,13 @@ function setupReservationForm() {
         serviciosMsg += `\n*Total:* ${formatCurrency(total)}`;
 
         if (esPromocion) {
-            const precioOriginal = parseInt(servicio1Data[1]);
+            const precioOriginal = parsePrice(servicio1Data[1]);
             const ahorro = precioOriginal - total;
+            serviciosMsg += `\n*Precio original:* ${formatCurrency(precioOriginal)}`;
+            serviciosMsg += `\n*Ahorras:* ${formatCurrency(ahorro)}`;
         }
 
-        const mensaje = `Hola Karen! Espero te encuentres muy bien, mi nombre es *${nombre}* y quiero reservar una cita contigo para:\n\n` +
+        const mensaje = `Hola Karen! Espero te encuentres muy bien, mi nombre es *${sanitizedNombre}* y quiero reservar una cita contigo para:\n\n` +
             `${serviciosMsg}\n` +
             `*Fecha:* ${formatFechaBonita(fecha)}\n` +
             `*Hora:* ${formatHoraAMPM(hora)}\n\n` +
@@ -502,6 +558,9 @@ function setupPromotionsCountdown() {
     const promocionesOptgroup = document.querySelector('#servicio1 optgroup[label="PROMOCIONES"]');
     const servicio1 = document.getElementById('servicio1');
 
+    // Si no existe el grupo de promociones, salir
+    if (!promocionesOptgroup) return;
+
     // Eliminar cualquier mensaje existente de "terminadas" para evitar duplicados
     const existingTerminatedMsg = promocionesOptgroup.querySelector('option[value="terminada"]');
     if (existingTerminatedMsg) {
@@ -553,7 +612,7 @@ function setupPromotionsCountdown() {
                 promocionesOptgroup.appendChild(terminadaOption);
 
                 // Resetear selección si estaba en una promoción
-                if (servicio1.value && servicio1.options[servicio1.selectedIndex].parentElement.label === "PROMOCIONES") {
+                if (servicio1 && servicio1.value && servicio1.options[servicio1.selectedIndex].parentElement.label === "PROMOCIONES") {
                     servicio1.value = "";
                 }
             }
@@ -570,44 +629,69 @@ function setupPromotionsCountdown() {
         const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
         countdownElements.forEach(el => {
-            el.innerHTML = distance >= 0
-                ? `⏳ Termina en: <strong>${days}d ${hours}h ${minutes}m ${seconds}s</strong>`
-                : '⌛ ¡OFERTA TERMINADA!';
-            if (distance < 0) el.classList.add('ended');
+            if (el) {
+                el.innerHTML = distance >= 0
+                    ? `⏳ Termina en: <strong>${days}d ${hours}h ${minutes}m ${seconds}s</strong>`
+                    : '⌛ ¡OFERTA TERMINADA!';
+                if (distance < 0) el.classList.add('ended');
+            }
         });
 
         if (distance < 0) {
             clearInterval(countdownInterval);
-            promoButtons.forEach(btn => btn.classList.add('disabled'));
+            promoButtons.forEach(btn => {
+                if (btn) btn.classList.add('disabled');
+            });
 
             promoCards.forEach(card => {
-                card.style.filter = 'grayscale(80%)';
-                card.style.opacity = '0.8';
-                card.querySelector('.promo-price').style.color = '#888';
-                card.querySelector('.savings').style.color = '#888';
-                card.querySelector('.savings').style.background = 'rgba(136,136,136,0.1)';
-                card.innerHTML = `
-                    <span class="badge bg-secondary position-absolute top-0 end-0 m-3">OFERTA TERMINADA</span>
-                    <div class="service-icon"><i class="fas fa-star"></i></div>
-                    <h4>Próximamente!!</h4>
-                `;
+                if (card) {
+                    card.style.filter = 'grayscale(80%)';
+                    card.style.opacity = '0.8';
+                    const priceElement = card.querySelector('.promo-price');
+                    const savingsElement = card.querySelector('.savings');
+                    if (priceElement) priceElement.style.color = '#888';
+                    if (savingsElement) {
+                        savingsElement.style.color = '#888';
+                        savingsElement.style.background = 'rgba(136,136,136,0.1)';
+                    }
+                    card.innerHTML = `
+                        <span class="badge bg-secondary position-absolute top-0 end-0 m-3">OFERTA TERMINADA</span>
+                        <div class="service-icon"><i class="fas fa-star"></i></div>
+                        <h4>Próximamente!!</h4>
+                    `;
+                }
             });
 
             badges.forEach(badge => {
-                badge.classList.remove('bg-success');
-                badge.classList.add('bg-secondary');
-                badge.textContent = 'OFERTA TERMINADA';
-                badge.style.animation = 'none';
+                if (badge) {
+                    badge.classList.remove('bg-success');
+                    badge.classList.add('bg-secondary');
+                    badge.textContent = 'OFERTA TERMINADA';
+                    badge.style.animation = 'none';
+                }
             });
         }
 
         updatePromotionsAvailability(distance >= 0);
     }
 
+    // Debounce function para optimizar rendimiento
+    function debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    }
+
     // Manejar cambios de tamaño de pantalla
-    window.addEventListener('resize', () => {
+    window.addEventListener('resize', debounce(() => {
         updatePromotionsAvailability(endDate - new Date() >= 0);
-    });
+    }, 250));
 
     // Iniciar
     const countdownInterval = setInterval(updateCountdown, 1000);
@@ -660,6 +744,20 @@ function setupSmoothScrolling() {
     });
 }
 
+// Preload de imágenes críticas
+function preloadCriticalImages() {
+    const criticalImages = [
+        'IMAGES/Logo.png',
+        'IMAGES/Karen.JPEG',
+        'IMAGES/Galeria 1.jpg'
+    ];
+    
+    criticalImages.forEach(src => {
+        const img = new Image();
+        img.src = src;
+    });
+}
+
 // Inicialización
 document.addEventListener('DOMContentLoaded', function () {
     // Ocultar pantalla de carga
@@ -680,10 +778,11 @@ document.addEventListener('DOMContentLoaded', function () {
     setupPromotionsCountdown();
     setupLazyLoading();
     setupSmoothScrolling();
+    preloadCriticalImages();
 
     // Inicializar opciones de hora si ya hay una fecha seleccionada
     const fechaInput = document.getElementById('fecha');
-    if (fechaInput.value) {
+    if (fechaInput && fechaInput.value) {
         actualizarOpcionesHora();
     }
 
@@ -698,7 +797,8 @@ window.addEventListener('error', function (e) {
 
 // Mostrar/ocultar opciones de hora al hacer clic en el input
 document.getElementById('hora').addEventListener('focus', function() {
-    document.getElementById('time-options').style.display = 'block';
+    const timeOptions = document.getElementById('time-options');
+    if (timeOptions) timeOptions.style.display = 'block';
 });
 
 // Ocultar opciones al hacer clic fuera
@@ -706,7 +806,7 @@ document.addEventListener('click', function(e) {
     const horaInput = document.getElementById('hora');
     const timeOptions = document.getElementById('time-options');
     
-    if (e.target !== horaInput && !timeOptions.contains(e.target)) {
+    if (e.target !== horaInput && timeOptions && !timeOptions.contains(e.target)) {
         timeOptions.style.display = 'none';
     }
 });

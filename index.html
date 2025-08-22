@@ -6,6 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>Pretty Nails - Spa de Uñas</title>
 
+    <!-- Meta tags para SEO -->
+    <meta name="description" content="Pretty Nails Spa - Servicios profesionales de manicura, pedicura y diseño de uñas en Remedios. By Karen Vanegas.">
+    <meta property="og:title" content="Pretty Nails Spa - Tu Estilo Empieza En Las Manos">
+    <meta property="og:description" content="Servicios profesionales de uñas en Remedios. Diseños únicos, promociones especiales y atención personalizada.">
+    <meta property="og:image" content="https://pretty-nails-spa.netlify.app/IMAGES/Logo.png">
+    <meta name="keywords" content="uñas, manicura, pedicura, remedios, diseño uñas, spa uñas">
+
     <!-- Preload critical resources -->
     <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" as="style"
         onload="this.onload=null;this.rel='stylesheet'">
@@ -297,7 +304,7 @@
                             ventaja de un
                             esmaltado semipermanente que luce impecable durante semanas. Este servicio incluye limpieza
                             profunda,
-                            limado de durezas y callos, exfoliación, cuidado de cutículas y masaje hidratante,
+                            limado de durezas y callos, exfoliación, cuidado de cutículas và masaje hidratante,
                             asegurando que tus
                             pies queden suaves y saludables. Terminamos con un esmalte semipermanente de larga duración,
                             ideal para
@@ -324,7 +331,7 @@
 
             <div class="row g-4">
                 <!-- Promoción 1 -->
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <div class="promo-card p-4 text-center h-100">
                         <span class="badge bg-success position-absolute top-0 end-0 m-3">-14% DESCUENTO</span>
                         <div class="service-icon">
@@ -348,7 +355,7 @@
                 </div>
 
                 <!-- Promoción 2 -->
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <div class="promo-card p-4 text-center h-100">
                         <span class="badge bg-success position-absolute top-0 end-0 m-3">-13% DESCUENTO</span>
                         <div class="service-icon">
@@ -368,17 +375,6 @@
                                 <i class="fas fa-calendar-alt me-2" aria-hidden="true"></i>Agendar Promoción
                             </a>
                         </div>
-                    </div>
-                </div>
-
-                <!-- Próximamente -->
-                <div class="col-md-4">
-                    <div class="promo-card p-4 text-center h-100">
-                        <span class="badge bg-danger position-absolute top-0 end-0 m-3">0% OFF</span>
-                        <div class="service-icon">
-                            <i class="fas fa-star" aria-hidden="true"></i>
-                        </div>
-                        <h3>Próximamente!!</h3>
                     </div>
                 </div>
             </div>
@@ -483,26 +479,30 @@
 
             <div class="row g-4">
                 <div class="col-md-6">
-                    <div class="before-after-container">
+                    <div class="before-after-container" role="group" aria-label="Comparación antes y después">
                         <img src="IMAGES/After Karina.jpg" alt="Uñas después del tratamiento - Cliente Karina"
                             class="before-after-img" loading="lazy">
-                        <div class="before-after-slider">
+                        <div class="before-after-slider" aria-label="Control deslizante para comparar">
                             <img src="IMAGES/Before Karina.jpg" alt="Uñas antes del tratamiento - Cliente Karina"
                                 class="before-after-img" loading="lazy">
-                            <div class="before-after-handle" aria-label="Deslizador para comparar antes y después">
+                            <div class="before-after-handle" role="slider" 
+                                 aria-valuemin="0" aria-valuemax="100" aria-valuenow="50"
+                                 aria-label="Control deslizante de comparación">
                                 <i class="fas fa-arrows-alt-h animate-move-right" aria-hidden="true"></i>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="before-after-container">
+                    <div class="before-after-container" role="group" aria-label="Comparación antes y después">
                         <img src="IMAGES/After Andrea.jpg" alt="Uñas después del tratamiento - Cliente Andrea"
                             class="before-after-img" loading="lazy">
-                        <div class="before-after-slider">
+                        <div class="before-after-slider" aria-label="Control deslizante para comparar">
                             <img src="IMAGES/Before Andrea.jpg" alt="Uñas antes del tratamiento - Cliente Andrea"
                                 class="before-after-img" loading="lazy">
-                            <div class="before-after-handle" aria-label="Deslizador para comparar antes y después">
+                            <div class="before-after-handle" role="slider" 
+                                 aria-valuemin="0" aria-valuemax="100" aria-valuenow="50"
+                                 aria-label="Control deslizante de comparación">
                                 <i class="fas fa-arrows-alt-h animate-move-right" aria-hidden="true"></i>
                             </div>
                         </div>
@@ -512,52 +512,60 @@
             <br>
             <div class="row g-4">
                 <div class="col-md-6">
-                    <div class="before-after-container">
+                    <div class="before-after-container" role="group" aria-label="Comparación antes y después">
                         <img src="IMAGES/After Reina.JPEG" alt="Uñas después del tratamiento - Cliente Reina"
                             class="before-after-img" loading="lazy">
-                        <div class="before-after-slider">
+                        <div class="before-after-slider" aria-label="Control deslizante para comparar">
                             <img src="IMAGES/Before Reina.jpg" alt="Uñas antes del tratamiento - Cliente Reina"
                                 class="before-after-img" loading="lazy">
-                            <div class="before-after-handle" aria-label="Deslizador para comparar antes y después">
+                            <div class="before-after-handle" role="slider" 
+                                 aria-valuemin="0" aria-valuemax="100" aria-valuenow="50"
+                                 aria-label="Control deslizante de comparación">
                                 <i class="fas fa-arrows-alt-h animate-move-right" aria-hidden="true"></i>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="before-after-container">
+                    <div class="before-after-container" role="group" aria-label="Comparación antes y después">
                         <img src="IMAGES/After Angie.jpg" alt="Uñas después del tratamiento - Cliente Angie"
                             class="before-after-img" loading="lazy">
-                        <div class="before-after-slider">
+                        <div class="before-after-slider" aria-label="Control deslizante para comparar">
                             <img src="IMAGES/Before Angie.jpg" alt="Uñas antes del tratamiento - Cliente Angie"
                                 class="before-after-img" loading="lazy">
-                            <div class="before-after-handle" aria-label="Deslizador para comparar antes y después">
+                            <div class="before-after-handle" role="slider" 
+                                 aria-valuemin="0" aria-valuemax="100" aria-valuenow="50"
+                                 aria-label="Control deslizante de comparación">
                                 <i class="fas fa-arrows-alt-h animate-move-right" aria-hidden="true"></i>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="before-after-container">
+                    <div class="before-after-container" role="group" aria-label="Comparación antes y después">
                         <img src="IMAGES/After Sebastian.jpg" alt="Uñas después del tratamiento - Cliente Sebastian"
                             class="before-after-img" loading="lazy">
-                        <div class="before-after-slider">
+                        <div class="before-after-slider" aria-label="Control deslizante para comparar">
                             <img src="IMAGES/Before Sebastian.jpg" alt="Uñas antes del tratamiento - Cliente Sebastian"
                                 class="before-after-img" loading="lazy">
-                            <div class="before-after-handle" aria-label="Deslizador para comparar antes y después">
+                            <div class="before-after-handle" role="slider" 
+                                 aria-valuemin="0" aria-valuemax="100" aria-valuenow="50"
+                                 aria-label="Control deslizante de comparación">
                                 <i class="fas fa-arrows-alt-h animate-move-right" aria-hidden="true"></i>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="before-after-container">
+                    <div class="before-after-container" role="group" aria-label="Comparación antes y después">
                         <img src="IMAGES/After Valery.jpg" alt="Uñas después del tratamiento - Cliente Valery"
                             class="before-after-img" loading="lazy">
-                        <div class="before-after-slider">
+                        <div class="before-after-slider" aria-label="Control deslizante para comparar">
                             <img src="IMAGES/Before Valery.jpg" alt="Uñas antes del tratamiento - Cliente Valery"
                                 class="before-after-img" loading="lazy">
-                            <div class="before-after-handle" aria-label="Deslizador para comparar antes y después">
+                            <div class="before-after-handle" role="slider" 
+                                 aria-valuemin="0" aria-valuemax="100" aria-valuenow="50"
+                                 aria-label="Control deslizante de comparación">
                                 <i class="fas fa-arrows-alt-h animate-move-right" aria-hidden="true"></i>
                             </div>
                         </div>
@@ -879,7 +887,7 @@
                                 1 cda. de azúcar + 1 cda. de aceite de oliva o miel. Frota suavemente.
                             </li>
                             <li>
-                                <strong>Cápsula de vitamina E:</strong><br>
+                                <strong>Cáscara de vitamina E:</strong><br>
                                 Rompe una cápsula y úsala como aceite de noche (opcional).
                             </li>
                         </ul>
@@ -1035,9 +1043,6 @@
                             </td>
                         </tr>
                     </tbody>
-                </table>
-            </div>
-        </div>
     </section>
     <!-- === FIN CUIDADO DE UÑAS === -->
 
