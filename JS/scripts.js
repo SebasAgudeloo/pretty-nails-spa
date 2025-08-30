@@ -912,3 +912,40 @@ document.addEventListener('click', function (e) {
         timeOptions.style.display = 'none';
     }
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+    const endDate = new Date('2025-08-28T23:59:59'); // Fecha límite de las promociones
+    const promoOptions = document.querySelectorAll('.promo-option'); // Opciones de promociones en el formulario
+    const promocionesOptgroup = document.querySelector('#servicio1 optgroup[label="PROMOCIONES"]'); // Grupo de promociones
+    const servicio1 = document.getElementById('servicio1'); // Select principal del formulario
+
+    // Función para actualizar el estado de las promociones
+    function updatePromotionsAvailability() {
+        const now = new Date();
+
+        if (now > endDate) {
+            // Si la fecha actual supera la fecha límite, deshabilitar las promociones
+            promoOptions.forEach(option => {
+                option.disabled = true;
+                option.style.display = 'none'; // Ocultar las opciones
+            });
+
+            // Agregar un mensaje de "Promociones terminadas"
+            if (promocionesOptgroup && !promocionesOptgroup.querySelector('option[value="terminada"]')) {
+                const terminadaOption = document.createElement('option');
+                terminadaOption.value = "terminada";
+                terminadaOption.textContent = "Las promociones ya han terminado";
+                terminadaOption.disabled = true;
+                promocionesOptgroup.appendChild(terminadaOption);
+            }
+
+            // Si el usuario tiene una promoción seleccionada, resetear el select
+            if (servicio1 && servicio1.value && servicio1.options[servicio1.selectedIndex].parentElement.label === "PROMOCIONES") {
+                servicio1.value = "";
+            }
+        }
+    }
+
+    // Llamar a la función al cargar la página
+    updatePromotionsAvailability();
+});

@@ -9,6 +9,10 @@
   --rosa-fuerte: #ff8fab;
   --azul-oscuro: #0008ff;
   --texto-oscuro: #5a4a42;
+  --secondary-color: #888;
+  --background-light: #f8f9fa;
+  --text-dark: #212529;
+  --text-muted: #6c757d;
 }
 
 /* Loading screen */
@@ -1261,6 +1265,7 @@ a:focus {
 
   .reservation-card {
     margin-top: 1.5rem;
+    padding: 2rem;
   }
 
   .form-floating label,
