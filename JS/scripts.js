@@ -647,7 +647,7 @@ function setupTestimonialsCarousel() {
 
 // ===== PROMOCIONES COUNTDOWN =====
 function setupPromotionsCountdown() {
-    const endDate = new Date('2025-08-28T23:59:59');
+    const endDate = new Date('2025-11-01T23:59:59');
 
     const countdownElements = document.querySelectorAll('.countdown');
     const promoButtons = document.querySelectorAll('.btn-promo');
@@ -914,7 +914,7 @@ document.addEventListener('click', function (e) {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-    const endDate = new Date('2025-08-28T23:59:59'); // Fecha límite de las promociones
+    const endDate = new Date('2025-11-01T23:59:59'); // Fecha límite de las promociones
     const promoOptions = document.querySelectorAll('.promo-option'); // Opciones de promociones en el formulario
     const promocionesOptgroup = document.querySelector('#servicio1 optgroup[label="PROMOCIONES"]'); // Grupo de promociones
     const servicio1 = document.getElementById('servicio1'); // Select principal del formulario
@@ -949,3 +949,72 @@ document.addEventListener("DOMContentLoaded", () => {
     // Llamar a la función al cargar la página
     updatePromotionsAvailability();
 });
+
+// ===== FUNCIÓN TOGGLE PARA VER MÁS / VER MENOS =====
+function toggleSection(className, buttonId) {
+    const elements = document.querySelectorAll('.' + className);
+    const button = document.getElementById(buttonId);
+    const icon = button.querySelector('i');
+    
+    // Verificar si los elementos están visibles
+    const isVisible = elements[0].classList.contains('show');
+    
+    elements.forEach(element => {
+        if (isVisible) {
+            element.classList.remove('show');
+        } else {
+            element.classList.add('show');
+        }
+    });
+    
+    // Cambiar el texto y el icono del botón
+    if (isVisible) {
+        // Ocultar elementos
+        if (className === 'servicio-extra') {
+            button.innerHTML = '<i class="fas fa-chevron-down me-2"></i>Ver Más Servicios';
+        } else if (className === 'galeria-extra') {
+            button.innerHTML = '<i class="fas fa-chevron-down me-2"></i>Ver Más Fotos';
+        } else if (className === 'cuidado-extra') {
+            button.innerHTML = '<i class="fas fa-chevron-down me-2"></i>Ver Más Consejos';
+        } else if (className === 'antes-despues-extra') {
+            button.innerHTML = '<i class="fas fa-chevron-down me-2"></i>Ver Más Comparaciones';
+        } else if (className === 'tabla-extra') {
+            button.innerHTML = '<i class="fas fa-chevron-down me-2"></i>Ver Más Comparaciones';
+        }
+        button.classList.remove('expanded');
+        
+        // Scroll suave hacia la sección
+        setTimeout(() => {
+            const section = document.querySelector('#' + className.split('-')[0] + 's, #' + className.split('-')[0]);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }, 100);
+    } else {
+        // Mostrar elementos
+        if (className === 'servicio-extra') {
+            button.innerHTML = '<i class="fas fa-chevron-up me-2"></i>Ver Menos Servicios';
+        } else if (className === 'galeria-extra') {
+            button.innerHTML = '<i class="fas fa-chevron-up me-2"></i>Ver Menos Fotos';
+        } else if (className === 'cuidado-extra') {
+            button.innerHTML = '<i class="fas fa-chevron-up me-2"></i>Ver Menos Consejos';
+        } else if (className === 'antes-despues-extra') {
+            button.innerHTML = '<i class="fas fa-chevron-up me-2"></i>Ver Menos Comparaciones';
+        } else if (className === 'tabla-extra') {
+            button.innerHTML = '<i class="fas fa-chevron-up me-2"></i>Ver Menos Comparaciones';
+        }
+        button.classList.add('expanded');
+    }
+}
+
+// === FOOTER - AÑO AUTOMÁTICO ===
+function updateFooterYear() {
+    const yearElement = document.getElementById('current-year');
+    if (yearElement) {
+        const currentYear = new Date().getFullYear();
+        yearElement.textContent = currentYear;
+    }
+}
+
+// Actualizar año al cargar la página
+updateFooterYear();

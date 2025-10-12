@@ -117,9 +117,20 @@
             <p class="mb-4 animate__animated animate__fadeIn animate__delay-2s">
                 <em>By: Karen Vanegas</em>
             </p>
-            <a href="#citas" class="btn btn-primary btn-lg mt-3 animate__animated animate__fadeInUp animate__delay-3s">
-                Agendar Cita
-            </a>
+            
+            <!-- Contenedor de botones -->
+            <div class="hero-buttons-container animate__animated animate__fadeInUp animate__delay-3s">
+                <a href="#citas" class="btn btn-primary btn-lg">
+                    Agendar Cita
+                </a>
+                
+                <!-- Botón de Halloween para promociones -->
+                <a href="#promociones" class="btn-halloween-promo">
+                    <span class="halloween-icon">🎃</span>
+                    ¡Ver Promociones de Halloween!
+                    <span class="halloween-icon">🎃</span>
+                </a>
+            </div>
 
             <div class="mt-4 animate__animated animate__fadeIn animate__delay-4s">
                 <p class="mb-3">Síguenos en nuestras redes sociales</p>
@@ -171,7 +182,7 @@
                 <p class="text-muted">Descubre todo lo que podemos hacer por tus uñas</p>
             </div>
 
-            <div class="row g-4">
+            <div class="row g-4" id="servicios-container">
                 <div class="col-md-4">
                     <div class="service-card p-4 text-center h-100">
                         <div class="service-icon">
@@ -237,7 +248,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-4 servicio-extra">
                     <div class="service-card p-4 text-center h-100">
                         <div class="service-icon">
                             <i class="fas fa-paint-brush" aria-hidden="true"></i>
@@ -258,7 +269,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-4 servicio-extra">
                     <div class="service-card p-4 text-center h-100">
                         <div class="service-icon">
                             <i class="fas fa-leaf" aria-hidden="true"></i>
@@ -280,7 +291,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-4 servicio-extra">
                     <div class="service-card p-4 text-center h-100">
                         <div class="service-icon">
                             <i class="fas fa-heart" aria-hidden="true"></i>
@@ -296,7 +307,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 servicio-extra">
                     <div class="service-card p-4 text-center h-100">
                         <div class="service-icon">
                             <i class="fas fa-palette" aria-hidden="true"></i>
@@ -319,16 +330,67 @@
                     </div>
                 </div>
             </div>
+            
+            <!-- Botón Ver Más / Ver Menos para Servicios -->
+            <div class="text-center mt-4">
+                <button class="btn-ver-mas" id="toggleServicios" onclick="toggleSection('servicio-extra', 'toggleServicios')">
+                    <i class="fas fa-chevron-down me-2"></i>
+                    Ver Más Servicios
+                </button>
+            </div>
         </div>
     </section>
     <!-- === FIN SERVICIOS === -->
 
     <!-- === PROMOCIONES === -->
-    <section id="promociones" class="py-5 bg-light">
-        <div class="container">
+    <section id="promociones" class="py-5 bg-light halloween-promos">
+        <div class="container position-relative">
+            <!-- Decoraciones de Halloween (solo visuales) -->
+            <div class="halloween-decor" aria-hidden="true">
+                <!-- Luna y estrellas de fondo -->
+                <span class="moon">🌙</span>
+                <span class="star star-1">⭐</span>
+                <span class="star star-2">⭐</span>
+                <span class="star star-3">⭐</span>
+                <span class="star star-4">⭐</span>
+                <span class="star star-5">⭐</span>
+                
+                <!-- Telarañas en esquinas -->
+                <span class="web web-1">🕸️</span>
+                <span class="web web-2">🕸️</span>
+                
+                <!-- Arañas colgando -->
+                <span class="spider spider-1">🕷️</span>
+                <span class="spider spider-2">🕷️</span>
+                <span class="spider spider-3">🕷️</span>
+                
+                <!-- Diablitos -->
+                <span class="pumpkin pumpkin-1"></span>
+                <span class="pumpkin pumpkin-2"></span>
+                <span class="pumpkin pumpkin-3"></span>
+                
+                <!-- Murciélagos -->
+                <span class="bat bat-1">🦇</span>
+                <span class="bat bat-2">🦇</span>
+                <span class="bat bat-3">🦇</span>
+                
+                <!-- Fantasmas -->
+                <span class="ghost ghost-1">👻</span>
+                <span class="ghost ghost-2">👻</span>
+                
+                <!-- Calaveras -->
+                <span class="skull skull-1">💀</span>
+                <span class="skull skull-2">💀</span>
+                <span class="skull skull-3">💀</span>
+            </div>
             <div class="text-center mb-5">
-                <h2 class="fw-bold">Promociones Especiales</h2>
-                <p class="text-muted">Aprovecha nuestros paquetes y descuentos exclusivos</p>
+                <h2 class="fw-bold halloween-title">
+                    🎃 Promociones de Halloween 🎃
+                </h2>
+                <p class="text-muted halloween-subtitle">
+                    ¡Aprovecha nuestras <b>PROMOCIONES TERRORÍFICAMENTE BUENAS</b> de <b>Halloween!</b> 🕷️<br>
+                    <span class="halloween-date">⏰ Válido hasta el 1/11/2025 - 23:59 PM ⏰</span>
+                </p>
             </div>
 
             <div class="row g-4">
@@ -417,58 +479,66 @@
                     <img src="IMAGES/Galeria 6.jpg" alt="Uñas con piedras decorativas"
                         class="img-fluid rounded-3 service-card" loading="lazy">
                 </div>
-                <div class="col-md-4 col-6">
+                <div class="col-md-4 col-6 galeria-extra">
                     <img src="IMAGES/Galeria 7.jpg" alt="Diseño de uñas de gel" class="img-fluid rounded-3 service-card"
                         loading="lazy">
                 </div>
-                <div class="col-md-4 col-6">
+                <div class="col-md-4 col-6 galeria-extra">
                     <img src="IMAGES/Galeria 17.jpg" alt="Uñas con diseño abstracto"
                         class="img-fluid rounded-3 service-card" loading="lazy">
                 </div>
-                <div class="col-md-4 col-6">
+                <div class="col-md-4 col-6 galeria-extra">
                     <img src="IMAGES/Galeria 8.jpg" alt="Manicura con tonos nude"
                         class="img-fluid rounded-3 service-card" loading="lazy">
                 </div>
-                <div class="col-md-4 col-6">
+                <div class="col-md-4 col-6 galeria-extra">
                     <img src="IMAGES/Galeria 9.jpg" alt="Uñas con efecto mármol"
                         class="img-fluid rounded-3 service-card" loading="lazy">
                 </div>
-                <div class="col-md-4 col-6">
+                <div class="col-md-4 col-6 galeria-extra">
                     <img src="IMAGES/Galeria 10.jpg" alt="Diseño de uñas para ocasiones especiales"
                         class="img-fluid rounded-3 service-card" loading="lazy">
                 </div>
-                <div class="col-md-4 col-6">
+                <div class="col-md-4 col-6 galeria-extra">
                     <img src="IMAGES/Galeria 18.jpg" alt="Uñas con diseño de temporada"
                         class="img-fluid rounded-3 service-card" loading="lazy">
                 </div>
-                <div class="col-md-4 col-6">
+                <div class="col-md-4 col-6 galeria-extra">
                     <img src="IMAGES/Galeria 11.jpg" alt="Manicura con tonos vibrantes"
                         class="img-fluid rounded-3 service-card" loading="lazy">
                 </div>
-                <div class="col-md-4 col-6">
+                <div class="col-md-4 col-6 galeria-extra">
                     <img src="IMAGES/Galeria 12.jpg" alt="Uñas con diseño minimalista"
                         class="img-fluid rounded-3 service-card" loading="lazy">
                 </div>
-                <div class="col-md-4 col-6">
+                <div class="col-md-4 col-6 galeria-extra">
                     <img src="IMAGES/Galeria 13.jpg" alt="Diseño de uñas con detalles dorados"
                         class="img-fluid rounded-3 service-card" loading="lazy">
                 </div>
-                <div class="col-md-4 col-6">
+                <div class="col-md-4 col-6 galeria-extra">
                     <img src="IMAGES/Galeria 14.jpg" alt="Uñas con temática floral"
                         class="img-fluid rounded-3 service-card" loading="lazy">
                 </div>
-                <div class="col-md-4 col-6">
+                <div class="col-md-4 col-6 galeria-extra">
                     <img src="IMAGES/Galeria 15.jpg" alt="Manicura con efecto degradado"
                         class="img-fluid rounded-3 service-card" loading="lazy">
                 </div>
-                <div class="col-md-4 col-6">
+                <div class="col-md-4 col-6 galeria-extra">
                     <img src="IMAGES/Galeria 16.jpg" alt="Uñas con diseño artístico"
                         class="img-fluid rounded-3 service-card" loading="lazy">
                 </div>
-                <div class="col-md-4 col-6">
+                <div class="col-md-4 col-6 galeria-extra">
                     <img src="IMAGES/Galeria 19.jpg" alt="Diseño de uñas elegante"
                         class="img-fluid rounded-3 service-card" loading="lazy">
                 </div>
+            </div>
+            
+            <!-- Botón Ver Más / Ver Menos para Galería -->
+            <div class="text-center mb-4">
+                <button class="btn-ver-mas" id="toggleGaleria" onclick="toggleSection('galeria-extra', 'toggleGaleria')">
+                    <i class="fas fa-chevron-down me-2"></i>
+                    Ver Más Fotos
+                </button>
             </div>
 
             <hr class="hr-primary border-3 opacity-100">
@@ -511,7 +581,7 @@
                 </div>
             </div>
             <br>
-            <div class="row g-4">
+            <div class="row g-4 antes-despues-extra">
                 <div class="col-md-6">
                     <div class="before-after-container" role="group" aria-label="Comparación antes y después">
                         <img src="IMAGES/After Reina.JPEG" alt="Uñas después del tratamiento - Cliente Reina"
@@ -568,6 +638,14 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            
+            <!-- Botón Ver Más / Ver Menos para Antes y Después -->
+            <div class="text-center mt-4">
+                <button class="btn-ver-mas" id="toggleAntesDespues" onclick="toggleSection('antes-despues-extra', 'toggleAntesDespues')">
+                    <i class="fas fa-chevron-down me-2"></i>
+                    Ver Más Transformaciones
+                </button>
             </div>
         </div>
     </section>
@@ -842,7 +920,7 @@
                 </div>
 
                 <!-- Malos hábitos -->
-                <div class="col-md-6 col-lg-4">
+                <div class="col-md-6 col-lg-4 cuidado-extra">
                     <div class="care-card p-4 h-100">
                         <div class="care-icon mb-3">
                             <i class="fas fa-ban" aria-hidden="true"></i>
@@ -859,7 +937,7 @@
                 </div>
 
                 <!-- Extras -->
-                <div class="col-md-6 col-lg-4">
+                <div class="col-md-6 col-lg-4 cuidado-extra">
                     <div class="care-card p-4 h-100">
                         <div class="care-icon mb-3">
                             <i class="fas fa-magic" aria-hidden="true"></i>
@@ -880,7 +958,7 @@
                 </div>
 
                 <!-- Consejo Profesional -->
-                <div class="col-md-6 col-lg-4">
+                <div class="col-md-6 col-lg-4 cuidado-extra">
                     <div class="care-card care-special p-4 h-100">
                         <div class="care-icon mb-3">
                             <i class="fas fa-star" aria-hidden="true"></i>
@@ -897,6 +975,14 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            
+            <!-- Botón Ver Más / Ver Menos para Cuidado -->
+            <div class="text-center mt-4 mb-4">
+                <button class="btn-ver-mas" id="toggleCuidado" onclick="toggleSection('cuidado-extra', 'toggleCuidado')">
+                    <i class="fas fa-chevron-down me-2"></i>
+                    Ver Más Consejos
+                </button>
             </div>
         </div>
 
@@ -973,7 +1059,7 @@
                         </tr>
 
                         <!-- Fila 3 -->
-                        <tr>
+                        <tr class="tabla-extra">
                             <td data-label="Problema Común">
                                 <div class="problem-title">
                                     <i class="fas fa-fire" style="color: #ff6b9e" aria-hidden="true"></i>
@@ -1000,7 +1086,7 @@
                         </tr>
 
                         <!-- Fila 4 -->
-                        <tr>
+                        <tr class="tabla-extra">
                             <td data-label="Problema Común">
                                 <div class="problem-title">
                                     <i class="fas fa-cut" style="color: #ff6b9e" aria-hidden="true"></i>
@@ -1027,6 +1113,12 @@
                         </tr>
                     </tbody>
                 </table>
+            </div>
+            <div class="text-center mt-4 mb-4">
+                <button class="btn-ver-mas" id="toggleTabla" onclick="toggleSection('tabla-extra', 'toggleTabla')">
+                    <i class="fas fa-chevron-down me-2"></i>
+                    Ver Más Comparaciones
+                </button>
             </div>
         </div>
     </section>
@@ -1419,7 +1511,7 @@
             <hr class="my-4">
 
             <div class="text-center">
-                <p class="mb-0">© 2025 Pretty Nails. Todos los derechos reservados.</p>
+                <p class="mb-0">© <span id="current-year"></span> Pretty Nails. Todos los derechos reservados.</p>
                 <p class="mb-0">Pensado y Desarrollado por: Sebastian Agudelo.</p>
             </div>
         </div>
