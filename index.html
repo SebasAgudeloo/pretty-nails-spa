@@ -18,7 +18,7 @@
     <!-- Preload critical resources -->
     <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" as="style"
         onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style"
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" as="style"
         onload="this.onload=null;this.rel='stylesheet'">
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" as="style"
         onload="this.onload=null;this.rel='stylesheet'">
@@ -26,7 +26,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
     <!-- Animate CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="CSS/styles.css">
@@ -96,7 +96,7 @@
                         <a class="nav-link" href="#ubicacion">Ubicación</a>
                     </li>
                 </ul>
-            </div>
+            </div> 
         </div>
     </nav>
     <!-- === FIN NAVBAR === -->
@@ -108,6 +108,13 @@
         <div class="nail-polish polish-3"></div>
 
         <div class="container position-relative">
+            <!-- Mensaje de Año Nuevo -->
+            <div class="new-year-message mb-4 animate__animated animate__fadeIn">
+                <p class="new-year-text">
+                    ✨ Pretty Nails Te Desea Un Próspero <span class="highlight-year">Año Nuevo</span>, Lleno De Belleza Y Nuevos Comienzos ✨
+                </p>
+            </div>
+            
             <h1 class="display-4 fw-bold mb-4 animate__animated animate__fadeInDown">
                 Pretty Nails Spa
             </h1>
@@ -122,13 +129,6 @@
             <div class="hero-buttons-container animate__animated animate__fadeInUp animate__delay-3s">
                 <a href="#citas" class="btn btn-primary btn-lg">
                     Agendar Cita
-                </a>
-                
-                <!-- Botón de Halloween para promociones -->
-                <a href="#promociones" class="btn-halloween-promo">
-                    <span class="halloween-icon">🎃</span>
-                    ¡Ver Promociones de Halloween!
-                    <span class="halloween-icon">🎃</span>
                 </a>
             </div>
 
@@ -186,19 +186,41 @@
                 <div class="col-md-4">
                     <div class="service-card p-4 text-center h-100">
                         <div class="service-icon">
-                            <i class="fas fa-hand-sparkles" aria-hidden="true"></i>
+                            <i class="fas fa-magic" aria-hidden="true"></i>
                         </div>
-                        <h3>Forradas con Base Rubber</h3>
-                        <p>Consiente tus uñas naturales con nuestro servicio de Base Rubber, ideal para quienes desean
-                            uñas fuertes,
-                            saludables y con un acabado perfecto. Este tratamiento consiste en aplicar una base especial
-                            más gruesa y
-                            flexible que el esmalte común, brindando mayor resistencia y protección ante quiebres o
-                            láminas que se levantan.
-                            Además, suaviza imperfecciones en la superficie de la uña, logrando un resultado uniforme y
-                            elegante. Perfecto
-                            si buscas un look natural o como base para esmaltados de color o diseños artísticos!</p>
-                        <h4 class="fw-bold text-primary">$45.000</h4>
+                        <h3>Press On Forradas en Acrílico</h3>
+                        <p>Si buscas la practicidad de las Press On, pero con mayor durabilidad y resistencia,
+                            nuestras Press On forradas en acrílico son perfectas para ti. Estas uñas postizas se
+                            refuerzan
+                            con una capa de acrílico, aportando solidez y un acabado profesional que se mantiene por más
+                            tiempo.
+                            Son ideales para quienes necesitan uñas firmes para su rutina diaria o para lucir impecables
+                            en ocasiones
+                            especiales. ¡Disfruta de diseños personalizados y un look sofisticado!</p>
+                        <h4 class="fw-bold text-primary">$80.000</h4>
+                        <a href="#citas" class="btn btn-primary btn mt-2">
+                            Agendar Servicio
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="service-card p-4 text-center h-100">
+                        <div class="service-icon">
+                            <i class="fa-brands fa-bluesky" aria-hidden="true"></i>
+                        </div>
+                        <h3>Uñas Naturales Forradas en Acrílico</h3>
+                        <p>Disfruta de la belleza y resistencia de unas uñas 
+                        naturales reforzadas con acrílico, ideales para quienes 
+                        buscan mayor durabilidad sin perder un acabado natural. 
+                        Este servicio incluye preparación y limpieza de la uña natural, 
+                        nivelación y forrado en acrílico para aportar fuerza y protección, 
+                        cuidado detallado de cutículas y limado profesional para una 
+                        forma perfecta. Finalizamos con el esmaltado de tu preferencia, 
+                        logrando un resultado elegante, uniforme y de larga duración, 
+                        perfecto para mantener tus uñas impecables en el día a día, 
+                        incluso con actividades constantes.</p>
+                        <h4 class="fw-bold text-primary">$75.000</h4>
                         <a href="#citas" class="btn btn-primary btn mt-2">
                             Agendar Servicio
                         </a>
@@ -227,27 +249,6 @@
                     </div>
                 </div>
 
-                <div class="col-md-4">
-                    <div class="service-card p-4 text-center h-100">
-                        <div class="service-icon">
-                            <i class="fas fa-magic" aria-hidden="true"></i>
-                        </div>
-                        <h3>Press On Forradas en Acrílico</h3>
-                        <p>Si buscas la practicidad de las Press On, pero con mayor durabilidad y resistencia,
-                            nuestras Press On forradas en acrílico son perfectas para ti. Estas uñas postizas se
-                            refuerzan
-                            con una capa de acrílico, aportando solidez y un acabado profesional que se mantiene por más
-                            tiempo.
-                            Son ideales para quienes necesitan uñas firmes para su rutina diaria o para lucir impecables
-                            en ocasiones
-                            especiales. ¡Disfruta de diseños personalizados y un look sofisticado!</p>
-                        <h4 class="fw-bold text-primary">$80.000</h4>
-                        <a href="#citas" class="btn btn-primary btn mt-2">
-                            Agendar Servicio
-                        </a>
-                    </div>
-                </div>
-
                 <div class="col-md-4 servicio-extra">
                     <div class="service-card p-4 text-center h-100">
                         <div class="service-icon">
@@ -263,6 +264,28 @@
                             Disponibles en distintos largos, formas y colores, para que luzcas unas manos impecables en
                             todo momento!</p>
                         <h4 class="fw-bold text-primary">$65.000</h4>
+                        <a href="#citas" class="btn btn-primary btn mt-2">
+                            Agendar Servicio
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-md-4 servicio-extra">
+                    <div class="service-card p-4 text-center h-100">
+                        <div class="service-icon">
+                            <i class="fas fa-hand-sparkles" aria-hidden="true"></i>
+                        </div>
+                        <h3>Forradas con Base Rubber</h3>
+                        <p>Consiente tus uñas naturales con nuestro servicio de Base Rubber, ideal para quienes desean
+                            uñas fuertes,
+                            saludables y con un acabado perfecto. Este tratamiento consiste en aplicar una base especial
+                            más gruesa y
+                            flexible que el esmalte común, brindando mayor resistencia y protección ante quiebres o
+                            láminas que se levantan.
+                            Además, suaviza imperfecciones en la superficie de la uña, logrando un resultado uniforme y
+                            elegante. Perfecto
+                            si buscas un look natural o como base para esmaltados de color o diseños artísticos!</p>
+                        <h4 class="fw-bold text-primary">$45.000</h4>
                         <a href="#citas" class="btn btn-primary btn mt-2">
                             Agendar Servicio
                         </a>
@@ -294,22 +317,6 @@
                 <div class="col-md-4 servicio-extra">
                     <div class="service-card p-4 text-center h-100">
                         <div class="service-icon">
-                            <i class="fas fa-heart" aria-hidden="true"></i>
-                        </div>
-                        <h3>Manicura Tradicional (Hombres)</h3>
-                        <p>Disfruta de manos bien cuidadas con nuestra manicura tradicional para hombres, que incluye
-                            limpieza, cuidado de cutículas,
-                            corte y limado de uñas, y aplicación de barniz transparente para un acabado natural y
-                            pulcro!</p>
-                        <h4 class="fw-bold text-primary">$25.000</h4>
-                        <a href="#citas" class="btn btn-primary btn mt-2">
-                            Agendar Servicio
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-4 servicio-extra">
-                    <div class="service-card p-4 text-center h-100">
-                        <div class="service-icon">
                             <i class="fas fa-palette" aria-hidden="true"></i>
                         </div>
                         <h3>Pedicura Semipermanente</h3>
@@ -329,6 +336,23 @@
                         </a>
                     </div>
                 </div>
+
+                <div class="col-md-4 servicio-extra">
+                    <div class="service-card p-4 text-center h-100">
+                        <div class="service-icon">
+                            <i class="fas fa-heart" aria-hidden="true"></i>
+                        </div>
+                        <h3>Manicura Tradicional (Hombres)</h3>
+                        <p>Disfruta de manos bien cuidadas con nuestra manicura tradicional para hombres, que incluye
+                            limpieza, cuidado de cutículas,
+                            corte y limado de uñas, y aplicación de barniz transparente para un acabado natural y
+                            pulcro!</p>
+                        <h4 class="fw-bold text-primary">$25.000</h4>
+                        <a href="#citas" class="btn btn-primary btn mt-2">
+                            Agendar Servicio
+                        </a>
+                    </div>
+                </div>
             </div>
             
             <!-- Botón Ver Más / Ver Menos para Servicios -->
@@ -343,53 +367,14 @@
     <!-- === FIN SERVICIOS === -->
 
     <!-- === PROMOCIONES === -->
-    <section id="promociones" class="py-5 bg-light halloween-promos">
-        <div class="container position-relative">
-            <!-- Decoraciones de Halloween (solo visuales) -->
-            <div class="halloween-decor" aria-hidden="true">
-                <!-- Luna y estrellas de fondo -->
-                <span class="moon">🌙</span>
-                <span class="star star-1">⭐</span>
-                <span class="star star-2">⭐</span>
-                <span class="star star-3">⭐</span>
-                <span class="star star-4">⭐</span>
-                <span class="star star-5">⭐</span>
-                
-                <!-- Telarañas en esquinas -->
-                <span class="web web-1">🕸️</span>
-                <span class="web web-2">🕸️</span>
-                
-                <!-- Arañas colgando -->
-                <span class="spider spider-1">🕷️</span>
-                <span class="spider spider-2">🕷️</span>
-                <span class="spider spider-3">🕷️</span>
-                
-                <!-- Diablitos -->
-                <span class="pumpkin pumpkin-1"></span>
-                <span class="pumpkin pumpkin-2"></span>
-                <span class="pumpkin pumpkin-3"></span>
-                
-                <!-- Murciélagos -->
-                <span class="bat bat-1">🦇</span>
-                <span class="bat bat-2">🦇</span>
-                <span class="bat bat-3">🦇</span>
-                
-                <!-- Fantasmas -->
-                <span class="ghost ghost-1">👻</span>
-                <span class="ghost ghost-2">👻</span>
-                
-                <!-- Calaveras -->
-                <span class="skull skull-1">💀</span>
-                <span class="skull skull-2">💀</span>
-                <span class="skull skull-3">💀</span>
-            </div>
+    <section id="promociones" class="py-5 bg-light">
+        <div class="container">
             <div class="text-center mb-5">
-                <h2 class="fw-bold halloween-title">
-                    🎃 Promociones de Halloween
+                <h2 class="fw-bold">
+                    Oferta
                 </h2>
-                <p class="text-muted halloween-subtitle">
-                    ¡Aprovecha nuestras <b>PROMOCIONES TERRORÍFICAMENTE BUENAS</b> de <b>Halloween!</b> 🕷️<br>
-                    <span class="halloween-date">⏰ Válido hasta el 1/11/2025 - 23:59 PM ⏰</span>
+                <p class="text-muted">
+                    Aprovecha nuestras promociones especiales
                 </p>
             </div>
 
