@@ -325,24 +325,23 @@ function formatCurrency(amount) {
 
 let allImages = [];
 let currentIndex = 0;
-//Galeria moderna lightbox
+
+// Galería moderna lightbox
 function setupGalleryLightbox() {
     const galleryGrid = document.getElementById('gallery-grid');
     const galleryLightbox = document.getElementById('gallery-lightbox');
     const galleryLightboxImage = document.getElementById('gallery-lightbox-image');
     const galleryLightboxCaption = document.getElementById('gallery-lightbox-caption');
     const galleryLightboxCounter = document.getElementById('gallery-lightbox-counter');
-    const galleryLightboxClose = document.querySelector('.gallery-lightbox__close');
     const galleryLightboxPrev = document.querySelector('[data-lightbox-prev]');
     const galleryLightboxNext = document.querySelector('[data-lightbox-next]');
 
     if (!galleryGrid) return;
 
-
-    // 🔥 CARGAR IMÁGENES CORRECTAMENTE
+    // 🔥 CARGAR IMÁGENES
     function loadImages() {
         return new Promise((resolve) => {
-            let total = 38;
+            const total = 38;
             let loaded = 0;
 
             allImages = new Array(total);
@@ -356,7 +355,8 @@ function setupGalleryLightbox() {
                 img.onload = () => {
                     allImages[index] = {
                         src,
-                        alt: `Diseño ${String(i).padStart(2, '0')}`
+                        alt: `Diseño ${String(i).padStart(2, '0')}`,
+                        index // 🔥 FIX: índice estable
                     };
 
                     loaded++;
@@ -380,14 +380,13 @@ function setupGalleryLightbox() {
     function renderGallery() {
         galleryGrid.innerHTML = "";
 
-        const imagesToShow = allImages
-            .filter(img => img !== null)
+        const imagesToShow = allImages.filter(Boolean);
 
-        imagesToShow.forEach((image, index) => {
+        imagesToShow.forEach((image) => {
             const item = document.createElement('button');
             item.className = 'gallery-item';
 
-            if (index >= 8) {
+            if (image.index >= 8) {
                 item.classList.add('galeria-extra');
             }
 
@@ -396,36 +395,18 @@ function setupGalleryLightbox() {
             img.alt = image.alt;
             img.className = 'gallery-item__image';
 
-            item.addEventListener('touchstart', () => {
-                item.classList.add('touch-active');
-            });
-
-            item.addEventListener('touchend', () => {
-                setTimeout(() => {
-                    item.classList.remove('touch-active');
-                }, 300);
-            });
-
             item.appendChild(img);
 
+            // 🔥 FIX PRINCIPAL: usar índice real guardado
             item.addEventListener('click', () => {
-                const realIndex = allImages.findIndex(img => img.src === image.src);
-                openLightbox(realIndex);
+                openLightbox(image.index);
             });
 
             galleryGrid.appendChild(item);
         });
     }
 
-    function renderLightbox(index) {
-        currentIndex = index;
-
-        const img = allImages[index];
-
-        galleryLightboxImage.src = img.src;
-        galleryLightboxCaption.textContent = img.alt;
-        galleryLightboxCounter.textContent = `${index + 1} / ${allImages.length}`;
-    }
+    // 🔥 LIGHTBOX
 
     function openLightbox(index) {
         renderLightbox(index);
@@ -436,6 +417,25 @@ function setupGalleryLightbox() {
         document.body.style.overflow = 'hidden';
     }
 
+    let isRendering = false;
+
+    function renderLightbox(index) {
+        if (isRendering) return;
+
+        isRendering = true;
+
+        const img = allImages[index];
+        currentIndex = index;
+
+        galleryLightboxImage.src = img.src;
+        galleryLightboxCaption.textContent = img.alt;
+        galleryLightboxCounter.textContent = `${index + 1} / ${allImages.length}`;
+
+        requestAnimationFrame(() => {
+            isRendering = false;
+        });
+    }
+
     function closeLightbox() {
         galleryLightbox.hidden = true;
         galleryLightbox.classList.remove('is-open');
@@ -443,12 +443,17 @@ function setupGalleryLightbox() {
         document.body.style.overflow = '';
     }
 
+    // 🔥 FIX NEXT / PREV (evita nulls + saltos raros)
     function next() {
+        if (allImages.length <= 1) return;
+
         currentIndex = (currentIndex + 1) % allImages.length;
         renderLightbox(currentIndex);
     }
 
     function prev() {
+        if (allImages.length <= 1) return;
+
         currentIndex = (currentIndex - 1 + allImages.length) % allImages.length;
         renderLightbox(currentIndex);
     }
@@ -471,8 +476,7 @@ function setupGalleryLightbox() {
 
     // 🚀 INIT
     loadImages().then(() => {
-        allImages = allImages.filter(img => img !== null);
-        if (allImages.length === 0) {
+        if (allImages.filter(Boolean).length === 0) {
             console.error("❌ No se cargó ninguna imagen");
             return;
         }
@@ -1065,6 +1069,7 @@ document.addEventListener('DOMContentLoaded', function () {
             loadingScreen.style.opacity = '0';
             setTimeout(() => {
                 loadingScreen.style.display = 'none';
+                window.dispatchEvent(new Event('pretty-nails:page-ready'));
             }, 500);
         }
     }, 1000);
@@ -1215,14 +1220,30 @@ function setupIdeaSplash() {
     if (!splash) return;
 
     let splashShownThisView = false;
+    let pageReady = false;
+    let scrollListenerActive = false;
+
+    const detachScrollListener = () => {
+        if (!scrollListenerActive) return;
+        window.removeEventListener('scroll', revealOnFirstScroll);
+        scrollListenerActive = false;
+    };
+
+    const attachScrollListener = () => {
+        if (scrollListenerActive) return;
+        window.addEventListener('scroll', revealOnFirstScroll, { passive: true });
+        scrollListenerActive = true;
+    };
 
     const resetSplash = () => {
         splashShownThisView = false;
         splash.hidden = true;
         splash.classList.remove('is-visible', 'hide');
+        detachScrollListener();
     };
 
     const revealOnFirstScroll = () => {
+        if (!pageReady) return;
         if (splashShownThisView) return;
         if (window.scrollY < 12) return;
 
@@ -1230,18 +1251,28 @@ function setupIdeaSplash() {
         splash.hidden = false;
         splash.classList.add('is-visible');
         splash.classList.remove('hide');
-        window.removeEventListener('scroll', revealOnFirstScroll);
+        detachScrollListener();
+    };
+
+    const armSplash = () => {
+        if (!pageReady || splashShownThisView) return;
+        attachScrollListener();
     };
 
     const rearmOnReturn = () => {
         if (document.visibilityState === 'visible') {
             resetSplash();
-            window.addEventListener('scroll', revealOnFirstScroll, { passive: true, once: false });
+            armSplash();
         }
     };
 
+    const onPageReady = () => {
+        pageReady = true;
+        armSplash();
+    };
+
     resetSplash();
-    window.addEventListener('scroll', revealOnFirstScroll, { passive: true });
+    window.addEventListener('pretty-nails:page-ready', onPageReady, { once: true });
     window.addEventListener('pageshow', resetSplash);
     document.addEventListener('visibilitychange', rearmOnReturn);
 }
@@ -1249,4 +1280,3 @@ function setupIdeaSplash() {
 // Actualizar año al cargar la página
 updateFooterYear();
 setupIdeaSplash();
-document.addEventListener('DOMContentLoaded', setupGalleryLightbox);
