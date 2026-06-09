@@ -107,36 +107,32 @@ function generarHorariosDisponibles(fecha) {
     const diaSemana = fecha.getDay(); // 0: Domingo, 1: Lunes, ..., 6: Sábado
     const horarios = [];
 
-    // Martes cerrado
-    if (diaSemana === 2) return horarios;
+    function agregarFranja(inicioMinutos, finMinutos) {
+        for (let minutos = inicioMinutos; minutos <= finMinutos; minutos += 30) {
+            const hora = Math.floor(minutos / 60);
+            const minuto = minutos % 60;
+            horarios.push(`${hora.toString().padStart(2, '0')}:${minuto.toString().padStart(2, '0')}`);
+        }
+    }
+
+    // Jueves cerrado
+    if (diaSemana === 4) return horarios;
 
     // Domingo: 8:00 AM - 12:00 PM
     if (diaSemana === 0) {
-        for (let hora = 8; hora < 12; hora++) {
-            horarios.push(`${hora.toString().padStart(2, '0')}:00`);
-            horarios.push(`${hora.toString().padStart(2, '0')}:30`);
-        }
+        agregarFranja(8 * 60, 12 * 60);
     }
-    // Sábado: 8:00 AM - 12:00 PM y 1:00 PM - 6:00 PM
+    // Lunes: 2:00 PM - 6:00 PM
+    else if (diaSemana === 1) {
+        agregarFranja(14 * 60, 18 * 60);
+    }
+    // Martes, Miércoles y Viernes: 3:00 PM - 6:00 PM
+    else if (diaSemana === 2 || diaSemana === 3 || diaSemana === 5) {
+        agregarFranja(15 * 60, 18 * 60);
+    }
+    // Sábado: 8:00 AM - 3:00 PM
     else if (diaSemana === 6) {
-        // Mañana: 8:00 AM - 12:00 PM
-        for (let hora = 8; hora < 12; hora++) {
-            horarios.push(`${hora.toString().padStart(2, '0')}:00`);
-            horarios.push(`${hora.toString().padStart(2, '0')}:30`);
-        }
-
-        // Tarde: 1:00 PM - 6:00 PM
-        for (let hora = 13; hora < 18; hora++) {
-            horarios.push(`${hora.toString().padStart(2, '0')}:00`);
-            horarios.push(`${hora.toString().padStart(2, '0')}:30`);
-        }
-    }
-    // Lunes a Viernes (excepto martes): 2:00 PM - 6:00 PM
-    else {
-        for (let hora = 14; hora < 18; hora++) {
-            horarios.push(`${hora.toString().padStart(2, '0')}:00`);
-            horarios.push(`${hora.toString().padStart(2, '0')}:30`);
-        }
+        agregarFranja(8 * 60, 15 * 60);
     }
 
     return horarios;
@@ -145,21 +141,28 @@ function generarHorariosDisponibles(fecha) {
 // Actualizar las opciones de hora según la fecha seleccionada
 function actualizarOpcionesHora() {
     const fechaInput = document.getElementById('fecha');
-    const horaInput = document.getElementById('hora');
-    const timeOptionsContainer = document.getElementById('time-options');
+    const horaSelect = document.getElementById('hora');
 
-    if (!fechaInput.value) {
-        timeOptionsContainer.style.display = 'none';
-        horaInput.value = '';
+    if (!fechaInput || !horaSelect) {
         return;
     }
 
-    // Validar formato de fecha primero
+    const syncHoraVisualState = () => {
+        horaSelect.classList.toggle('is-placeholder', !horaSelect.value || horaSelect.disabled);
+    };
+
+    if (!fechaInput.value) {
+        horaSelect.innerHTML = '<option value="">Selecciona una fecha primero</option>';
+        horaSelect.disabled = true;
+        syncHoraVisualState();
+        return;
+    }
+
     const fechaParts = fechaInput.value.split('-');
     if (fechaParts.length !== 3) {
-        timeOptionsContainer.innerHTML = '<div class="text-center text-muted p-2">Formato de fecha inválido</div>';
-        timeOptionsContainer.style.display = 'block';
-        horaInput.value = '';
+        horaSelect.innerHTML = '<option value="">Formato de fecha inválido</option>';
+        horaSelect.disabled = true;
+        syncHoraVisualState();
         return;
     }
 
@@ -168,42 +171,59 @@ function actualizarOpcionesHora() {
 
     // Validar si la fecha es válida
     if (isNaN(fechaSeleccionada.getTime())) {
-        timeOptionsContainer.innerHTML = '<div class="text-center text-muted p-2">Fecha inválida</div>';
-        timeOptionsContainer.style.display = 'block';
-        horaInput.value = '';
+        horaSelect.innerHTML = '<option value="">Fecha inválida</option>';
+        horaSelect.disabled = true;
+        syncHoraVisualState();
         return;
     }
 
     const horariosDisponibles = generarHorariosDisponibles(fechaSeleccionada);
 
-    // Limpiar opciones anteriores
-    timeOptionsContainer.innerHTML = '';
-
     if (horariosDisponibles.length === 0) {
-        timeOptionsContainer.innerHTML = '<div class="text-center text-muted p-2">No hay horarios disponibles para este día</div>';
-        timeOptionsContainer.style.display = 'block';
-        horaInput.value = '';
+        horaSelect.innerHTML = '<option value="">No hay horarios disponibles para este día</option>';
+        horaSelect.disabled = true;
+        syncHoraVisualState();
         return;
     }
 
-    // Crear opciones de horarios
+    horaSelect.disabled = false;
+    horaSelect.innerHTML = '<option value="">Selecciona una hora</option>';
+
     horariosDisponibles.forEach(horario => {
-        const opcion = document.createElement('div');
-        opcion.className = 'time-option';
+        const opcion = document.createElement('option');
+        opcion.value = horario;
         opcion.textContent = formatHoraAMPM(horario);
-        opcion.dataset.value = horario;
-
-        opcion.addEventListener('click', function () {
-            horaInput.value = this.dataset.value;
-            document.querySelectorAll('.time-option').forEach(opt => opt.classList.remove('selected'));
-            this.classList.add('selected');
-            timeOptionsContainer.style.display = 'none';
-        });
-
-        timeOptionsContainer.appendChild(opcion);
+        horaSelect.appendChild(opcion);
     });
 
-    timeOptionsContainer.style.display = 'block';
+    if (!horariosDisponibles.includes(horaSelect.value)) {
+        horaSelect.value = '';
+    }
+
+    syncHoraVisualState();
+}
+
+function setupDatePicker() {
+    const fechaInput = document.getElementById('fecha');
+    if (!fechaInput || typeof flatpickr === 'undefined') return;
+
+    flatpickr(fechaInput, {
+        locale: flatpickr.l10ns.es,
+        dateFormat: 'Y-m-d',
+        altInput: true,
+        altFormat: 'd F Y',
+        minDate: 'today',
+        disableMobile: true,
+        disable: [function (date) {
+            return date.getDay() === 4;
+        }],
+        onChange: function () {
+            actualizarOpcionesHora();
+        },
+        onReady: function () {
+            actualizarOpcionesHora();
+        }
+    });
 }
 
 // Validar que la hora seleccionada tenga minutos en 00 o 30
@@ -303,18 +323,182 @@ function formatCurrency(amount) {
     return '$' + amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
+let allImages = [];
+let currentIndex = 0;
+//Galeria moderna lightbox
+function setupGalleryLightbox() {
+    const galleryGrid = document.getElementById('gallery-grid');
+    const galleryLightbox = document.getElementById('gallery-lightbox');
+    const galleryLightboxImage = document.getElementById('gallery-lightbox-image');
+    const galleryLightboxCaption = document.getElementById('gallery-lightbox-caption');
+    const galleryLightboxCounter = document.getElementById('gallery-lightbox-counter');
+    const galleryLightboxClose = document.querySelector('.gallery-lightbox__close');
+    const galleryLightboxPrev = document.querySelector('[data-lightbox-prev]');
+    const galleryLightboxNext = document.querySelector('[data-lightbox-next]');
+
+    if (!galleryGrid) return;
+
+
+    // 🔥 CARGAR IMÁGENES CORRECTAMENTE
+    function loadImages() {
+        return new Promise((resolve) => {
+            let total = 38;
+            let loaded = 0;
+
+            allImages = new Array(total);
+
+            for (let i = 1; i <= total; i++) {
+                const index = i - 1;
+                const src = `IMAGES/GALERIA/${String(i).padStart(2, '0')}.webp`;
+
+                const img = new Image();
+
+                img.onload = () => {
+                    allImages[index] = {
+                        src,
+                        alt: `Diseño ${String(i).padStart(2, '0')}`
+                    };
+
+                    loaded++;
+                    if (loaded === total) resolve();
+                };
+
+                img.onerror = () => {
+                    console.warn("No carga:", src);
+                    allImages[index] = null;
+
+                    loaded++;
+                    if (loaded === total) resolve();
+                };
+
+                img.src = src;
+            }
+        });
+    }
+
+    // 🔥 RENDER GRID
+    function renderGallery() {
+        galleryGrid.innerHTML = "";
+
+        const imagesToShow = allImages
+            .filter(img => img !== null)
+
+        imagesToShow.forEach((image, index) => {
+            const item = document.createElement('button');
+            item.className = 'gallery-item';
+
+            if (index >= 8) {
+                item.classList.add('galeria-extra');
+            }
+
+            const img = document.createElement('img');
+            img.src = image.src;
+            img.alt = image.alt;
+            img.className = 'gallery-item__image';
+
+            item.addEventListener('touchstart', () => {
+                item.classList.add('touch-active');
+            });
+
+            item.addEventListener('touchend', () => {
+                setTimeout(() => {
+                    item.classList.remove('touch-active');
+                }, 300);
+            });
+
+            item.appendChild(img);
+
+            item.addEventListener('click', () => {
+                const realIndex = allImages.findIndex(img => img.src === image.src);
+                openLightbox(realIndex);
+            });
+
+            galleryGrid.appendChild(item);
+        });
+    }
+
+    function renderLightbox(index) {
+        currentIndex = index;
+
+        const img = allImages[index];
+
+        galleryLightboxImage.src = img.src;
+        galleryLightboxCaption.textContent = img.alt;
+        galleryLightboxCounter.textContent = `${index + 1} / ${allImages.length}`;
+    }
+
+    function openLightbox(index) {
+        renderLightbox(index);
+
+        galleryLightbox.hidden = false;
+        galleryLightbox.classList.add('is-open');
+
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+        galleryLightbox.hidden = true;
+        galleryLightbox.classList.remove('is-open');
+
+        document.body.style.overflow = '';
+    }
+
+    function next() {
+        currentIndex = (currentIndex + 1) % allImages.length;
+        renderLightbox(currentIndex);
+    }
+
+    function prev() {
+        currentIndex = (currentIndex - 1 + allImages.length) % allImages.length;
+        renderLightbox(currentIndex);
+    }
+
+    // 🔥 EVENTOS
+    galleryLightboxNext.addEventListener('click', next);
+    galleryLightboxPrev.addEventListener('click', prev);
+
+    document.querySelectorAll('[data-lightbox-close]').forEach(btn => {
+        btn.addEventListener('click', closeLightbox);
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (galleryLightbox.hidden) return;
+
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowRight') next();
+        if (e.key === 'ArrowLeft') prev();
+    });
+
+    // 🚀 INIT
+    loadImages().then(() => {
+        allImages = allImages.filter(img => img !== null);
+        if (allImages.length === 0) {
+            console.error("❌ No se cargó ninguna imagen");
+            return;
+        }
+
+        renderGallery();
+    });
+}
+
 function setupReservationForm() {
     // Obtener referencias a los selects
     const servicio1 = document.getElementById('servicio1');
     const servicio2 = document.getElementById('servicio2');
     const ahorroPromocion = document.getElementById('ahorroPromocion');
     const fechaInput = document.getElementById('fecha');
+    const horaInput = document.getElementById('hora');
 
     // Event listener para hora
-    document.getElementById('hora').addEventListener('change', function () {
-        validarHoraSeleccionada();
-        document.getElementById('time-options').style.display = 'none';
-    });
+    if (horaInput) {
+        horaInput.addEventListener('change', function () {
+            validarHoraSeleccionada();
+        });
+    }
+
+    if (fechaInput) {
+        fechaInput.addEventListener('change', actualizarOpcionesHora);
+    }
 
     // Función para parsear precios de forma segura
     const parsePrice = (priceStr) => {
@@ -374,6 +558,15 @@ function setupReservationForm() {
                 servicio2Select.value = "";
             }
         }
+
+        syncServicio2VisualState();
+    }
+
+    function syncServicio2VisualState() {
+        const servicio2Select = document.getElementById('servicio2');
+        if (!servicio2Select) return;
+
+        servicio2Select.classList.toggle('is-placeholder', !servicio2Select.value || servicio2Select.disabled);
     }
 
     // Función para inicializar las opciones del segundo select
@@ -509,8 +702,8 @@ function setupReservationForm() {
             return false;
         }
 
-        if (diaSemana === 2) {
-            showError(enviarBtn, 'Los martes estamos cerrados');
+        if (diaSemana === 4) {
+            showError(enviarBtn, 'Los jueves estamos cerrados');
             return false;
         }
 
@@ -522,13 +715,15 @@ function setupReservationForm() {
         if (diaSemana === 0) { // Domingo
             horarioValido = minutosTotales >= 480 && minutosTotales <= 720;
             mensajeHorario = 'Horario: 8:00 AM - 12:00 PM';
-        } else if (diaSemana === 6) { // Sábado
-            horarioValido = (minutosTotales >= 480 && minutosTotales <= 720) ||
-                (minutosTotales >= 780 && minutosTotales <= 1080);
-            mensajeHorario = 'Horarios: 8:00 AM - 12:00 PM y 1:00 PM - 6:00 PM';
-        } else { // Lunes a Viernes (excepto martes)
+        } else if (diaSemana === 1) { // Lunes
             horarioValido = minutosTotales >= 840 && minutosTotales <= 1080;
             mensajeHorario = 'Horario: 2:00 PM - 6:00 PM';
+        } else if (diaSemana === 2 || diaSemana === 3 || diaSemana === 5) { // Martes, Miércoles y Viernes
+            horarioValido = minutosTotales >= 900 && minutosTotales <= 1080;
+            mensajeHorario = 'Horario: 3:00 PM - 6:00 PM';
+        } else if (diaSemana === 6) { // Sábado
+            horarioValido = minutosTotales >= 480 && minutosTotales <= 900;
+            mensajeHorario = 'Horario: 8:00 AM - 3:00 PM';
         }
 
         if (!horarioValido) {
@@ -587,6 +782,7 @@ function setupReservationForm() {
 
     // Inicializar las opciones del segundo select
     initializeServicio2Options();
+    syncServicio2VisualState();
 
     // Configurar event listeners
     servicio1.addEventListener('change', function () {
@@ -594,7 +790,10 @@ function setupReservationForm() {
         calculateTotal();
     });
 
-    servicio2.addEventListener('change', calculateTotal);
+    servicio2.addEventListener('change', function () {
+        syncServicio2VisualState();
+        calculateTotal();
+    });
 
     document.getElementById('enviarReserva').addEventListener('click', submitForm);
 
@@ -620,7 +819,7 @@ function setupScrollAnimations() {
         rootMargin: '0px 0px -50px 0px'
     });
 
-    document.querySelectorAll('.service-card, .promo-card, .testimonial-card').forEach(card => {
+    document.querySelectorAll('.service-card, .promo-card, .testimonial-card, .gallery-item').forEach(card => {
         observer.observe(card);
     });
 }
@@ -871,6 +1070,8 @@ document.addEventListener('DOMContentLoaded', function () {
     }, 1000);
 
     initBeforeAfterSliders();
+    setupDatePicker();
+    setupGalleryLightbox();
     setupReservationForm();
     setupScrollAnimations();
     setupTestimonialsCarousel();
@@ -895,22 +1096,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 window.addEventListener('error', function (e) {
     console.error('Error:', e.message, 'en', e.filename, 'línea:', e.lineno);
-});
-
-// Mostrar/ocultar opciones de hora al hacer clic en el input
-document.getElementById('hora').addEventListener('focus', function () {
-    const timeOptions = document.getElementById('time-options');
-    if (timeOptions) timeOptions.style.display = 'block';
-});
-
-// Ocultar opciones al hacer clic fuera
-document.addEventListener('click', function (e) {
-    const horaInput = document.getElementById('hora');
-    const timeOptions = document.getElementById('time-options');
-
-    if (e.target !== horaInput && timeOptions && !timeOptions.contains(e.target)) {
-        timeOptions.style.display = 'none';
-    }
 });
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -954,55 +1139,41 @@ document.addEventListener("DOMContentLoaded", () => {
 function toggleSection(className, buttonId) {
     const elements = document.querySelectorAll('.' + className);
     const button = document.getElementById(buttonId);
-    const icon = button.querySelector('i');
-    
-    // Verificar si los elementos están visibles
+
+    if (!elements.length || !button) return;
+
     const isVisible = elements[0].classList.contains('show');
-    
+
+    // 🔥 TOGGLE NORMAL
     elements.forEach(element => {
-        if (isVisible) {
-            element.classList.remove('show');
-        } else {
-            element.classList.add('show');
-        }
+        element.classList.toggle('show');
     });
-    
-    // Cambiar el texto y el icono del botón
+
+    // 🔥 TEXTOS GLOBALES
+    const textos = {
+        'servicio-extra': ['Ver Más Servicios', 'Ver Menos Servicios'],
+        'galeria-extra': ['Ver Más Diseños', 'Ver Menos Diseños'],
+        'cuidado-extra': ['Ver Más Consejos', 'Ver Menos Consejos'],
+        'antes-despues-extra': ['Ver Más Comparaciones', 'Ver Menos Comparaciones'],
+        'tabla-extra': ['Ver Más Comparaciones', 'Ver Menos Comparaciones']
+    };
+
+    const [verMas, verMenos] = textos[className] || ['Ver más', 'Ver menos'];
+
     if (isVisible) {
-        // Ocultar elementos
-        if (className === 'servicio-extra') {
-            button.innerHTML = '<i class="fas fa-chevron-down me-2"></i>Ver Más Servicios';
-        } else if (className === 'galeria-extra') {
-            button.innerHTML = '<i class="fas fa-chevron-down me-2"></i>Ver Más Fotos';
-        } else if (className === 'cuidado-extra') {
-            button.innerHTML = '<i class="fas fa-chevron-down me-2"></i>Ver Más Consejos';
-        } else if (className === 'antes-despues-extra') {
-            button.innerHTML = '<i class="fas fa-chevron-down me-2"></i>Ver Más Comparaciones';
-        } else if (className === 'tabla-extra') {
-            button.innerHTML = '<i class="fas fa-chevron-down me-2"></i>Ver Más Comparaciones';
-        }
+        // 🔽 VER MENOS
+        button.innerHTML = `<i class="fas fa-chevron-down me-2"></i>${verMas}`;
         button.classList.remove('expanded');
-        
-        // Scroll suave hacia la sección
-        setTimeout(() => {
-            const section = document.querySelector('#' + className.split('-')[0] + 's, #' + className.split('-')[0]);
-            if (section) {
-                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-        }, 100);
+
+        // 🔥 CLAVE: volver al botón correcto
+        button.scrollIntoView({
+            behavior: 'auto',
+            block: 'center'
+        });
+
     } else {
-        // Mostrar elementos
-        if (className === 'servicio-extra') {
-            button.innerHTML = '<i class="fas fa-chevron-up me-2"></i>Ver Menos Servicios';
-        } else if (className === 'galeria-extra') {
-            button.innerHTML = '<i class="fas fa-chevron-up me-2"></i>Ver Menos Fotos';
-        } else if (className === 'cuidado-extra') {
-            button.innerHTML = '<i class="fas fa-chevron-up me-2"></i>Ver Menos Consejos';
-        } else if (className === 'antes-despues-extra') {
-            button.innerHTML = '<i class="fas fa-chevron-up me-2"></i>Ver Menos Comparaciones';
-        } else if (className === 'tabla-extra') {
-            button.innerHTML = '<i class="fas fa-chevron-up me-2"></i>Ver Menos Comparaciones';
-        }
+        // 🔼 VER MÁS
+        button.innerHTML = `<i class="fas fa-chevron-up me-2"></i>${verMenos}`;
         button.classList.add('expanded');
     }
 }
@@ -1016,5 +1187,66 @@ function updateFooterYear() {
     }
 }
 
+function goToGallery() {
+    const splash = document.getElementById('idea-splash');
+    const galeria = document.getElementById('galeria');
+
+    if (!splash) {
+        if (galeria) {
+            galeria.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        return;
+    }
+
+    // Cerrar con animación hacia la derecha
+    splash.classList.add('hide');
+    splash.classList.remove('is-visible');
+
+    // Ir a la galería cuando termine la animación
+    setTimeout(() => {
+        if (galeria) {
+            galeria.scrollIntoView({ behavior: 'smooth' });
+        }
+    }, 360);
+}
+
+function setupIdeaSplash() {
+    const splash = document.getElementById('idea-splash');
+    if (!splash) return;
+
+    let splashShownThisView = false;
+
+    const resetSplash = () => {
+        splashShownThisView = false;
+        splash.hidden = true;
+        splash.classList.remove('is-visible', 'hide');
+    };
+
+    const revealOnFirstScroll = () => {
+        if (splashShownThisView) return;
+        if (window.scrollY < 12) return;
+
+        splashShownThisView = true;
+        splash.hidden = false;
+        splash.classList.add('is-visible');
+        splash.classList.remove('hide');
+        window.removeEventListener('scroll', revealOnFirstScroll);
+    };
+
+    const rearmOnReturn = () => {
+        if (document.visibilityState === 'visible') {
+            resetSplash();
+            window.addEventListener('scroll', revealOnFirstScroll, { passive: true, once: false });
+        }
+    };
+
+    resetSplash();
+    window.addEventListener('scroll', revealOnFirstScroll, { passive: true });
+    window.addEventListener('pageshow', resetSplash);
+    document.addEventListener('visibilitychange', rearmOnReturn);
+}
+
 // Actualizar año al cargar la página
 updateFooterYear();
+setupIdeaSplash();
+document.addEventListener('DOMContentLoaded', setupGalleryLightbox);

@@ -29,6 +29,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
     <!-- Animate CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" href="CSS/styles.css">
     <!-- Favicon -->
     <link rel="icon" href="IMAGES/Logo.ico" type="image/x-icon">
@@ -96,7 +97,7 @@
                         <a class="nav-link" href="#ubicacion">Ubicación</a>
                     </li>
                 </ul>
-            </div> 
+            </div>
         </div>
     </nav>
     <!-- === FIN NAVBAR === -->
@@ -109,12 +110,12 @@
 
         <div class="container position-relative">
             <!-- Mensaje de Año Nuevo -->
-            <div class="new-year-message mb-4 animate__animated animate__fadeIn">
-                <!--<p class="new-year-text">-->
-                    <!--✨ Pretty Nails Te Desea Un Próspero <span class="highlight-year">Año Nuevo</span>, Lleno De Belleza Y Nuevos Comienzos ✨-->
-                <!--</p>-->
-            </div>
-            
+            <!-- <div class="new-year-message mb-4 animate__animated animate__fadeIn">
+                <p class="new-year-text">
+                    ✨ Pretty Nails Te Desea Un Próspero <span class="highlight-year">Año Nuevo</span>, Lleno De Belleza Y Nuevos Comienzos ✨
+                </p>
+            </div> -->
+
             <h1 class="display-4 fw-bold mb-4 animate__animated animate__fadeInDown">
                 Pretty Nails Spa
             </h1>
@@ -124,7 +125,7 @@
             <p class="mb-4 animate__animated animate__fadeIn animate__delay-2s">
                 <em>By: Karen Vanegas</em>
             </p>
-            
+
             <!-- Contenedor de botones -->
             <div class="hero-buttons-container animate__animated animate__fadeInUp animate__delay-3s">
                 <a href="#citas" class="btn btn-primary btn-lg">
@@ -210,16 +211,16 @@
                             <i class="fa-brands fa-bluesky" aria-hidden="true"></i>
                         </div>
                         <h3>Uñas Naturales Forradas en Acrílico</h3>
-                        <p>Disfruta de la belleza y resistencia de unas uñas 
-                        naturales reforzadas con acrílico, ideales para quienes 
-                        buscan mayor durabilidad sin perder un acabado natural. 
-                        Este servicio incluye preparación y limpieza de la uña natural, 
-                        nivelación y forrado en acrílico para aportar fuerza y protección, 
-                        cuidado detallado de cutículas y limado profesional para una 
-                        forma perfecta. Finalizamos con el esmaltado de tu preferencia, 
-                        logrando un resultado elegante, uniforme y de larga duración, 
-                        perfecto para mantener tus uñas impecables en el día a día, 
-                        incluso con actividades constantes.</p>
+                        <p>Disfruta de la belleza y resistencia de unas uñas
+                            naturales reforzadas con acrílico, ideales para quienes
+                            buscan mayor durabilidad sin perder un acabado natural.
+                            Este servicio incluye preparación y limpieza de la uña natural,
+                            nivelación y forrado en acrílico para aportar fuerza y protección,
+                            cuidado detallado de cutículas y limado profesional para una
+                            forma perfecta. Finalizamos con el esmaltado de tu preferencia,
+                            logrando un resultado elegante, uniforme y de larga duración,
+                            perfecto para mantener tus uñas impecables en el día a día,
+                            incluso con actividades constantes.</p>
                         <h4 class="fw-bold text-primary">$75.000</h4>
                         <a href="#citas" class="btn btn-primary btn mt-2">
                             Agendar Servicio
@@ -354,10 +355,11 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Botón Ver Más / Ver Menos para Servicios -->
             <div class="text-center mt-4">
-                <button class="btn-ver-mas" id="toggleServicios" onclick="toggleSection('servicio-extra', 'toggleServicios')">
+                <button class="btn-ver-mas" id="toggleServicios"
+                    onclick="toggleSection('servicio-extra', 'toggleServicios')">
                     <i class="fas fa-chevron-down me-2"></i>
                     Ver Más Servicios
                 </button>
@@ -439,90 +441,42 @@
                 <p class="text-muted">Inspírate con algunos de nuestros diseños</p>
             </div>
 
-            <div class="row g-3 mb-5">
-                <div class="col-md-4 col-6">
-                    <img src="IMAGES/Galeria 1.jpg" alt="Diseño de uñas con colores pastel"
-                        class="img-fluid rounded-3 service-card" loading="lazy">
-                </div>
-                <div class="col-md-4 col-6">
-                    <img src="IMAGES/Galeria 2.jpg" alt="Uñas decoradas con flores"
-                        class="img-fluid rounded-3 service-card" loading="lazy">
-                </div>
-                <div class="col-md-4 col-6">
-                    <img src="IMAGES/Galeria 3.jpg" alt="Diseño de uñas con glitter"
-                        class="img-fluid rounded-3 service-card" loading="lazy">
-                </div>
-                <div class="col-md-4 col-6">
-                    <img src="IMAGES/Galeria 4.jpg" alt="Uñas con diseño geométrico"
-                        class="img-fluid rounded-3 service-card" loading="lazy">
-                </div>
-                <div class="col-md-4 col-6">
-                    <img src="IMAGES/Galeria 5.jpg" alt="Manicura francesa moderna"
-                        class="img-fluid rounded-3 service-card" loading="lazy">
-                </div>
-                <div class="col-md-4 col-6">
-                    <img src="IMAGES/Galeria 6.jpg" alt="Uñas con piedras decorativas"
-                        class="img-fluid rounded-3 service-card" loading="lazy">
-                </div>
-                <div class="col-md-4 col-6 galeria-extra">
-                    <img src="IMAGES/Galeria 7.jpg" alt="Diseño de uñas de gel" class="img-fluid rounded-3 service-card"
-                        loading="lazy">
-                </div>
-                <div class="col-md-4 col-6 galeria-extra">
-                    <img src="IMAGES/Galeria 17.jpg" alt="Uñas con diseño abstracto"
-                        class="img-fluid rounded-3 service-card" loading="lazy">
-                </div>
-                <div class="col-md-4 col-6 galeria-extra">
-                    <img src="IMAGES/Galeria 8.jpg" alt="Manicura con tonos nude"
-                        class="img-fluid rounded-3 service-card" loading="lazy">
-                </div>
-                <div class="col-md-4 col-6 galeria-extra">
-                    <img src="IMAGES/Galeria 9.jpg" alt="Uñas con efecto mármol"
-                        class="img-fluid rounded-3 service-card" loading="lazy">
-                </div>
-                <div class="col-md-4 col-6 galeria-extra">
-                    <img src="IMAGES/Galeria 10.jpg" alt="Diseño de uñas para ocasiones especiales"
-                        class="img-fluid rounded-3 service-card" loading="lazy">
-                </div>
-                <div class="col-md-4 col-6 galeria-extra">
-                    <img src="IMAGES/Galeria 18.jpg" alt="Uñas con diseño de temporada"
-                        class="img-fluid rounded-3 service-card" loading="lazy">
-                </div>
-                <div class="col-md-4 col-6 galeria-extra">
-                    <img src="IMAGES/Galeria 11.jpg" alt="Manicura con tonos vibrantes"
-                        class="img-fluid rounded-3 service-card" loading="lazy">
-                </div>
-                <div class="col-md-4 col-6 galeria-extra">
-                    <img src="IMAGES/Galeria 12.jpg" alt="Uñas con diseño minimalista"
-                        class="img-fluid rounded-3 service-card" loading="lazy">
-                </div>
-                <div class="col-md-4 col-6 galeria-extra">
-                    <img src="IMAGES/Galeria 13.jpg" alt="Diseño de uñas con detalles dorados"
-                        class="img-fluid rounded-3 service-card" loading="lazy">
-                </div>
-                <div class="col-md-4 col-6 galeria-extra">
-                    <img src="IMAGES/Galeria 14.jpg" alt="Uñas con temática floral"
-                        class="img-fluid rounded-3 service-card" loading="lazy">
-                </div>
-                <div class="col-md-4 col-6 galeria-extra">
-                    <img src="IMAGES/Galeria 15.jpg" alt="Manicura con efecto degradado"
-                        class="img-fluid rounded-3 service-card" loading="lazy">
-                </div>
-                <div class="col-md-4 col-6 galeria-extra">
-                    <img src="IMAGES/Galeria 16.jpg" alt="Uñas con diseño artístico"
-                        class="img-fluid rounded-3 service-card" loading="lazy">
-                </div>
-                <div class="col-md-4 col-6 galeria-extra">
-                    <img src="IMAGES/Galeria 19.jpg" alt="Diseño de uñas elegante"
-                        class="img-fluid rounded-3 service-card" loading="lazy">
+            <div id="gallery-grid" class="gallery-grid mb-4" aria-label="Galería de trabajos de uñas"></div>
+
+            <div id="gallery-lightbox" class="gallery-lightbox" aria-hidden="true" hidden>
+                <div class="gallery-lightbox__backdrop" data-lightbox-close></div>
+                <div class="gallery-lightbox__dialog" role="dialog" aria-modal="true"
+                    aria-labelledby="gallery-lightbox-caption">
+                    <button type="button" class="gallery-lightbox__close" aria-label="Cerrar visor de imágenes"
+                        data-lightbox-close>
+                        <i class="fas fa-times" aria-hidden="true"></i>
+                    </button>
+
+                    <button type="button" class="gallery-lightbox__nav gallery-lightbox__nav--prev"
+                        aria-label="Ver imagen anterior" data-lightbox-prev>
+                        <i class="fas fa-chevron-left" aria-hidden="true"></i>
+                    </button>
+
+                    <div class="gallery-lightbox__media">
+                        <img id="gallery-lightbox-image" class="gallery-lightbox__image" src="" alt="">
+                    </div>
+
+                    <div class="gallery-lightbox__caption">
+                        <p id="gallery-lightbox-caption" class="gallery-lightbox__title mb-1">Diseño de uñas</p>
+                        <span id="gallery-lightbox-counter" class="gallery-lightbox__counter">1 / 37</span>
+                    </div>
+
+                    <button type="button" class="gallery-lightbox__nav gallery-lightbox__nav--next"
+                        aria-label="Ver imagen siguiente" data-lightbox-next>
+                        <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                    </button>
                 </div>
             </div>
-            
-            <!-- Botón Ver Más / Ver Menos para Galería -->
-            <div class="text-center mb-4">
-                <button class="btn-ver-mas" id="toggleGaleria" onclick="toggleSection('galeria-extra', 'toggleGaleria')">
+            <div class="text-center mt-4">
+                <button id="toggleGaleria" class="btn-ver-mas"
+                    onclick="toggleSection('galeria-extra', 'toggleGaleria')">
                     <i class="fas fa-chevron-down me-2"></i>
-                    Ver Más Fotos
+                    Ver Más Diseños
                 </button>
             </div>
 
@@ -624,10 +578,11 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Botón Ver Más / Ver Menos para Antes y Después -->
             <div class="text-center mt-4">
-                <button class="btn-ver-mas" id="toggleAntesDespues" onclick="toggleSection('antes-despues-extra', 'toggleAntesDespues')">
+                <button class="btn-ver-mas" id="toggleAntesDespues"
+                    onclick="toggleSection('antes-despues-extra', 'toggleAntesDespues')">
                     <i class="fas fa-chevron-down me-2"></i>
                     Ver Más Transformaciones
                 </button>
@@ -862,9 +817,12 @@
                         <h3>Hidratación Diaria</h3>
                         <p class="care-subtitle">(Natural y fácil)</p>
                         <ul class="care-tips">
-                            <li><strong>Aceite de oliva o coco:</strong> Caliéntalo un poco y masajea tus uñas y cutículas por 5-10 minutos, 2 veces al día.</li>
-                            <li><strong>Vaselina o manteca de cacao:</strong> Ideal después de lavar tus manos o antes de dormir.</li>
-                            <li><strong>Miel + limón:</strong> Mezcla con unas gotas de limón y aplícalo por 10 minutos. Hidrata y fortalece.</li>
+                            <li><strong>Aceite de oliva o coco:</strong> Caliéntalo un poco y masajea tus uñas y
+                                cutículas por 5-10 minutos, 2 veces al día.</li>
+                            <li><strong>Vaselina o manteca de cacao:</strong> Ideal después de lavar tus manos o antes
+                                de dormir.</li>
+                            <li><strong>Miel + limón:</strong> Mezcla con unas gotas de limón y aplícalo por 10 minutos.
+                                Hidrata y fortalece.</li>
                         </ul>
                     </div>
                 </div>
@@ -878,7 +836,8 @@
                         <h3>Mascarillas Caseras</h3>
                         <ul class="care-tips">
                             <li><strong>Fortalecedora (ajo + limón):</strong><br>
-                                Tritura 1 diente de ajo + jugo de medio limón + 1 cda. de aceite de oliva. Aplica con algodón por 15 minutos.
+                                Tritura 1 diente de ajo + jugo de medio limón + 1 cda. de aceite de oliva. Aplica con
+                                algodón por 15 minutos.
                             </li>
                             <li><strong>Remojo en vinagre de manzana:</strong><br>
                                 Fortalece y combate hongos. Remoja tus uñas por 10 minutos, 2 veces por semana.
@@ -961,10 +920,11 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Botón Ver Más / Ver Menos para Cuidado -->
             <div class="text-center mt-4 mb-4">
-                <button class="btn-ver-mas" id="toggleCuidado" onclick="toggleSection('cuidado-extra', 'toggleCuidado')">
+                <button class="btn-ver-mas" id="toggleCuidado"
+                    onclick="toggleSection('cuidado-extra', 'toggleCuidado')">
                     <i class="fas fa-chevron-down me-2"></i>
                     Ver Más Consejos
                 </button>
@@ -1166,28 +1126,28 @@
 
                                                 <hr class="schedule-divider">
 
-                                                <div class="schedule-day closed">Martes:</div>
-                                                <div class="schedule-time closed">Cerrado</div>
+                                                <div class="schedule-day">Martes:</div>
+                                                <div class="schedule-time">3:00 PM - 6:00 PM</div>
 
                                                 <hr class="schedule-divider">
 
                                                 <div class="schedule-day">Miércoles:</div>
-                                                <div class="schedule-time">2:00 PM - 6:00 PM</div>
+                                                <div class="schedule-time">3:00 PM - 6:00 PM</div>
 
                                                 <hr class="schedule-divider">
 
                                                 <div class="schedule-day">Jueves:</div>
-                                                <div class="schedule-time">2:00 PM - 6:00 PM</div>
+                                                <div class="schedule-time closed">Cerrado</div>
 
                                                 <hr class="schedule-divider">
 
                                                 <div class="schedule-day">Viernes:</div>
-                                                <div class="schedule-time">2:00 PM - 6:00 PM</div>
+                                                <div class="schedule-time">3:00 PM - 6:00 PM</div>
 
                                                 <hr class="schedule-divider">
 
                                                 <div class="schedule-day">Sábado:</div>
-                                                <div class="schedule-time">8:00 AM - 12:00 PM<br>1:00 PM - 6:00 PM</div>
+                                                <div class="schedule-time">8:00 AM - 3:00 PM</div>
 
                                                 <hr class="schedule-divider">
 
@@ -1305,24 +1265,25 @@
                                     <div class="row g-3 mb-3">
                                         <div class="col-md-6">
                                             <div class="form-floating">
-                                                <input type="date" class="form-control" id="fecha" placeholder="Fecha"
-                                                    required aria-required="true">
+                                                <input type="text" class="form-control" id="fecha" placeholder="Fecha"
+                                                    readonly required aria-required="true">
                                                 <label for="fecha"><i class="far fa-calendar-alt me-2"
                                                         aria-hidden="true"></i>Fecha *</label>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <div class="form-floating">
-                                                <input type="time" class="form-control" id="hora" placeholder="Hora"
-                                                    step="1800" required aria-required="true">
+                                            <div class="form-floating hora-field">
+                                                <select class="form-select hora-select" id="hora" required
+                                                    aria-required="true">
+                                                    <option value="">Elige fecha</option>
+                                                </select>
                                                 <label for="hora"><i class="far fa-clock me-2"
                                                         aria-hidden="true"></i>Hora *</label>
                                             </div>
-                                            <div id="time-options" class="time-options-container"></div>
                                         </div>
 
                                         <!-- Mensaje informativo FULL WIDTH - se muestra debajo de ambos campos -->
-                                        <div class="col-12 mt-2">
+                                        <!-- <div class="col-12 mt-2">
                                             <div class="time-info-message alert alert-info py-2 mb-0">
                                                 <div class="d-flex align-items-center">
                                                     <i class="fas fa-info-circle me-2"></i>
@@ -1334,7 +1295,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
 
                                         <!-- Mensaje para móviles -->
                                         <div class="col-12 d-md-none">
@@ -1501,13 +1462,34 @@
             </div>
         </div>
     </footer>
+
+    <!-- === SPLASH === -->
+    <div id="idea-splash" class="idea-splash">
+        <span>¿Buscando inspiración para tu diseño?</span>
+        <button onclick="goToGallery()">Ver ideas</button>
+    </div>
     <!-- === FIN FOOTER === -->
 
     <!-- === SCRIPTS === -->
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
     <script src="JS/scripts.js" defer></script>
     <!-- === FIN SCRIPTS === -->
+    <script>
+        document.querySelectorAll('.gallery-item').forEach(item => {
+            item.addEventListener('touchstart', () => {
+                item.classList.add('touch-active');
+            });
+
+            item.addEventListener('touchend', () => {
+                setTimeout(() => {
+                    item.classList.remove('touch-active');
+                }, 150);
+            });
+        });
+    </script>
 </body>
 
 </html>
