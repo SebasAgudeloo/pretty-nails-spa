@@ -850,7 +850,7 @@ function setupTestimonialsCarousel() {
 
 // ===== PROMOCIONES COUNTDOWN =====
 function setupPromotionsCountdown() {
-    const endDate = new Date('2025-11-01T23:59:59');
+    const endDate = new Date('2026-07-20T23:59:59');
 
     const countdownElements = document.querySelectorAll('.countdown');
     const promoButtons = document.querySelectorAll('.btn-promo');
